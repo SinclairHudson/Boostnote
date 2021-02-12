@@ -1,0 +1,81 @@
+createdAt: "2020-07-24T00:39:11.930Z"
+updatedAt: "2020-07-30T17:55:02.111Z"
+type: "MARKDOWN_NOTE"
+folder: "87ca028712a29f0836d6"
+title: "M10: Compression"
+tags: []
+content: '''
+  # M10: Compression
+  
+  **Soucrce text** is the original data, over a source alphabet.
+  **Coded text** is the encoded data which is transmitted, which is over the **coded alphabet**.
+  Usually, the coded alphabet is simply binary.
+  
+  We can judge encoding schemes on many things:
+  1. Processing speed
+  2. Reliability
+  3. Security
+  4. Size (our main objective)
+  
+  There's also the **compression ratio**:
+  $$
+  \\frac{|C|\\log|\\Sigma_C|}{|S|\\log|\\Sigma_S|}
+  $$
+  
+  We need to include the logs so we don't just have massive alphabets to "cheat".
+  
+  There are a few types of compression:
+  **Logical compression** relies on the meaning of the data being known
+  **physical compression** only knows the bits that we want to compress
+  
+  **Lossy Compression**: Better ratios, but decoding is approximate
+  **Lossless Compression**: always decodes S exactly.
+  
+  We'll focus on physical, lossless compression.
+  
+  ---
+  
+  And then I got lazy and didn't take notes
+  
+  ---
+  
+  ## LZW algorithm
+  
+  observation: Certain substrings are more frequent than others.
+  
+  uses dynamic dictionary, or an **adaptive encoding**.
+  
+  We start with ASCII, and add to the dictionary as we go. We add one multi-character string to our alphabet at every step.
+  The dictionary is stored at a trie.
+  
+  ![700d746e.png](:storage/116f2f15-93eb-4ca4-b513-5b332980985c/700d746e.png)
+  
+  We limit the number of elements in the dictionary, usually to 12 bit (4096). When we hit this number, we restart.
+  
+  ![fecaa5db.png](:storage/116f2f15-93eb-4ca4-b513-5b332980985c/fecaa5db.png)
+  
+  Decoding is a bit more tricky.
+  
+  We know the starting dictionary, and the compressed string.
+  
+  We basically still construct the same trie but with look-ahead.
+  ![aea494cf.png](:storage/116f2f15-93eb-4ca4-b513-5b332980985c/aea494cf.png)
+  
+  
+  There are a few complications, but they can be resolved by being creative and problem solving.
+  
+  ![93c1148a.png](:storage/116f2f15-93eb-4ca4-b513-5b332980985c/93c1148a.png)
+  
+  ![bcd663c7.png](:storage/116f2f15-93eb-4ca4-b513-5b332980985c/bcd663c7.png)
+  
+  The runtime is $O(|S|)$ for encoding and decoding.
+  
+  This is the encoding used in gzip and PNG, as well as GIF.
+  
+  ---
+  
+  ![de3bd33a.png](:storage/116f2f15-93eb-4ca4-b513-5b332980985c/de3bd33a.png)
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

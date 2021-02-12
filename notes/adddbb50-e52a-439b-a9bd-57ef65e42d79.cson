@@ -1,0 +1,146 @@
+createdAt: "2020-07-15T19:07:15.751Z"
+updatedAt: "2020-07-16T14:48:32.148Z"
+type: "MARKDOWN_NOTE"
+folder: "87ca028712a29f0836d6"
+title: "M9: String searching (grep)"
+tags: []
+content: '''
+  # M9: String searching (grep)
+  
+  ---
+  ## Rabin-Karp Fingerprint algorithm
+  
+  Use hashing to elim guesses
+  
+  Compute a hash function for each ghuess, then compare with pattern hash, If they're not equal, then it can't be a match. Hashes ideally are one-to-one (injective), but that's not always possible.
+  
+  ![15a03f30.png](:storage/adddbb50-e52a-439b-a9bd-57ef65e42d79/15a03f30.png)
+  
+  When you get a match, you have to check that it's actually a match. However, it never misses a match.
+  
+  However, running is still $\\Theta(mn)$.
+  
+  How to improve? The key is to **use the previous hash to compute the next hash**. This will take constant time, regardless of the length $m$. You have to get funky with the hash function, and use the previous hash value.
+  
+  ![45fa8647.png](:storage/adddbb50-e52a-439b-a9bd-57ef65e42d79/45fa8647.png)
+  
+  Remember, modulus should be a huge prime! This decreases the probability of collisions in our hash.
+  
+  Using this method, the expected running time is now $O(m+n)$. The worst case is $\\Theta(mn)$, but it's crazy unlikely. This is the case where all the hashes line up and are the same as the target hash. You have to check them all, all to the very last character.
+  
+  ---
+  
+  ## Boyer Morre Alg
+  
+  The main idea is to move backwards when checking a guess. When we fail, we can view the character we failed on and see if it occurs in our pattern. If it doesn't well then we can skip all the guesses that contain this character.
+  
+  To do this efficiently, for each letter in the alphabet, we need to keep track of the **last occurence** of that character in our search string. For characters that don't occur in the search string, they have an index of $-1$.
+  
+  So when updating our shift, $k \\leftarrow max\\{1, k+(j-L(\\text{mismatched char of T}\\}))$.
+  
+  ![05e5a6e5.png](:storage/adddbb50-e52a-439b-a9bd-57ef65e42d79/05e5a6e5.png)
+  
+  ![5ed88577.png](:storage/adddbb50-e52a-439b-a9bd-57ef65e42d79/5ed88577.png)
+  
+  ![922a4d30.png](:storage/adddbb50-e52a-439b-a9bd-57ef65e42d79/922a4d30.png)
+  
+  ---
+  
+  ### String matching using DFA
+  
+  We create a DFA with $m$ states where m is the length of our target substring.
+  
+  The transitions are the characters in the target substring.
+  
+  ![45a59237.png](:storage/adddbb50-e52a-439b-a9bd-57ef65e42d79/45a59237.png)
+  
+  The above is actually an NFA. (look at the first node). But evaluating the NFA is actually pretty slow.
+  
+  This is basically the brute force algorithm reframed.
+  
+  Checking a DFA is actually faster. So we can convert the DFA to an NFA. The bad news is that now we have a very complicated DFA.
+  
+  ![8a38d601.png](:storage/adddbb50-e52a-439b-a9bd-57ef65e42d79/8a38d601.png)
+  
+  The size of the DFA is in space $O(m|\\Sigma|)$.
+  We can run the DFA pattern matching in $\\Theta(n)$, because you just go linearly.
+  
+  ---
+  
+  ## Knuth-Morris-Pratt Algorithm
+  
+  There's a new type of transition "failure".
+  
+  it combines the uniqueness of the DFA and the few arcs of NFA.
+  ![a458796a.png](:storage/adddbb50-e52a-439b-a9bd-57ef65e42d79/a458796a.png)
+  
+  The failure transition is the "else". It's taken only if no other transition works.
+  We can actually store all the failure arcs in an array of length $m$, because there's one state per character, and there's one failure per state. A failure in state $i$ means you should go to state $F[i]$.
+  
+  ![de17ca6b.png](:storage/adddbb50-e52a-439b-a9bd-57ef65e42d79/de17ca6b.png)
+  
+  But how do we construct $F$?
+  
+  ---
+  
+  It's a matter of shifting the maximium amount, based on what you've already seem in the pattern. 
+  You can eliminate a shift if that prefix of $P$ is not a suffix of $P[1,...j]$.
+  
+  We want the longest prefix $P[0, ... l - 1]$ that is a suffix of $P[1...j]$.
+  
+  The $l$ characters of this prefix are matched, so got to state $l$. 
+  So ...
+  $F[j]= \\text{the length of the longest prefix of } P \\text{that is a suffix of }P[1..j]$.
+  
+  ![41c3a0c8.png](:storage/adddbb50-e52a-439b-a9bd-57ef65e42d79/41c3a0c8.png)
+  
+  This takes a while, but there's actually a $O(m)$ algorithm to compute the same thing. That means that KMP is $\\Theta(n+m)$.
+  
+  ---
+  ## Suffix trees
+  
+  Sometimes you're looking for many patterns within some fixed text.
+  
+  The idea is to preprocess $T$.
+  
+  $P$ is a substring of $T$ iff $P$ is a prefix of some suffix of $T$. (ok lol)
+  
+  The idea is to store all suffixes of T in a trie.
+  
+  To save space, we used a compressed trie, and we store suffixes implicitly via indices into $T$. So we store $i, j$, the indices of the suffixes of $T$.
+  This is called a **suffix tree**.
+  
+  ![ec0fabeb.png](:storage/adddbb50-e52a-439b-a9bd-57ef65e42d79/ec0fabeb.png)
+  
+  This becomes:
+  
+  ![17c2483e.png](:storage/adddbb50-e52a-439b-a9bd-57ef65e42d79/17c2483e.png)
+  
+  And then compress:
+  
+  ![cdc6f6ac.png](:storage/adddbb50-e52a-439b-a9bd-57ef65e42d79/cdc6f6ac.png)
+  
+  This is the **suffix tree**.
+  
+  We can build this tree in $\\Theta(n^2)$ by inserting each suffix.
+  
+  However, there's a way to build the tree in $\\Theta(n)$ time, but that's beyond the scope of this course.
+  
+  ---
+  
+  Now for string matching. We assume we have a suffix treeof text $T$.
+  
+  ![9b9652af.png](:storage/adddbb50-e52a-439b-a9bd-57ef65e42d79/9b9652af.png)
+  
+  Basically, once you hit a leaf in the above algorithm, use the indices stored there to do your final guess, final comparison.
+  
+  ![3c1b50f0.png](:storage/adddbb50-e52a-439b-a9bd-57ef65e42d79/3c1b50f0.png)
+  
+  ---
+  ## Conclusion
+  
+  ![4cda70cf.png](:storage/adddbb50-e52a-439b-a9bd-57ef65e42d79/4cda70cf.png)
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

@@ -1,0 +1,86 @@
+createdAt: "2020-07-11T01:14:01.451Z"
+updatedAt: "2020-07-13T17:18:50.778Z"
+type: "MARKDOWN_NOTE"
+folder: "a19e96ef50a1cd554380"
+title: "Unit 11: Coordinate Systems"
+tags: []
+content: '''
+  # Unit 11: Coordinate Systems
+  
+  A coordinate system uses an $n$-tuple that is ordered to specify a point in space. Up to this point we've been using the Cartesian coordinate system.
+  
+  ### Polar Coordinates
+  
+  The **pole** is like the origin - it's our reference point. Now, let $P$ be any point on the 2d plane. the ordered pair $(r, \\theta)$ is the polar coordinate of a point that has an angle $\\theta$ to the x axis and length $r$. $r \\geq 0$.
+  
+  ![6ccf823c.png](:storage/a3ced589-9019-4053-97c9-7efb0d961717/6ccf823c.png)
+  
+  We can convert from polar to cartesian quite easily, with some simple trig. $r$ is the hypotenuse, and the side lengths are $x$ and $y$.
+  
+  ![243dda4e.png](:storage/a3ced589-9019-4053-97c9-7efb0d961717/243dda4e.png)
+  
+  !!! danger Quadrants
+  Be careful when converting; the trig functions are periodic, so you need to be sure you get the quadrant right when converting between these two coordinate systems.
+  !!!
+  
+  Functions in the polar space get funky. A constant function in $r$ is a circle, while a constant function in $\\theta$ is a line.
+  
+  ![35139e8f.png](:storage/a3ced589-9019-4053-97c9-7efb0d961717/35139e8f.png)
+  
+  $r=\\frac{1}{2}\\theta$ is a spiral:
+  
+  ![444c88aa.png](:storage/a3ced589-9019-4053-97c9-7efb0d961717/444c88aa.png)
+  
+  We can also use the equations of conversion of points to convert whole functions. This can get a bit tricky, but graphing helps.
+  
+  ### Areas in Polar Coordinates:
+  This revolves around the area of circles, or slices of circles. $sectors$.
+  
+  ![911d054f.png](:storage/a3ced589-9019-4053-97c9-7efb0d961717/911d054f.png)
+  
+  ### Area between curves in polar coordinates
+  
+  To find the area between two curves, there's a simple algorithm. We can't just split it up into rectangles and triangles or whatever.
+  
+  !!! hint Algo for area between curves
+  Here's the alg; it's kind of annoying because of the integration.
+  1. Find points of intersections
+  2. Graph the curves and split the regions into easy-to-integrate sections
+  3. Integrate
+  4. Profit
+  !!!
+  
+  ---
+  
+  ## Cylindrical Coordinates
+  
+  This is like polar, but 3D space. The third axis is called the **axis of symmetry**.
+  
+  The coordinates are 3-tuples: $(r,\\theta,z)$ where $z$ is the height and $r, \\theta$ are polar coordinates.
+  
+  ![9655cf4f.png](:storage/a3ced589-9019-4053-97c9-7efb0d961717/9655cf4f.png)
+  
+  And past that, it's what you'd expect. You can specify functions, which are surfaces in $R^3$.
+  
+  To convert from cartesian, convert the $x$ and $y$ coordinates to polar, and leave the $z$ as is.
+  
+  ---
+  
+  ## Spherical Coordinates
+  
+  This is spice. We use an origin (or pole) $O$. A point $P$ in spherical is given by a 3-tuple: $(\\rho,\\phi,\\theta)$. 
+  $\\rho$ is the length of the line segment $OP$.
+  $\\phi$ is the angle between OP and the **positive z axis**.
+  $\\theta$ is the same as in polar coordinates: the angle between the positive x axis and the $projection$ of OP on the $xy$ plane.
+  
+  ![9c1995fe.png](:storage/a3ced589-9019-4053-97c9-7efb0d961717/9c1995fe.png)
+  
+  ![595ccb38.png](:storage/a3ced589-9019-4053-97c9-7efb0d961717/595ccb38.png)
+  
+  Conversion is as follows:
+  
+  ![161ab0d3.png](:storage/a3ced589-9019-4053-97c9-7efb0d961717/161ab0d3.png)
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

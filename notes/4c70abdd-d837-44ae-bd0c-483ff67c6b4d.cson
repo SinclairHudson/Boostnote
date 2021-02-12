@@ -1,0 +1,152 @@
+createdAt: "2020-07-02T18:14:13.705Z"
+updatedAt: "2020-08-09T18:50:04.723Z"
+type: "MARKDOWN_NOTE"
+folder: "aa4933591feb7023b3b6"
+title: "Module 08: Efficiency and Equity"
+tags: []
+content: '''
+  # Module 08: Efficiency and Equity
+  
+  ## Resource Allocation methods
+  
+  !!! abstract Allocation through market price.
+  People who are willing and able to buy a resource get the resource. There's a market price, which balances supply and demand.
+  !!!
+  
+  !!! abstract Allocation through Command System
+  Allocates resources by the order of someone in authority. This is like a boss telling you how to spend your time.
+  This is difficult to implement in an entire economy. How can you micromanage every transaction? Well, North Korea, Cuba, and China can do it. It's a centralized market plan.
+  !!!
+  
+  !!! abstract Allocation through Majority Rule
+  Allocation is determined by some democratic process, like how a government in Canada allocates tax dollars. This system is pretty good, but some minorities can fall through the cracks.
+  !!!
+  
+  !!! abstract Allocation by Contest
+  Making a competition, and allocating resourses based on performance.
+  This is like when an employer offers a top prize for achieving the most sales in a year. This system works well when the efforts of the players in the contest are hard to monitor and reward directly.
+  !!!
+  !!! abstract First-come, first-served
+  Resources are allocated to those who come first in a line. This is common in supermarkets, checkouts, restaurants. When people can only be served one at a time, or few at a time, this seems like the only way.
+  !!!
+  
+  !!! abstract Lottery Allocation
+  Choosing straws. This isn't as uncommon as you would think. Provincial lotteries reallocated millions of dollars in this way. This system is also used to determine places in a marathon start, for example. These systems are good for when there's no good way to distinguish among potential users of a scarce resource.
+  !!!
+  
+  !!! abstract Allocation according to Personal Characteristics
+  Marriage partners is about the only good use of this allocation. A lot of discrimination and specifically racism comes from this point.
+  !!!
+  
+  !!! abstract Allocation by Force
+  War, Theft, for resources. But also laws, and taxation. Taxes effectively transfers wealth from the rich to the poor, through the force of law.
+  !!!
+  
+  An individual demand curve is the relationship between quantity demanded and the price of a good or service for a single individual. A market demand curve is the sum of individual demand curves by all individuals at each price. It's summed horizontally remember; the quantity demanded just goes up.
+  
+  The market demand curve is also called the marginal social benefit curve or **MSB**.
+  
+  **Consumer Surplus** is when we buy a good or service for **less than it is worth to us**. It's the **AREA UNDER THE DEMAND CURVE**, but above the price consumers must pay for the good.
+  
+  ![068d564e.png](:storage/4c70abdd-d837-44ae-bd0c-483ff67c6b4d/068d564e.png)
+  
+  ![59f2e816.png](:storage/4c70abdd-d837-44ae-bd0c-483ff67c6b4d/59f2e816.png)
+  
+  
+  ---
+  
+  Similar concepts exist for Producers.
+  
+  The market supply curve is the marginal social cost curve or **MSC**. It's the horizontal sum of all the supply curves of the individual producers.
+  
+  ![664569bf.png](:storage/4c70abdd-d837-44ae-bd0c-483ff67c6b4d/664569bf.png)
+  
+  ![119a1be3.png](:storage/4c70abdd-d837-44ae-bd0c-483ff67c6b4d/119a1be3.png)
+  
+  ### Competitive Equilibrium and Efficiency
+  
+  MSB = Marginal social benefit curve = market demand curve
+  MSC = Marginal social cost curve = market supply curve
+  
+  Total surplus = sum of consumer surplus and supplier surplus.
+  
+  ![cba334a9.png](:storage/4c70abdd-d837-44ae-bd0c-483ff67c6b4d/cba334a9.png)
+  
+  ![56852a0a.png](:storage/4c70abdd-d837-44ae-bd0c-483ff67c6b4d/56852a0a.png)
+  
+  ---
+  
+  A **market failure** is when a market does not produce an efficient outcome, which occurs from the under or over-production of a good or service.
+  
+  ![b105d5da.png](:storage/4c70abdd-d837-44ae-bd0c-483ff67c6b4d/b105d5da.png)
+  
+  ![e6c54e93.png](:storage/4c70abdd-d837-44ae-bd0c-483ff67c6b4d/e6c54e93.png)
+  
+  In either case, society suffers. Either society can't get the goods they want in the quantity they want, or resources are being wasted in overproduction and they would be better off spending those resources elsewhere.
+  
+  So what causes a market failure?
+  
+  !!! caution Price and Quantity Regulations:
+  **Price regulations** that limit the max price that firms can charge can lead to underproduction.
+  **Price regulations** that limit the minimum wage workers can be paid can put a block on the equilibrium price adjustments and lead to unemployment (overproduction in labour?)
+  **Quantity reglations** that limit the amound that a firm is premitted to produce can lead to underproduction.
+  !!!
+  
+  !!! caution taxes and subsidies
+  Taxes increase the prices paid by buyers, and lower the prices received by sellers. so taxes decrease the quantity produced, and can lead to underproduction.
+  
+  Subsidies lower the prices paid by buyers and increase the prices received by sellers. They can increase the quantity produced and cause overproduction.
+  !!!
+  
+  !!! caution Externalities
+  An externality is when the economic actions of one individual (or a group) directly affect the economic outcomes of another individual.
+  
+  An electric utility, for example, creates an external cost on the environment by burning coal. The firm **doesn't consider this cost** when it chooses the quantity of power to produce. Overproduction of electricity follows since the external costs are ignored.
+  
+  External benefit is a benefit not considered. Your neighbour would benefit from you installing a smoke alarm. However, this is not considered, leading to underproduction.
+  
+  There are deadweight losses if you don't consider all the factors, all the costs, all the benefits.
+  !!!
+  
+  ### Public Goods and Common Resources
+  
+  A **public good** is a good or service that is consumed simultaneously by everyone even if they don't pay for it, like streetlights. However, there's an underproduction if there are too many free-riders. For example, if a city offers free public transport, they'd probably send out fewer buses because everyone on the bus is a free-rider, and a lot of them are probably under the tax bar, so they're not paying for the service even indirectly. Or if you watch fireworks without paying an entrance free, you're a free loader. If you donate, then maybe there would be more fireworks, and less underproduction.
+  
+  A **common resource** is owned by no one but can be used by everyone.
+  The issue is, it's in everyone's self-interest to ignore the costs of using the common resource. This is called _the tragedy of the commons_, and it leads to overproduction. Like the overproduction of Cod in newfoundland.
+  
+  !!! caution Monopoly
+  A **monopoly** is a firm that is the sole provider of a good or service.
+  A monopoly leads to higher prices and underproduction
+  !!!
+  
+  !!! caution High transactions costs
+  The opportunity cost of making trades in the market. This might create underproduction, for obvious reasons
+  !!!
+  
+  ---
+  ## But is it fair?
+  
+  It depends if you care that **results** are fair, or if the **rules** are fair.
+  
+  ### Fair Results View
+  
+  The utilitarianism stance.
+  
+  ![38f93f57.png](:storage/4c70abdd-d837-44ae-bd0c-483ff67c6b4d/38f93f57.png)
+  
+  Equity. Tax the rich, give to the poor. Make sure the marginal benefit of all the dollars is maximized. But of course this is a (small) deterrent to working more hours, so it's possible that less gets produced.
+  
+  So we reduce the size of the pie, but share it more equally. A competitive market equilibrim is not fair based on this utilitarianism principle.
+  
+  ### Fair rules view
+  
+  This is the symmetry principle, where people in similar situations should be treated similarly. So equal opportunity. University classes is fair rules; all students have equal opportunity.
+  
+  So then the competitive market equilibrium is theoretically fair? It depends on how you view it, and this debate has been going on forever.
+  
+  
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

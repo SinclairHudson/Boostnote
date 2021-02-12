@@ -1,0 +1,38 @@
+createdAt: "2020-06-12T19:13:16.731Z"
+updatedAt: "2020-08-10T14:10:55.354Z"
+type: "MARKDOWN_NOTE"
+folder: "a19e96ef50a1cd554380"
+title: "Unit 06: Chain Rule"
+tags: []
+content: '''
+  ## Unit 06: Chain Rule
+  
+  Remember the chain rule in single-variable? ye.
+  $$ T'(t) = f'(x(t))x'(t) $$
+  or, or
+  $$ \\frac{dT}{dt} = \\frac{dT}{dx}\\frac{dx}{dt}$$
+  Where in the second expression, the first is $T$ as a composite of $t$, while the second $T$ is a function of $x$.
+  
+  The simplest form of the chain rule in multivariable calc is the following:
+  
+  ![e5d1a66e.png](:storage/2cd5b24b-e2e1-4998-8afd-dceb6a5960cf/e5d1a66e.png)
+  
+  But it really abuses notation, because  The following is better:
+  
+  ![7a26a9e3.png](:storage/2cd5b24b-e2e1-4998-8afd-dceb6a5960cf/7a26a9e3.png)
+  
+  and the vector version looks like this:
+  
+  ![611714ee.png](:storage/2cd5b24b-e2e1-4998-8afd-dceb6a5960cf/611714ee.png)
+  
+  
+  
+  As we add more and more variables, it's helpful to draw dependence trees.
+  
+  ![7b8fef5c.png](:storage/2cd5b24b-e2e1-4998-8afd-dceb6a5960cf/7b8fef5c.png)
+  
+  Something like this.
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

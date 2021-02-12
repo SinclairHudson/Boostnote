@@ -1,0 +1,62 @@
+createdAt: "2020-05-19T20:32:43.388Z"
+updatedAt: "2021-02-01T18:04:04.993Z"
+type: "MARKDOWN_NOTE"
+folder: "aa4933591feb7023b3b6"
+title: "Intro to Econ"
+tags: []
+content: '''
+  # Intro to Econ
+  ### Definition:
+  
+  Economics is the social science that studies choices that individuals, businesses, gorvernment, and entire societies make as they cope with scarcity and incentives that influences these choices.
+  
+  !!! note Scarcity
+  Our inability to satisfy all of our unlimited wants. Think about it; Economics is useless if we don't want anything, if we're completely satisfied. The limitations causing scarcity can be income, time, wealth, etc.
+  !!!
+  
+  !!! note Incentives
+  Rewards or punishments for certain actions/choices.
+  !!!
+  
+  Economics is about **people**, not money.
+  
+  !!! note Positive Statement
+  A testable statement about economics that economists generally agree on.
+  * "Higher taxes on cigarettes will increase the price of cigarettes."
+  !!!
+  
+  !!! note Normative Statement
+  A subjective statement of "what ought to be".
+  * "The taxes on cigarettes should be raised"
+  !!!
+  
+  A lot of economics is building **models**. The way we evaluate these models is by their ability to predict outcomes, just like in ML.
+  
+  !!! note Opportunity Cost
+  The highest value alternative that we must give up in order to get a thing. "What else could you have, instead of this?" This is the classic "there's no such thing as a free lunch." Every time we make a choice, we're giving up something else. Opportunity Cost is the most valueable thing we're giving up.
+  
+  
+  * If I choose guac over salsa in my burrito, my opportunity cost is salsa.
+  * If I choose to go to university, my opportunity cost is full-time work, including salary and experience.
+  !!!
+  
+  !!! note Microeconomics
+  The focus of this course. Behaviour of consumers, firms, and specific market activity all fall under this branch of economics.
+  
+  "Microeconomics is the study of the allocation of scarce resources."
+  !!!
+  
+  !!! note Macroeconomics
+  ECON102. Larger market sectors and the relationship among market sectors.
+  !!!
+  
+  !!! note Marginal opportunity costs
+  Like opportunity costs, but in small steps. It's like fine-grain decisions. How much should I work?
+  * If I game for one hour instead of working at my day job, then my opportunity cost is my hourly wage, something like $29.
+  !!!
+  
+  
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

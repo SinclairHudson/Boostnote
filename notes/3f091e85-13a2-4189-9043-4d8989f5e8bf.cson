@@ -1,0 +1,120 @@
+createdAt: "2020-06-14T23:38:21.052Z"
+updatedAt: "2020-06-15T01:22:00.354Z"
+type: "MARKDOWN_NOTE"
+folder: "87ca028712a29f0836d6"
+title: "M4: Dictionaries and Balanced Search Trees"
+tags: []
+content: '''
+  ## M4: Dictionaries and Balanced Search Trees
+  
+  !!! note Dictionary
+  A collection of items, each of which has a _key_ and a _value_. Key-value pairs. Keys are usually unique.
+  
+  We have:
+  `search(k)`
+  `insert(k, v)`
+  `delete(k)`
+  
+  There are many examples of dictionaries. 
+  !!!
+  
+  We assume that a dictionary has $n$ KVPs, each KVP has constant space, and Keys can be compared in constant time.
+  
+  We can implement as an unordered array or linked list:
+  `search(k)` is $\\Theta(n)$.
+  `insert(k, v)` is $\\Theta(1)$.
+  `delete(k)` is $\\Theta(n)$ (need search.)
+  
+  In an ordered array:
+  
+  `search(k)` is $\\Theta(\\log n)$. (uses a search).
+  `insert(k, v)` is $\\Theta(n)$.
+  `delete(k)` is $\\Theta(n)$
+  
+  ---
+  
+  Let's review BSTs. Every node holds a key and a value, and we're more concerned with the key. 
+  
+  Ordering is the big thing: Every key in the left branch is left than the root key, and every key in the right branch is greater than the root key.
+  
+  `BST-search(k)`. We start at the root, then go left if our desired key is less than the root, right is our desired key is greater than the root. If they're equal, we've found the key. If we hit an empty branch, it doesn't exist in the tree.
+  
+  `BST-insert(k, v)` is a very similar algorithm. However, once we get to an empty tree, put in a new node with our KVP.
+  
+  `BST-delete` first we search for the node. If it's a leaf just delete it. If there's just one child branch, then delete our current node and the branch takes its place. If there are two children, we have a more complicated operation:
+  
+  We **swap the key with a successor or predecessor** and then delete. Basically, you look for the successor, which is the node with the next greatest value. the Successor can take the place of what you want to delete; it will not violate the invariant.
+  Also, the successor is a leaf. So, you swap the two, and then delete the leaf. EZ. The predecessor is the next smallest key in the BST, and it will also be a leaf. It's a pretty crafty algorithm. 
+  
+  All the above three algs are $\\Theta(h)$, where $h$ is the height. So the question is; how big could $h$ be?
+  
+  Well, the worst BST is a linear one; the height is $n-1$. Worst case complexity for the above algs is $\\Theta(n)$. The best case is when the tree is perfectly balanced; $\\Theta(\\log n)$. The average case is also $\\Theta(log n)$.
+  
+  But can we improve that worst case? Yes, see below.
+  
+  ---
+  
+  ### AVL trees
+  
+  It's a more strict BST, that enforces balance. This guarantees a height of $O(\\log n)$.
+  We will also have to modify insert/delete so that they maintain our additional invariants.
+  
+  !!! caution The invariant
+  The hieghts of the left subtree $L$ and the right subtree $R$ differ by at most 1.
+  $$height(R) - height(L) \\in {-1, 0, 1}$$
+  !!!
+  In the above equation, $-1$ means _left-heavy_.
+  $0$ means balanced,
+  $1$ means _right-heavy_.
+  Remember, the height of an empty tree is $-1$. 
+  We need to store the height of each subtree in the root node. Otherwise, we've have a lot of extra computations.
+  
+  Example of AVL trees.
+  
+  ![f3d5c4a6.png](:storage/3f091e85-13a2-4189-9043-4d8989f5e8bf/f3d5c4a6.png)
+  
+  ---
+  
+  !!! quote An AVL tree of $n$ nodes has $\\Theta(\\log n)$ height.
+  This implies that all the AVL operations `insert, search, delete` are $\\Theta(n)$ in the **worst case**.
+  
+  The proof is to find that $h \\in O(\\log n)$. We find the minimum number of nodes in a height $h$ AVL tree.
+  !!!
+  
+  Meta pro-tip: [The On-Line Encyclopedia of Integer Sequences® (OEIS®)](https://oeis.org/)
+  
+  ---
+  
+  Now let's talk about the operations in AVL trees.
+  `AVL-insert(T, k, v)`:
+  The general idea is to insert as you normally would, then go back up, checking that the tree is still balanced.
+  
+  So, as you go up, add 1 to the height (because you inserted), and then check that the difference in heights between the right and left branches is still acceptable. You move up until you hit a problem, then you apply a **rotation** to fix the problem. Then continue moving up in the same fashion, still checking for problems. However, when performing a rotation, you counteract the +1 height of the higher nodes.
+  
+  Note: we assume that our nodes have parent links.
+  
+  ![32d3a736.png](:storage/3f091e85-13a2-4189-9043-4d8989f5e8bf/32d3a736.png)
+  
+  There's a video example here.
+  
+  ---
+  
+  ### Rotations
+  
+  Rotations are part of AVL fixes
+  
+  ![08ac0944.png](:storage/3f091e85-13a2-4189-9043-4d8989f5e8bf/08ac0944.png)
+  
+  ---
+  
+  ![8cae0712.png](:storage/3f091e85-13a2-4189-9043-4d8989f5e8bf/8cae0712.png)
+  
+  In the above diagram, we try to move towards the center tree.
+  
+  ---
+  
+  aaaand then I discovered the coursenotes lol.
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

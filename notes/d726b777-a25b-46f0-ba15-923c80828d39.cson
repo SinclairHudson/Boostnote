@@ -1,0 +1,34 @@
+createdAt: "2020-06-21T00:32:04.732Z"
+updatedAt: "2020-08-10T14:11:02.507Z"
+type: "MARKDOWN_NOTE"
+folder: "a19e96ef50a1cd554380"
+title: "Unit 08: Taylor Polynomials in 2 dimensions:"
+tags: []
+content: '''
+  ## Unit 08: Taylor Polynomials in 2 dimensions:
+  
+  ### The Degree 2 case:
+  Let's recall the single variable case:
+  
+  $$P_{2,a}(x) = f(a) + f'(a)(x-a)+\\frac{1}{2}f''(a)(x-a)^2$$
+  
+  ![a9ace0cb.png](:storage/d726b777-a25b-46f0-ba15-923c80828d39/a9ace0cb.png)
+  
+  ---
+  
+  ![bbae24d4.png](:storage/d726b777-a25b-46f0-ba15-923c80828d39/bbae24d4.png)
+  
+  Remember that $c$ and $d$ are bounded. So we can find an upper bound on the error.
+  
+  ![7441350a.png](:storage/d726b777-a25b-46f0-ba15-923c80828d39/7441350a.png)
+  
+  ---
+  
+  ![955d2672.png](:storage/d726b777-a25b-46f0-ba15-923c80828d39/955d2672.png)
+  
+  
+  Here, $\\alpha \\in R^n$, it's a vector of the orders of the partial derivatives that we take for each input variable.
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

@@ -1,0 +1,19 @@
+createdAt: "2020-11-08T15:47:16.119Z"
+updatedAt: "2020-11-08T15:49:57.382Z"
+type: "MARKDOWN_NOTE"
+folder: "90d26269830d31ab3ae8"
+title: "VectorZero Cheat sheet"
+tags: []
+content: '''
+  # VectorZero Cheat sheet
+  
+  zoom: scroll wheel
+  rotate: alt + left click
+  xy move: alt + middle mouse
+  z move: alt + shift + middle mouse
+  
+  Focus: F (like in MAYA)
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

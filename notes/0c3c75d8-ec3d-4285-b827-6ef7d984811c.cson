@@ -1,0 +1,148 @@
+createdAt: "2020-06-02T23:25:56.805Z"
+updatedAt: "2021-02-05T15:28:44.444Z"
+type: "MARKDOWN_NOTE"
+folder: "aa4933591feb7023b3b6"
+title: "Module 04: Utility and Demand"
+tags: []
+content: '''
+  ## Module 04: Utility and Demand
+  We're taking about consumer preferences.
+  
+  
+  !!! abstract Completeness
+  given bundles of goods $a$ or $b$ a consumer either wants $a$ more than $b$, $b$ more than $a$, or they're indifferent. 
+  !!!
+  
+  !!! abstract Transitivity
+  If a consumer likes $a$ more than $b$ and $b$ more than $c$, then it must be the case that the consumer likes $a$ more than $c$.
+  !!!
+  
+  And of course, **more is better**.
+  ![2b59f112.png](:storage/0c3c75d8-ec3d-4285-b827-6ef7d984811c/2b59f112.png)
+  
+  ### Consumption Choices
+  
+  Consumption possibilities: the goods and services that a consumer can afford to buy. (we really needed to define this?)
+  
+  Budget line: the line that separates what consumers can buy vs what they cannot. (what conbination of goods and services)
+  
+  ![b413135f.png](:storage/0c3c75d8-ec3d-4285-b827-6ef7d984811c/b413135f.png)
+  
+  The area under the budget curve is called the **opportunity set**, the set of all bundles of goods that can be afforded.
+  
+  This is an example of a budget line. The consumer can do anything under this line, but cannot afford to go over it.
+  
+  The benefit or satisfaction from consuming a good or service is called **utility**.
+  
+  !!! note Utility
+  The benefit or satisfaction that an individual gets from the consumption of a good or service. Utility varies per consumer. It's measured as an ordinal value, because it's truly subjective. So consumers **rank** their available options, and the assigned rank is the utility. Note that utility is unbounded above, and the **higher the better**. The unit is called _utils_, which is made up for this notion of utility.
+  !!!
+  
+  **Total Utility** is the total benefit a person gets from the consumption of goods. More consumption usually means more utility.
+  
+  !!! note Utility Function
+  
+  The relationship between the quantity of goods consumed, and utility.
+  These aren't relations that exist concretely during observations, but they can
+  be constructed from many data points.
+  
+  Keep in mind though, that Utility is an **ordinal measure**, not a **cardinal** one. So it doesn't really make sense to compare 23 utils to 14 utils.... We can say that 23 utils is preferable to 14, but not by how much, really.
+  
+  ![1b55dd0c.png](:storage/0c3c75d8-ec3d-4285-b827-6ef7d984811c/1b55dd0c.png)
+  
+  !!!
+  
+  **Marginal Utility** is the change in total utility that results from a unit increase of quantity of the good consumed. Generally, as the quantity of the good increases, the marginal utility decreases. This is the principle of **diminishing marginal utility**.
+  
+  ![9877ae04.png](:storage/0c3c75d8-ec3d-4285-b827-6ef7d984811c/9877ae04.png)
+  
+  There is actually a situation where the total utility reaches a maximum value, and the marginal utility is zero. What's the point of having more movies than you can watch in your lifetime? Or more cantelope than you can eat before it all goes rotten? These additional goods do not increase your  total utility.
+  
+  ### Utility-Maximizing Choice
+  The key assumption is that a **household chooses the consumption possibility that maximizes total utility**.
+  
+  To find this choice, there are a few techniques. One is to find all the "Just-affordable" combinations, and compare their utilities. The one with the highest utility score wins!
+  
+  This ideal combination is called **consumer equilibrium** - when a consumer has allocated all of their available income in the way that maximizes their utility.
+  
+  #### Choosing at the Margin
+  Would spending one dollar more or a dollar less on a good bring more total utility?
+  
+  !!! note Marginal Utility per dollar
+  The marginal utility from a good, divided by its price. Given a good M, this can be calculated as:
+  $$\\frac{MU_M}{P_M}$$
+  
+  Remember that this is completely marginal. The price is the price of 1 unit, and the MU is the marginal utility gained from the consumption of one more of that good.
+  !!!
+  
+  This leads us to a second way in which we can find the utility-maximizing choice: 
+  * spend all available income
+  * **Equalize the marginal utility per dollar for all goods**
+  
+  ![dde4bd9e.png](:storage/0c3c75d8-ec3d-4285-b827-6ef7d984811c/dde4bd9e.png)
+  
+  
+  #### Utility is maximized when the marginal rate of substitution equals the marginal rate of transformation (relative price)
+  That is, **the slope of the budget line equals the slope of the indifference curve**. The two are tangent, which implies that the maximum utility curve has been met.
+  
+  Marginal rate of substitution is the number of good Z someone will give up to receive the number of goods B.
+  
+  $$
+  MRS = \\frac{\\Delta B}{\\Delta Z} = - \\frac{MU_Z}{MU_B}
+  $$
+  
+  $$
+  MRT = - \\frac{p_z}{p_b}
+  $$
+  It's the slope of the of the indifference curve, if Z is on the $x$ axis.
+  ![2b9e8eee.png](:storage/0c3c75d8-ec3d-4285-b827-6ef7d984811c/2b9e8eee.png)
+  
+  Again, MRS should always be negative, but economists are not good at putting signs in front of their equations.
+  
+  ![a691894b.png](:storage/0c3c75d8-ec3d-4285-b827-6ef7d984811c/a691894b.png)
+  
+  There's also a **corner solution**, where consumers only buy one type of good. So watch out for that:
+  
+  ![7a2cd618.png](:storage/0c3c75d8-ec3d-4285-b827-6ef7d984811c/7a2cd618.png)
+  
+  Also there are some really odd cases for odd preference curves.
+  Rather have one bigger house than two smaller ones.
+  
+  ![2ad4f0e7.png](:storage/0c3c75d8-ec3d-4285-b827-6ef7d984811c/2ad4f0e7.png)
+  
+  ---
+  
+  ### A fall in price
+  
+  When the price falls, the point on the demand curve moves down and to the right; there is more demand. Also, the marginal utility per dollar increases, because the price decreased. To restore consumer income, the quantity consumed of the now cheaper good will be increased, and the demand for all other goods will decrease. The following charts show what would happen if the price of movies decreased: 
+  
+  ![dd4b1f16.png](:storage/0c3c75d8-ec3d-4285-b827-6ef7d984811c/dd4b1f16.png)
+  
+  Contrast this with the above chart, in which movies were $8 each.
+  
+  The consumer acts to equalize marginal utility per dollar among all goods, so we expect an increase in the purchasing of movies. Because a consumer's income is fixed, we expect an increase in the quantity demanded of movies, and a decrease in the quantity demanded of movies.
+  
+  ![402c4cf6.png](:storage/0c3c75d8-ec3d-4285-b827-6ef7d984811c/402c4cf6.png)
+  
+  Of course, these are simply predictions, and not guaranteed to happen. They're good predictions though...
+  
+  You can imagine what would happen with an increase of price. The quantity demanded would decrease, and less of the good would be purchased, with other goods now having a relatively higher marginal utility per dollar.
+  
+  Now, if **income** increases, the demand for all normal goods increases. Our budget line simply moves out.
+  
+  **The paradox of value** refers to the facts of **low prices for abundant necessities** and **high prices for rare luxuries**. Really, food is kind of the highest utility, because it's required for life. It is of the highest value, and yet is has some of the lowest price.
+  
+  ![f841cca6.png](:storage/0c3c75d8-ec3d-4285-b827-6ef7d984811c/f841cca6.png)
+  
+  !!! note the Endowment Effect
+  The tendency for people to value something more highly because they own it. The instinctive unwillingness to trade, even if the trade is in their favour. People like to keep what they have.
+  !!!
+  
+  !!! note Neuroeconomics
+  The study of the activity of the human brain when a person makes an economic decision. Some decisions are made with the pre-frontal cortex, while others are made with the hippocampus. (yeah I know that's not how the brain works).
+  !!!
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false
+isPinned: false

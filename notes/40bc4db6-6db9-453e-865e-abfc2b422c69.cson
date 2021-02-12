@@ -1,0 +1,134 @@
+createdAt: "2020-05-25T19:24:27.171Z"
+updatedAt: "2021-02-01T18:54:35.419Z"
+type: "MARKDOWN_NOTE"
+folder: "aa4933591feb7023b3b6"
+title: "Module 03: Elasticity"
+tags: []
+content: '''
+  # Module 03: Elasticity
+  ## Introduction to Elasticity
+  !!! note Elsasticity of Demand
+  The units-free measure of the responsiveness of the quantity demanded of a good to a change in its price when all other influences on buying plans remain the same.
+  $$
+  \\frac{\\text{Percentage change in the quantity demanded}}{\\text{Percentage change in the price}}
+  $$
+  $$
+  \\epsilon_D = \\frac{\\frac{\\Delta Q}{\\text{average Q}}}
+  {\\frac{\\Delta P}{\\text{average P}}}
+  $$
+  The averages are the average of the old and new price.
+  
+  In calculus, it's 
+  $$
+  \\epsilon_D = \\frac{dQ}{dP} \\times \\frac{P}{Q}
+  $$
+  Be careful; that's the **inverse** of the derivative. We're looking at what a change in price does to the quantity demanded, so it's the inverse of the derivative.
+  
+  If we have the demand curve as $Q = a - bp$ where $p$ is the price, then
+  $\\epsilon_D = \\frac{dQ}{dp}\\frac{p}{Q} = -b \\frac{p}{Q}$.
+  !!!
+  
+  ![bd210ade.png](:storage/40bc4db6-6db9-453e-865e-abfc2b422c69/bd210ade.png)
+  
+  Elasticity of demand **will always be negative**, because the slope of the demand curve is always negative. However, it's often represented as positive (SMH).
+  
+  (Unless Giffen goods - goods where people prefer higher prices.)
+  
+  
+  If the quantity demanded doesn't change when the price changes, the price elasticity of demand is zero and the good has a **perfectly inelastic demand**.
+  **Unit elastic demand** is when $\\epsilon_D =-1$. This occurs when the demand curve is linear, at the center quantity demanded, or when the demand curve is curved away from the origin... ??
+  Generally, we say that demand is **inelastic** when $|\\epsilon_D| < 1$, **elastic** when $|\\epsilon_D| > 1$.
+  
+  **Perfectly Elastic Demand** occurs when $\\epsilon_D = -\\infty$. This means that when the price barely changes, the change in quantity demanded changes dramatically.
+  
+  ![f57639c8.png](:storage/40bc4db6-6db9-453e-865e-abfc2b422c69/f57639c8.png)
+  
+  Elasticity of demand depends on the following:
+  
+  - **The closeness of substitutes**: the closer the sub, the more elastic the demand. Necessities, like food and housing, generally have inelastic demand. On the other hand, exotic vacations generally have elastic demand.
+  - **The proportion of income spent on a good**: The greater proportion, the larger the elasticity of demand for that good.
+  - **The time elapsed since a price change**: The more time consumers have to adjust to a price change, or the longer that a good can be stored without losing its value, the more elastic is the demand for that good. 
+  
+  Extreme cases can be expressed in calculus. Insulin is an interesting case for diabetics; essential good up to the price that they can afford.
+  
+  ![55447c9a.png](:storage/40bc4db6-6db9-453e-865e-abfc2b422c69/55447c9a.png)
+  
+  ### Total Revenue and Elasticity
+  
+  If we want to know how the price affects total revenue, then we need to look at elasticity.
+   
+   - if the demand is **elastic**, revenue increases if the price decreases. This is because a 1% price cut results in more than a 1% increase in sales.
+   - if demand is **inelastic**, a price cut will reduce revenue
+   - if demand is **unit elastic**, a price cut of 1% will increase sales by 1%, so revenue won't change.
+   
+  So firms want **unit elasticity**. It's what maximizes revenue (square has the largest area)
+  ![7a2961ef.png](:storage/40bc4db6-6db9-453e-865e-abfc2b422c69/7a2961ef.png)
+   
+  !!! note Total revenue test
+  A method of estimating the price elasticity of demand, by observing the change in total revenue when the price is changed.
+  This test is very helpful for small business owners, who don't have large market information.
+  
+  
+  **When demand is unit elastic, total revenue is maximized.**
+  !!!
+  
+  ### Income Elasticity of Demand
+  
+  !!! note Income elasticity of demand
+  A units free measure of the responsiveness of the quantity demanded of a good to a change in **consumer income** when all other influences on buying plans remain the same.
+  
+  $$
+  \\epsilon_M= \\frac{\\frac{\\Delta Q}{\\text{average Q}}}
+  {\\frac{\\Delta M}{\\text{average M}}}
+  $$
+  !!!
+  Remember inferior and normal goods? Yeah. When $\\epsilon_M > 1$, the **good is considered normal**, and demand is income elastic.
+  If $0 < \\epsilon_M < 1$, the demand is income inelastic, and the good is still normal.
+  However, if $\\epsilon_M < 0$, the **good is inferior**.  
+  
+  ## Elasticity of Supply  Exactly what you'd expect.
+  !!! note Elasticiy of supply
+  The units-free measure of responsiveness to the quantity supplied of a good to a change in its price when all other influences on selling plans remain the same.
+  ![1d955c5d.png](:storage/40bc4db6-6db9-453e-865e-abfc2b422c69/1d955c5d.png)
+  
+  This value will always be positive, because of the law of supply.
+  !!!
+  
+  ![75d7b3c5.png](:storage/40bc4db6-6db9-453e-865e-abfc2b422c69/75d7b3c5.png)
+  
+  Supply is perfectly inelastic when the supply curve is vertical. elasticity is 0.
+  
+  Supply is _unit elastic_ if the curve is **linear** and **passes through the origin**. Slope doesn't matter.
+  
+  Supply is perfectly elastic if the supply curve is horizontal and the elasticity of supply is infinite.
+  
+  ![9ea2face.png](:storage/40bc4db6-6db9-453e-865e-abfc2b422c69/9ea2face.png)
+  
+  ## Cross Elasticity of Demand:
+  !!! note Cross Elasticity of Demand
+  The units free measure of the responsiveness of the quantity demanded of a good to a change in the price of a substitute or a complement when all other influences are constant. So there are two different goods, and the price of one impacts the quantity demanded of the other. The ratio of percentages is the Cross Elasticity of Demand.
+  
+  ![c569b55c.png](:storage/40bc4db6-6db9-453e-865e-abfc2b422c69/c569b55c.png)
+  
+  !!!
+   ![87c797c8.png](:storage/40bc4db6-6db9-453e-865e-abfc2b422c69/87c797c8.png) 
+   
+   ### Application of Demand Elasticities
+   
+   Policy makers
+   - Influence of "sin" taxes
+   - Amount of production reduced to increate price
+  
+  Farmers
+  - Supply management requires inelastic
+  
+  Consumers
+  - Impact of drought/freeze depends on retail price
+  
+  Food Processors
+  - Effect of price change on revenue
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false
+isPinned: false

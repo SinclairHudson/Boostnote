@@ -1,0 +1,98 @@
+createdAt: "2020-07-29T22:57:05.205Z"
+updatedAt: "2020-07-30T00:07:52.207Z"
+type: "MARKDOWN_NOTE"
+folder: "aa4933591feb7023b3b6"
+title: "Module 12: Oligopoly"
+tags: []
+content: '''
+  ## Module 12: Oligopoly
+  
+  This is when:
+  
+  1. Natural or legal barriers prevent the entry of new firms
+  2. A small number of firms compete
+  3. Each firm is an oligopoly is aware of the actions of other firms and acts strategically
+  
+  a _duopoly_ is when there are only two such firms.
+  
+  ![4621c4ad.png](:storage/788d65ef-7f2f-4b0c-9646-221e5388b71a/4621c4ad.png)
+  
+  ![17d93ac3.png](:storage/788d65ef-7f2f-4b0c-9646-221e5388b71a/17d93ac3.png)
+  
+  Because there are only a few number of firms, they are interdependent and face a temptation to cooperate.
+  
+  Interdependence means taht each firm's profit depends on every firm's actions.
+  
+  Temptation to cooperate because they could form a cartel (monopoly?)
+  
+  A cartel is a group of firms acting together to limit output, raise price, and increase profit.
+  
+  ---
+  
+  This has a lot of game theory.
+  
+  The games have:
+  1. Rules
+  2. Strategies
+  3. Payoffs - consequences of certain outcomes (the utility to each player in the end)
+  4. Outcomes
+  
+  ## The prisoner's dilemma
+  
+  a classic.
+  
+  This introduces the Nash Equilibrium. It's the mutual best response regardless of the opponent's response. In the prisoner's dilemma, the nash equilibrium is that they both confess, however that's a suboptimal outcome, hence the dilemma.
+  
+  ![df2fd4d3.png](:storage/788d65ef-7f2f-4b0c-9646-221e5388b71a/df2fd4d3.png)
+  
+  ---
+  
+  A collusive agreement is one in which two firms restrict output, raise the price, and increase profits. Such agreements are illegal in Canada.
+  
+  However, this is actually a prisoner's dilemma, because breaking the agreement would increase profits further.
+  
+  When in a cartel, the cartel acts like a monopoly.
+  
+  ![9bef6395.png](:storage/788d65ef-7f2f-4b0c-9646-221e5388b71a/9bef6395.png)
+  
+  But here's the dilemma:
+  
+  ![98ff0f04.png](:storage/788d65ef-7f2f-4b0c-9646-221e5388b71a/98ff0f04.png)
+  
+  But if they both cheat:
+  
+  ![4abf5e03.png](:storage/788d65ef-7f2f-4b0c-9646-221e5388b71a/4abf5e03.png)
+  
+  It's a perfectly competitive market.... There's no profit in the long run.
+  
+  The nash equilibrium is in cheating, just like the prisoner's dilemma. So collusion usually fails.
+  
+  There's also a game of chicken in R&D:
+  
+  ![f569edc9.png](:storage/788d65ef-7f2f-4b0c-9646-221e5388b71a/f569edc9.png)
+  
+  Of course, the two firms can also reach a cooperative equilibrium.
+  
+  ![f1511ae3.png](:storage/788d65ef-7f2f-4b0c-9646-221e5388b71a/f1511ae3.png)
+  
+  ---
+  
+  ## The law
+  
+  There are laws against cartels obviously:
+  
+  ![cd05b21e.png](:storage/788d65ef-7f2f-4b0c-9646-221e5388b71a/cd05b21e.png)
+  
+  Non-riminal activities include:
+  1. Mergers
+  2. Abuse of dominant position
+  3. Exclusive dealing
+  
+  
+  ![363ce181.png](:storage/788d65ef-7f2f-4b0c-9646-221e5388b71a/363ce181.png)
+  
+  ![86d2d427.png](:storage/788d65ef-7f2f-4b0c-9646-221e5388b71a/86d2d427.png)
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

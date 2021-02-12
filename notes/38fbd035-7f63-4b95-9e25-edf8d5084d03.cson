@@ -1,0 +1,80 @@
+createdAt: "2020-06-06T16:39:58.589Z"
+updatedAt: "2020-08-14T17:46:12.547Z"
+type: "MARKDOWN_NOTE"
+folder: "b98556b417c909bf839c"
+title: "Week 04"
+tags: []
+content: '''
+  # Week 04
+  This week, we'll be using D-FlipFlops to implement registers. Each D-FlipFlop stores one bit of data.
+  ### Register files
+  Putting registers together and adding baking creates a register file.
+  Register files are used as memory.
+  
+  ![c69a88a5.png](:storage/38fbd035-7f63-4b95-9e25-edf8d5084d03/c69a88a5.png)
+  
+  A **Register** is an array of Flip Flops (32 for word registers).
+  A **Register File** is a way to organize registers.
+  
+  ![65c53346.png](:storage/38fbd035-7f63-4b95-9e25-edf8d5084d03/65c53346.png)
+  
+  #### Writing
+  We need the address, we need the write bit to be true, and we need the data.
+  
+  ![54f0364b.png](:storage/38fbd035-7f63-4b95-9e25-edf8d5084d03/54f0364b.png)
+  
+  The above diagram makes a lot of sense. Writing only occurs when the write bit is _true_, and the register number comes from the decoder. It does what it should, it's pretty straightforward.
+  
+  Remember, for this course, we assume 64-bit ARM. this means that the registers have 64 bits. The number of registers is actually unspecified. The write data has the same number of bits as the registers, obviously.
+  
+  #### Reading
+  
+  Why 2 reads? Well, we almost always read one at a time.
+  ```
+  ADD X1, X2, X3 ; like here
+  ```
+  ![84d751dc.png](:storage/38fbd035-7f63-4b95-9e25-edf8d5084d03/84d751dc.png)
+  
+  The above diagram is pretty simple as well. The muxes just forward the requested registers based on the register number. We need $n$ register select bits if we have $2^n$ registers.
+  
+  ---
+  
+  So now take a look at the big picture again. The register file is just the reads and writes combined. It looks complicated, but the circuitry is actually pretty simple, and how you would design it if you tried from scratch.
+  
+  ### Finite State Machine
+  
+  You already know. It's really like a finite-state-automaton, as in CS241. A state machine is any device that stores the status of something at a given time and can operate on input to change the status.
+  
+  ![33bd56d5.png](:storage/38fbd035-7f63-4b95-9e25-edf8d5084d03/33bd56d5.png)
+  
+  Remember to keep the looped transitions in there! 
+  
+  **Moore machines** are mainly what we use in this course. it means that the output only depends on the state.
+  
+  ![7dc287c8.png](:storage/38fbd035-7f63-4b95-9e25-edf8d5084d03/7dc287c8.png)
+  
+  We can use these diagrams, but we can also use what's called a **next-state table**.
+  
+  It has current state, input, and then next-state.
+  
+  ![8cbb006b.png](:storage/38fbd035-7f63-4b95-9e25-edf8d5084d03/8cbb006b.png)
+  
+  We can label all the inputs and states in a binary fashion, and then we can make a boolean expression for each of the "bits" of the next state encoding. Like so:
+  
+  ![40e317ea.png](:storage/38fbd035-7f63-4b95-9e25-edf8d5084d03/40e317ea.png)
+  
+  We can also make what's called the **output table**, where we have the state bits on one side and the corresponding outputs on the other side:
+  
+  ![7de4fbe0.png](:storage/38fbd035-7f63-4b95-9e25-edf8d5084d03/7de4fbe0.png)
+  
+  As you can imagine, we can derive boolean expressions for all of the outputs too, in terms of the state bits.
+  
+  We can use all of these tools to implement a circuit for the state machine:
+  
+  ![a3545118.png](:storage/38fbd035-7f63-4b95-9e25-edf8d5084d03/a3545118.png)
+  
+  
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

@@ -1,0 +1,297 @@
+createdAt: "2020-06-19T14:12:20.576Z"
+updatedAt: "2020-08-09T13:25:23.012Z"
+type: "MARKDOWN_NOTE"
+folder: "aa4933591feb7023b3b6"
+title: "Module 06: Organizing Production"
+tags: []
+content: '''
+  # Module 06: Organizing Production
+  
+  A **firm** is an institution that hires factors of production and produces goods or services.
+  
+  ### Step 4: Profit
+  
+  **Implicit Costs**: the sum of all hidden opportunity costs forgone, but not paid in real money. So it's what you give up; the investment returns, the leasing income that you could have gotten from renting your property, etc.
+  
+  **Explicit Costs**: costs the firm actually pays. Payroll, rent, etc.
+  
+  **Conventional deprecation**: The fall in value of a firm's capital. Machines wear out, reducing their value.
+  
+  !!! note Accounting Profit
+  Total revenue minus explicit costs and conventional depreciation,  with revenue equalling quantity sold times price. This number is vital for tax purposes and such.
+  !!!
+  
+  !!! note Economic Profit
+  $\\text{total revenue} - \\text{total cost}$. Total cost is measured as the opportunity cost of production. This includes both explicit and implicit costs.
+  !!!
+  
+  But what is a firm's opportunity cost of production? Well, it's the sum of the cost of using resources:
+  
+  * Bought in the market
+  * Owned by the firm (it's the implicit rental rate of renting the capital to yourself). You could have used the resources you owned elsewhere, or sold them.
+  * Supplied by the firm's owner. The owner can contribute labour and not take a wage, in which case the opportunity cost is the wage of the best alternative job. The owner can also contribute entrepreneurship (which I guess is investment), in which case the profit they can expect to receive on average is called **normal profit**.
+  
+  
+  **Normal Profit**: The cost of entrepreneurship to a firm (this is an opportunity cost of production).
+  
+  This is defined completely differently in the real world. I think what it's trying to say here is that the profit of a firm is the entrepreneur's profit to take, and they probably will take it. So it's a cost to the firm.
+  
+  ![4cb88ab8.png](:storage/6ba5c4d2-16e8-4958-b284-7daef0c04704/4cb88ab8.png)
+  
+  The firm uses economic accounting to influence a firm's decisions given the firm's constraints:
+  
+  ### A firm's Decisions:
+  1. What do we produce, and in what quantities?
+  2. How do we produce it?
+  3. How do we organize and pay our workers?
+  4. How do we market our products, and how do we price them?
+  5. What should we produce ourselves, and what should we just buy from others?
+  
+  ### A firm's contraints:
+  1. Technological constraints
+  2. Information constraints (we don't know everything)
+  3. Market Constraints (we're sort of at the mercy of the consumer)
+  
+  ## Technological Efficiency
+  If it's impossible to produce a given good by decreasing any one input, holding all other inputs constant, then production is technologically efficient.
+  
+  ## Economic Efficiency
+  When a firm produces a given quantity of output at the least possible cost.
+  
+  ## Information and Organization
+  
+  !!! note Command Systems
+  What you would expect. It's how a firm organizes its people and its management.
+  !!!
+  
+  !!! note Incentive Systems
+  Systems in place to induce workers into performing in such a way that they maximize the firm's profit.
+  !!!
+  
+  The above two systems of organizing are often used in tandem. It's hard to create a rigid command system when the firm's work isn't that structured, so instead they use more incentives to get workers to work efficiently. These systems are all about the:
+  
+  !!! note The principal-agent problem
+  
+  The problem of devising compensation rules that induce an agent to act in the best interests of the principal (the firm).
+  There are many different solutions to this problem, here are a few common ones:
+  **Ownership**, which gives managers the incentive to maximize a firm's profits because it also maximizes theirs. This can be something like franchising, or even stock options.
+  **Incentive Pay**, linking pay to performance or giving big proportional bonuses.
+  **Long-Term-contracts**, which basically say that workers are guaranteed a job or retirement benefits if the company does well in the long-run.
+  !!!
+  
+  ### Busines Organization and Market Contexts
+  There are three types of business organization:
+  1. Sole Proprietorship
+  2. Partnership
+  3. Corporation
+  
+  !!! note Sole Proprietorship
+  A firm with a single owner who has unlimited liability, or legal responsibility for all debts incurred by the firm. These are like "small businesses", like what Darrell is running. Darrell gets all the profits, and he's taxed like the business profits are his income.
+  
+  Pros:
+  Easy to set up
+  Easy (ish) to manage
+  Profits are taxed just once
+  
+  Cons:
+  Bad decisions are never reviewed
+  The owner risks it all
+  The firm dies with the owner
+  The cost of capital and labour can be high.
+  !!!
+  
+  !!! note Partnership
+  A firm with two or more owners who have unlimited liability. So the partners need to agree on a management structure and how to divide profits. Profits are taxed as if they were the personal income of the owners.
+  
+  Pros:
+  Easy to set up
+  Employ diversified decision-making
+  Can survive a withdrawal of a partner
+  Profits are taxed just once
+  
+  Cons:
+  Disagreement
+  Owners are risking it all
+  Capital is expensive.
+  !!!
+  
+  !!! note Corporation
+  Owned by one or more stockholders with limited liability, which means the owners have legal liability only for the initial value of their investment. So the personal wealth of the stockholders is not at risk if the firm goes bankrupt. You lose your investment, but you have no debt. The profits are actually taxed twice; once on firm profits, and again as the income taxes paid by stockholders (unless you have a tax-advantaged account or something).
+  
+  Pros:
+  Limited liability for owners
+  Large-scale and low-cost capital is available
+  Professional management (they're good at this stuff)
+  Lower costs for long-term labour
+  
+  Cons:
+  Complex management
+  Profits taxed twice
+  !!!
+  
+  
+  
+  ### Market Types
+  
+  !!! note Perfect Competition
+  Many firms and many buyers
+  All firms sell and identical product (think commodities)
+  No restriction on entry of new firms to the industry (?)
+  Both firms and buyers are well-informed about prices and products
+  
+  Examples include commodities.
+  !!!
+  
+  !!! note Monopolistic Competition
+  Many firms and many buyers
+  Each firm produces similar but different products -- *product differentiation*.
+  Each firm possesses an element of market power
+  No restrictions on entry of new firms
+  
+  Examples include pizza shops, clothing, cleaning services
+  !!!
+  
+  !!! note Oligopoly
+  A small number of firms compete
+  The products might be very similar or not so much
+  There are barriers to entry into the market
+  Firms have to start using strategic behaviour models (game theory)
+  
+  Examples include automakers, brewers, boeing and airbus, etc.
+  !!!
+  
+  !!! note Monopoly
+  One firm produces the entire output of the industry
+  There are no close substitutes for the product
+  There are barriers to entry that protect the sole firm.
+  
+  Examples aren't actually that common, but some examples include Bell Canada, Good universities, and local utility.
+  !!!
+  
+  
+  ### Measures of Concentration
+  There are a few ways to tell what kind of market we're in:
+  
+  !!! note The Four-Firm Concentration Rato
+  The percentage of the total industry sales accounted for by the biggest four firms in the industry. We would find that between Apple, Samsung, Huawei, and Motorola, these firms probably have over $90$%  market share.
+  !!!
+  
+  !!! note The Herfindahl-Hirschman Index
+  The square percentage market share of each firm, summed over the largest 50 firms in the industry. The largest this measure, the less competition there exists in the industry. In a monopoly, this number will approach 10 000, which is $100^2$.
+  
+  !!!
+  
+  But of course, there are limitations of these concentration measures:
+  1. **The geographical scope of the market**. If the product is in some way tied to the location, or it can't be transported, then different companies can experience less competition if they're separated geographically.
+  2. **Barriers to entry and firm turnover**. If it's hard to enter a market, there will be less competition. However, barriers to entry have really come down in the past two decades because of worldwide shipping and the internet.
+  3. **The correspondance between a market and an industry**. Markets and industry don't always line up perfectly. For example, people can travel by city transit, bikes, cars, trains, and planes. What about trucks, mini-vans, and SUVs. Should they be included in the car market? so of course it's not a perfect system.
+  
+  ### Decision Time Frames
+  
+  There's the short run and the long run.
+  
+  !!! note Short Run
+  The short run is a time frame where at least one factor of production is fixed. For example, what plant you're currently renting, and what capital you have. Usually, the only thing you can change in the short run is the quantity of labour.
+  !!!
+  
+  !!! note Long Run
+  The long run is a time frame in which **all factors of production can vary**; we can pivot if we want to. These decisions are difficult to reverse. Things like switching what you produce, or laying off most of your workers. The long run involves **sunk costs**, which is the past expenditures of a firm in which whatever was bought can't really be flipped. They're unrecoverable costs. So really, they should not be relevant to a firm's decision making process. When they are, it's called the **sunken-cost fallacy**.
+  !!!
+  
+  ### Product Schedules in the short run
+  **Total product** is the total output produced in a given period.
+  The **marginal product** of labour is the change in total product resulting from a one-unit increase in the quantity of labour employed.
+  The **average product of labour** is total product divided by quantity of labour employed. These can be represented as curves of course.
+  ![585c39c3.png](:storage/6ba5c4d2-16e8-4958-b284-7daef0c04704/585c39c3.png)
+  
+  Of course, this can be graphed because we love graphs.
+  ![cc0ab632.png](:storage/6ba5c4d2-16e8-4958-b284-7daef0c04704/cc0ab632.png)
+  
+  ![1f4e6cf8.png](:storage/6ba5c4d2-16e8-4958-b284-7daef0c04704/1f4e6cf8.png)
+  
+  
+  ![aacf26ed.png](:storage/6ba5c4d2-16e8-4958-b284-7daef0c04704/aacf26ed.png)
+  
+  Marginal product is like the derivative of the TP curve.
+  
+  In the beginning, there's increasing marginal returns. Many hands make light work.
+  After a while, there's diminishing marginal returns - too many middle managers and those that don't do work.
+  
+  ![5866aace.png](:storage/6ba5c4d2-16e8-4958-b284-7daef0c04704/5866aace.png)
+  
+  ### Short-Run Cost
+  There are three cost concepts, which correspond to three curves:
+  1. Total cost
+  2. marginal cost
+  3. average cost
+  
+  $TC$ is the total cost of _all_ resources used.
+  $TFC$ is the cost of the firm's fixed inputs. They don't change with output. Stuff like rent.
+  $TVC$ the cost of the firm's variable inputs. These do change with output.
+  
+  $TC = TFC + TVC$.
+  
+  ![29a06e73.png](:storage/6ba5c4d2-16e8-4958-b284-7daef0c04704/29a06e73.png)
+  
+  The TVC gets its shape from the TP curve. It's like the inverse. This is because labour is part of the costs, and usually the only thing we can change in the short-run. And remember, there's diminishing returns on labour. So our costs rise faster than our output. Up to a constant, these graphs are the same, their axes are just flipped.
+  
+  $MC$, **marginal cost**. is the increase in total cost that results from a **one-unit increase in total product**. it's the derivative of the $TC$. The marginal cost curve is a U shape. 
+  
+  Here come a lot more acronyms lol.
+  
+  Average fixed cost is the total fixed cost per unit of output.
+  $$AFC = \\frac{TFC}{Q}$$
+  Average variable cost is the total variable cost per unit of output:
+  $$AVC = \\frac{TVC}{Q}$$
+  And then average total cost is the sum of the two:
+  $$ATC = AFC+AVC = \\frac{TC}{Q}$$
+  
+  ![74776709.png](:storage/6ba5c4d2-16e8-4958-b284-7daef0c04704/74776709.png)
+  
+  Honly fonk. That's a complicated graph.
+  
+  Anyway, the $AVC$ and $ATC$ are U-shaped.
+  
+  ![592da385.png](:storage/6ba5c4d2-16e8-4958-b284-7daef0c04704/592da385.png)
+  
+  There are a few things that can change the cost curves. 
+  A technology that makes us more efficient in output, cost curves shift downward.
+  However, if tech requires more capital, then the average total cost curve shifts upward at lower levels of output, and downward at higher levels of output.
+  
+  Of course, if we have to pay workers more, or materials get more expensive, our costs rise.
+  
+  Likewise, a fall in price of our factors of production decreases our costs.
+  
+  ### Long-Run Cost
+  
+  A firm's transition between short and long revolves around the commitments made by the firm.
+  
+  Remember, in the long run, everything is variable.
+  
+  !!! note Production Function
+  A firm's production function is the relationship between the maximum output attainable and the quantities of both capital and labour.
+  ![d5502ec4.png](:storage/6ba5c4d2-16e8-4958-b284-7daef0c04704/d5502ec4.png)
+  
+  !!!
+  
+  **Marginal Product of Capital** is the increase in output resulting from a one-unit increase in the amount of capital employed, holding constant the amount of labour employed. Remember, capital is the assets that can enhance one's power to perform economic work. This is machinery, usually. It's not land. Capital can be increased by human labour.
+  
+  The long run average cost curve is made up of the **lowest ATC for each output level**.
+  
+  The **long-run average cost curve** (LRAC) is the relationship between the lowest atainable average total cost and output when both the plant and labour are varied.
+  
+  Consider 1 knitting machine vs 2 knitting machines vs 3 vs 4. The ATCs are here:
+  
+  ![b854176a.png](:storage/6ba5c4d2-16e8-4958-b284-7daef0c04704/b854176a.png)
+  
+  ![aebd7bfa.png](:storage/6ba5c4d2-16e8-4958-b284-7daef0c04704/aebd7bfa.png)
+  
+  
+  !!! note Minimum efficient Scale
+  The smallest quantity of output at which the long-run average cost reaches its lowest level.
+  !!!
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false
+isPinned: false

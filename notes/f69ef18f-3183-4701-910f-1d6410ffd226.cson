@@ -1,0 +1,87 @@
+createdAt: "2020-05-19T20:32:37.171Z"
+updatedAt: "2020-08-09T13:24:33.738Z"
+type: "MARKDOWN_NOTE"
+folder: "aa4933591feb7023b3b6"
+title: "Module 01: Economic Coordination"
+tags: []
+content: '''
+  # Module 01: Economic Coordination
+  ## Economic Coordination
+  
+  There are two major forms of economic coordination: **central economic planning** and **decentralized economic planning**. In the west, we're more decentralized. However in China, they are more centralized.
+  
+  In this course, we'll focus on decentralized economic planning.
+  
+  ### The Circular Flow in the Market Economy
+  
+  ![7eee9893.png](:storage/f69ef18f-3183-4701-910f-1d6410ffd226/7eee9893.png)
+  
+  
+  A **firm** is an economic unit that hires factors of production and organizes those factors of production to produce and sell goods or services.
+  
+  !!! note Factors of Production
+  
+  1. Land
+  2. Labour
+  3. Capital
+  4. Entrepreneurship
+  !!!
+  
+  A **household** can be defined as an economic unit of one or more persons that provides the economy with resources. A household also aims to satisfy some of their human wants by purchasing goods and services with money.
+  
+  **Prices** within markets coordinate the firms’ and households’ decisions.
+  
+  This is a very high level view of the economy, with no government or other nations. However, it's a good start.
+  
+  ## Production Possibility Frontier (PPF)
+  
+  Let's say we have a market, where all other things are constant except guns and butter. (WTF)
+  
+  
+  ![](screenshot-from-2020-05-14-10-16-14.png)
+  
+  The boundary here is set by the scarcity of resources. Production is only efficient on the frontier. Points inside the boundary are inefficient.
+  
+  ![5719b7d2.png](:storage/f69ef18f-3183-4701-910f-1d6410ffd226/5719b7d2.png)
+  
+  Opportunity cost changes as you walk along the frontier. A linear PPF indicates a constant opportunity cost.
+  
+  $\\text{Opportunity Cost}= \\frac{What we give up}{What we get}$, but never use this definition mathematically.
+  
+  Opportunity cost is the slope of the PPF. It's always negative, but economists always document it as positive.
+  
+  !!! note Marginal Cost
+  The opportunity cost of producing one more good or service.
+  !!!
+  
+  !!! note Marginal Benefit
+  The benefit received from consuming one more unit of a good or service.
+  "Law of deminishing returns" dictates that this has a negative slope.
+  ![9a9f72dd.png](:storage/f69ef18f-3183-4701-910f-1d6410ffd226/9a9f72dd.png)
+  
+  !!!
+  
+  
+  **Allocative Efficiency** occurs on the point on the PPF where the marginal benefit curve equals the marginal cost curve.
+  
+  ![ec0ee026.png](:storage/f69ef18f-3183-4701-910f-1d6410ffd226/ec0ee026.png)
+  
+  Now, how do we advance the frontier?
+  * Technological advancement
+  * Capital accumulation
+  
+  Growth comes at the cost of current consumption.
+  
+  ## Specialization and Trade
+  A person has a **comparative advantage** in an activity if that person can perform the activity at a **lower opportunity cost** than anyone else. A person cannot have a comparative advantage in all activities.
+  
+  A person has an **absolute advantage** if that person is more productive than others.
+  !!! caution Example
+  Let's take Apple computers and Brother. Apple computers could probably start producing printers, and they would be better at it than Brother. They're just a more productive firm; they have and absolute advantage. But should they just pivot and become a printer company? NO! Because then they would be giving up their computer and phone business, which is much more profitable. So while they have the absolute advantage, their opportunity cost when producing printers is way higher; they're giving up making phones and computers. Brother isn't good at doing anything but making printers. Even though in total they're less productive, they have the comparative advantage over Apple because they're **giving up less**.
+  !!!
+  
+  You should specialize if you have a **comparative advantage**.
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

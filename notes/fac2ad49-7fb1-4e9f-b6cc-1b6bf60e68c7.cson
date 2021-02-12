@@ -1,0 +1,124 @@
+createdAt: "2020-06-11T13:47:05.576Z"
+updatedAt: "2021-02-05T15:42:36.748Z"
+type: "MARKDOWN_NOTE"
+folder: "aa4933591feb7023b3b6"
+title: "Module 05: Possibilities, preferences, and choices."
+tags: []
+content: '''
+  ## Module 05: Possibilities, preferences, and choices.
+  
+  ### Consumption Possibilities:
+  
+  Recall the budget line. Mathematically, the budget line corresponds to the equation:
+  $$
+  Expenditure = Income
+  $$
+  Let's consider the Movie and Pop example from before, with Lisa. The equation is as follows:
+  $$
+  P_PQ_P + P_MQ_M = M
+  $$
+  Where $M$ is Lisa's income. $P$ is for price, $Q$ is for quantity.
+  
+  We can rearrange the equation to be in intercept-slope form:
+  $$
+  Q_P = \\frac{M}{P_P} - \\frac{P_M}{P_P}Q_M
+  $$
+  $\\frac{M}{P_P}$ is lisa's **real income** in terms of pop.
+  $\\frac{P_M}{P_P}$ is the relative price of Movies to Pop, which is the slope.
+  
+  ![6ed14963.png](:storage/fac2ad49-7fb1-4e9f-b6cc-1b6bf60e68c7/6ed14963.png)
+  
+  !!! note Real Income
+  The income expressed as a quantity of goods the household can afford to buy.
+  !!!
+  Of course, we can substitute values into the above equation to get an expression of a line, which is the budget line.
+  A change in price affects the slope, and a change of income shifts the budget line. An increase of income results in a rightward parallel shift. A reduction in income results in a leftward parallel shift.
+  
+  ### Perferences and Indifference Curves
+  
+  !!! note Indifference Curve
+  A line that shows combinations of goods among which the consumer is indifferent. Those options are just as good.
+  !!!
+  
+  ![fbc7a535.png](:storage/fac2ad49-7fb1-4e9f-b6cc-1b6bf60e68c7/fbc7a535.png)
+  
+  ![3aa50a3a.png](:storage/fac2ad49-7fb1-4e9f-b6cc-1b6bf60e68c7/3aa50a3a.png)
+  
+  This could be Lisa's indifference curve.
+  We can also have different levels of preference, resulting in a sort of topographical map. All points along the same curve are equal in terms of preference.
+  
+  When we plot a bunch of different indifference curves, we get a 
+  ## Preference Map
+  ![61c444dc.png](:storage/fac2ad49-7fb1-4e9f-b6cc-1b6bf60e68c7/61c444dc.png)
+  
+  ![8093cd59.png](:storage/fac2ad49-7fb1-4e9f-b6cc-1b6bf60e68c7/8093cd59.png)
+  
+  ### Marginal Rate of Substitution
+  !!! note MRS
+  The rate at which a person is willing to give up good $y$ to get an additional unit of good $x$ while at the same time **remaining indifferent**.
+  This is the derivative of the indifference curve.
+  This can be described as the marginal utility of good $x$ divided by the marginal utility of $y$. 
+  $$
+  MRS = \\frac{MU_x}{MU_y}
+  $$
+  !!!
+  The **diminishing marginal rate of subsitution** is the tendency for a person to be willing to give up less of a good $y$ to get one more unit of good $x$, if they already have a lot of good $x$. They want to keep a balance.
+  
+  ![0aa740c4.png](:storage/fac2ad49-7fb1-4e9f-b6cc-1b6bf60e68c7/0aa740c4.png)
+  
+  ### Degree of Substitutability
+  
+  The degree of Substitutability informs the shape of the Indifference curve.
+  If the goods in question are substitutes, the indifference curve will be less bowed. If the goods are complements, there will be a very pronounced turning point. Below are graphs that show the extremes of each case.
+  
+  ![8c5cd5c5.png](:storage/fac2ad49-7fb1-4e9f-b6cc-1b6bf60e68c7/8c5cd5c5.png)
+  
+  ## Predicting Consumer Choices
+  
+  !!! note Best Affordable choice
+  The point that is:
+  * On the budget line
+  * On the highest attainable indifference curve
+  * Has an MRS equal to the relative price of the two goods. - this is equivalent to marginal utility per dollar being equal.
+  !!!
+  
+  ![35bf7770.png](:storage/fac2ad49-7fb1-4e9f-b6cc-1b6bf60e68c7/35bf7770.png)
+  
+  ### Changes and their effect
+  The effect of a change in price on the quantity consumed is called the **price effect**.
+  
+  ![61f69020.png](:storage/fac2ad49-7fb1-4e9f-b6cc-1b6bf60e68c7/61f69020.png)
+  
+  Easy stuff really.
+  
+  An increase in income usually just means you can get to a higher indifference curve.
+  
+  ![45313c1a.png](:storage/fac2ad49-7fb1-4e9f-b6cc-1b6bf60e68c7/45313c1a.png)
+  
+  !!! note Substitution effect
+  The effect of a change in price on the quantity bought when the consumer remains on the same _indifference curve_.
+  !!!
+  ![da6e640c.png](:storage/fac2ad49-7fb1-4e9f-b6cc-1b6bf60e68c7/da6e640c.png)
+  
+  ## Decomposition of Price Change
+  A price change can **be composed of an _income effect_ and a _substitution effect_.**
+  
+  You can think of substitution effect as the result of the relative price change, and you can think of the income effect as the amount of free income gained by the lower price.
+  
+  ![6b3aa2ee.png](:storage/fac2ad49-7fb1-4e9f-b6cc-1b6bf60e68c7/6b3aa2ee.png)
+  
+  ![8b672a46.png](:storage/fac2ad49-7fb1-4e9f-b6cc-1b6bf60e68c7/8b672a46.png)
+  
+  ![0b9dd4be.png](:storage/fac2ad49-7fb1-4e9f-b6cc-1b6bf60e68c7/0b9dd4be.png)
+  
+  Giffen goods break the law of demand! Because a reduction in price means a reduction of quantity of demand of the good. Hello?
+  
+  
+  ### Interesting case: Food stamps
+  
+  Limiting the possibilities, by introducing something that isn't cash...
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false
+isPinned: false

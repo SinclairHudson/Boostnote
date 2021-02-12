@@ -1,0 +1,40 @@
+createdAt: "2020-07-30T18:02:00.803Z"
+updatedAt: "2020-07-30T19:05:04.295Z"
+type: "MARKDOWN_NOTE"
+folder: "87ca028712a29f0836d6"
+title: "Module 11: External Memory"
+tags: []
+content: '''
+  # Module 11: External Memory
+  
+  It's the same hierarchy as CS251.
+  
+  Now, we should revisit the ADTs to minimize page loads.
+  
+  ![6c1ac6e7.png](:storage/9f71e698-3267-449f-b881-e7fb66381af8/6c1ac6e7.png)
+  
+  Trees have poor memory locality: in the access of $m$ nodes, then it must load $m$ spaced out memory locations.
+  
+  ## 2-3 trees
+  
+  The basic idea is to allow more than 1 kvp per node. These trees are always balanced!
+  
+  1 nodes behave exactly like BSTs. 2-nodes have 3 children, 1 branch for less than both, 1 branch for between or equal to the two keys, and 1 branch for greater than both.
+  
+  The leaves are nil, and aren't counted to the height.
+  
+  ![051dd631.png](:storage/9f71e698-3267-449f-b881-e7fb66381af8/051dd631.png)
+  
+  
+  
+  ---
+  
+  AB trees, and B trees
+  
+  A generalization of the 2-3 trees.  (a, b)-Trees.
+  
+  
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

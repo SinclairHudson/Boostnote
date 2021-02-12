@@ -1,0 +1,117 @@
+createdAt: "2020-06-06T21:09:51.586Z"
+updatedAt: "2020-06-07T20:56:58.500Z"
+type: "MARKDOWN_NOTE"
+folder: "87ca028712a29f0836d6"
+title: "Module 3: Sorting and Randomized Algorithms"
+tags: []
+content: '''
+  ## Module 3: Sorting and Randomized Algorithms
+  
+  !!! note selection problem:
+  Given an array $A$ of $n$ numbers, and  $0 \\leq k < n$, find the element that _would_ be at position $k$ of the sorted array.
+  Special case: **Median Finding** (finding the median). The median is $k = floor(\\frac{n}{2})$
+  !!!
+  Selection can be done with heaps, in $\\Theta(n+k \\log n)$. Median-finding with a heap takes $\\Theta(n \\log n)$.
+  
+  #### Can we select in linear time?
+  ![7a246980.png](:storage/b3295de9-8fa4-4597-bd10-a3b35763ec7d/images.jpg)
+  Yes.
+  
+  ### Quick-select (related to quicksort)
+  
+  Two subroutines:
+  * `choose-pivot(A)`: Return an index $p$ in $A$. We use the **pivot value** to rearrange the array.
+  * `partition(A,p)`: Rearrange $A$ and return pivot-index $i$ so that 
+     1. the pivot-value $v$ is in $A[i]$.
+     2. all items before are $\\leq v$, and
+     3. all items after are $\\geq v$.
+  
+  Now, partition is pretty good, and a niave implementation just has us make 3 lists for less than, equal to, and greater than. However, `partition` can actually be done in place.
+  
+  The basic idea is to swap the outer-most wrongly positioned pairs, and continue until our pointers are equal. This is attributed to **Hoare**.
+  
+  ![e909d13e.png](:storage/b3295de9-8fa4-4597-bd10-a3b35763ec7d/e909d13e.png)
+  
+  
+  ## Behold: Quickselect
+  
+  ![6c27be20.png](:storage/b3295de9-8fa4-4597-bd10-a3b35763ec7d/6c27be20.png)
+  
+  The worst case here is $\\Theta(n^2)$.
+  The best case is $\\Theta(n)$, where the first pivot is the chosen one.
+  It really depends on choosing the pivot.
+  
+  ---
+  
+  A **randomized algorithm** is one which relies on some random numbers in addition to the input.
+  The goal of these algorithms is to remove bad instances, just unlucky numbers.
+  
+  The **expected running time** is $E[T(I,R)]$ where $R$ is random numbers.
+  
+  This expected running time is defined as you would expect.
+  
+  ![11651c60.png](:storage/b3295de9-8fa4-4597-bd10-a3b35763ec7d/11651c60.png)
+  
+  We usually design the algorithm such that all instances of size $n$ have the same expected running time. That way, the maximum runtime is also the average runtime... (how?).
+  
+  So now let's just select a **random pivot** for QuickSelect.
+  Now, the expected running time is $\\Theta(n)$.
+  
+  ---
+  
+  ## Quicksort
+  Tony Hoare papa bless.
+  
+  ![59347dc2.png](:storage/b3295de9-8fa4-4597-bd10-a3b35763ec7d/59347dc2.png)
+  
+  It's actually pretty simple, and it can be done in-place.
+  
+  Quick sort has a running time $T(n) = \\Theta(n) + T(i) + T(n-i-1)$. (partition and then two recursive calls on the prefix and suffix of the array). 
+  
+  The worst case is $\\Theta(n^2)$, when the pivot is at the beginning or end for some reason.
+  The best case is when the pivot is right in the middle, which is $\\Theta(n \\log n)$.
+  The average case is also $\\Theta(n \\log n)$.
+  
+  ![1c1ccff0.png](:storage/b3295de9-8fa4-4597-bd10-a3b35763ec7d/1c1ccff0.png)
+  
+  ![b14f6d44.png](:storage/b3295de9-8fa4-4597-bd10-a3b35763ec7d/b14f6d44.png)
+  
+  ![288fd56e.png](:storage/b3295de9-8fa4-4597-bd10-a3b35763ec7d/288fd56e.png)
+  
+  There's no way to get below $\\Theta(n \\log n)$ for sorting.
+  
+  #### The comparison Model:
+  There are only two things that can happen:
+  1. Comparing two elements
+  2. Moving elements around
+  
+  Comparison models can be expressed as a decision tree.
+  
+  ---
+  
+  ## Non-Comparison-Based Sorting
+  basically cheating. assuming things. The general idea is to sort by individual digits.
+  
+  **Bucket Sort**
+  
+  ![377c39f3.png](:storage/b3295de9-8fa4-4597-bd10-a3b35763ec7d/377c39f3.png)
+  
+  Bucket sort is wasteful because of the linked lists.
+  
+  ![58252179.png](:storage/b3295de9-8fa4-4597-bd10-a3b35763ec7d/58252179.png)
+  
+  ![8785af18.png](:storage/b3295de9-8fa4-4597-bd10-a3b35763ec7d/8785af18.png)
+  
+  MSD-Radix sort is the multi-digit generalization. It's very clunky
+  
+  ![a9a66ee0.png](:storage/b3295de9-8fa4-4597-bd10-a3b35763ec7d/a9a66ee0.png)
+  
+  LSD-Radix-Sort depends on the stability of count-sort.
+  
+'''
+linesHighlighted: [
+  6
+  5
+]
+isStarred: false
+isTrashed: false

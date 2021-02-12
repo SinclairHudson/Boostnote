@@ -1,0 +1,43 @@
+createdAt: "2020-07-01T18:28:09.988Z"
+updatedAt: "2020-07-01T19:15:46.827Z"
+type: "MARKDOWN_NOTE"
+folder: "a19e96ef50a1cd554380"
+title: "Unit 10: Optimization Problems"
+tags: []
+content: '''
+  # Unit 10: Optimization Problems
+  
+  EVT in single variable:
+  
+  ![63645cf6.png](:storage/833462c2-cc66-4d27-a92e-9b3a2af5a36e/63645cf6.png)
+  
+  ![75e2c186.png](:storage/833462c2-cc66-4d27-a92e-9b3a2af5a36e/75e2c186.png)
+  
+  This is pretty obvious ^.
+  
+  
+  ![4a27e260.png](:storage/833462c2-cc66-4d27-a92e-9b3a2af5a36e/4a27e260.png)
+  
+  ![351f0e59.png](:storage/833462c2-cc66-4d27-a92e-9b3a2af5a36e/351f0e59.png)
+  
+  The set of all boundary points is called the **boundary**.
+  
+  A set is said to be closed if it contains all of its boundary points.
+  
+  ![5d0b70e7.png](:storage/833462c2-cc66-4d27-a92e-9b3a2af5a36e/5d0b70e7.png)
+  
+  ![8eca4ad6.png](:storage/833462c2-cc66-4d27-a92e-9b3a2af5a36e/8eca4ad6.png)
+  
+  ---
+  
+  ![65f63eee.png](:storage/833462c2-cc66-4d27-a92e-9b3a2af5a36e/65f63eee.png)
+  
+  ![95311c9f.png](:storage/833462c2-cc66-4d27-a92e-9b3a2af5a36e/95311c9f.png)
+  
+  ![f3b10196.png](:storage/833462c2-cc66-4d27-a92e-9b3a2af5a36e/f3b10196.png)
+  
+  ![df2b59a4.png](:storage/833462c2-cc66-4d27-a92e-9b3a2af5a36e/df2b59a4.png)
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

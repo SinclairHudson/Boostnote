@@ -1,0 +1,124 @@
+createdAt: "2020-06-20T14:48:45.330Z"
+updatedAt: "2020-08-14T17:46:01.158Z"
+type: "MARKDOWN_NOTE"
+folder: "b98556b417c909bf839c"
+title: "Week 06: SRAM/DRAM"
+tags: []
+content: '''
+  # Week 06: SRAM/DRAM
+  This isn't testable this term.
+  
+  There's a memory hierarchy:
+  1. Registers
+  2. Caches
+  3. Main memory (RAM)
+  4. Disk storage
+  
+  RAM has chip select bits, because it's made up of multiple chips. There's a highway from RAM to the processor: The data bus.
+  
+  But not all the data can go through the data bus at the same time! So we need a mechanism to be like a traffic conductor.
+  
+  
+  ![d7a91595.png](:storage/b3bef4d5-7d67-4214-bffa-4735e8c0a763/d7a91595.png)
+  
+  ![95a0838b.png](:storage/b3bef4d5-7d67-4214-bffa-4735e8c0a763/95a0838b.png)
+  
+  So it's basically a memory MUX.
+  
+  So here's a bigger example about SRAM:
+  
+  ![614f7f76.png](:storage/b3bef4d5-7d67-4214-bffa-4735e8c0a763/614f7f76.png)
+  
+  
+  ### DRAM
+  
+  Uses capacitors to store data. So we don't need 6 transistors per bit. However, capacitors discharge over time. So we recharge/refresh the caps thousands of times per second. But collisions are actually relatively small with the main clock cycle. So it's really not that bad. 
+  
+  ![8ab01d6e.png](:storage/b3bef4d5-7d67-4214-bffa-4735e8c0a763/8ab01d6e.png)
+  
+  ### Single-Cycle Processor
+  
+  This is a very important unit.
+  PC is a 64 bit address, and remember all our data is 64 bit.
+  Data Path = CPU
+  
+  1. PC Fetches the instruction
+  2. Calculate PC+4 (don't write yet)
+  3. Read from 2 registers (can ignore 1)
+  4. Compute Something
+  5. Write something into registers or use the result to index memory.
+  
+  How do we specify where we need to save and what we need to compute and what we need to read?
+  Well, there's an instruction breakdown just like MIPS. But the actual groupings are completely different.
+  
+  The **ALU Control Unit** interprets the opcodes and tells the ALU needs to do.
+  The opcodes are actually variable in length... wtf?
+  The **Control Unit** takes the opcode and outputs control bits, to modify the Data Path's behaviour.
+  
+  --- 
+  # Single Cycle Data Path:
+  
+  ![3c6ceece.png](:storage/b3bef4d5-7d67-4214-bffa-4735e8c0a763/3c6ceece.png)
+  
+  ![c27d6699.png](:storage/b3bef4d5-7d67-4214-bffa-4735e8c0a763/c27d6699.png)
+  
+  Here it is. We'll do a bit of explanation and then go through each of the instruction types individually. 
+  
+  ### Control
+  Control reads the opcode of the instruction and then has a bunch of outputs. These outputs control the operation of the single cycle.
+  
+  ### Registers
+  The registers are at the center. We always read 2 registers, even if we're only going to use one. 5 bits go right from the instruction into the write register portion, specifying what register to write to.
+  
+  ### Sign-Extend
+  Extends immediate values in the instruction to 64 bit numbers, so that they can be added by the main ALU.
+  
+  ### Data Memory
+  Controls what's read and written to data memory. You can see that it has the ability to read and write data, based on the control bits.
+  
+  ### ALU Control
+  Takes parts of the instruction and instructs the main ALU what to do.
+  
+  ---
+  
+  
+  Remember, ARM has 5 command types:
+  * R-Format
+  * I-Format
+  * D-Format
+  * B-Format
+  * CB-Format
+  
+  ![173fff57.png](:storage/b3bef4d5-7d67-4214-bffa-4735e8c0a763/173fff57.png)
+  
+  #### R-format
+  
+  All R-formats specify the instruction bits in the exact same way. The only difference then is what the main ALU does. This is dictated by the **ALU control unit**, which reads in the opcode. Opcodes have 4 **function bits**, which are passed to the ALU controller to specify which operation needs to be performed that cycle.
+  
+  There is one exception: `SSL Rd, Rn, #imm`. This instruction takes the value of X2, shifts the bits to the left by `#imm`, then saves the result in `X1`. Rm is simply set to 0 and not used in this case. The immediate value in this instruction is specified using the shamt section of the instruction. Otherwise, this section is ignored. it's 6 bits, which works because registers store 64 bits.
+  
+  #### I-format
+  
+  These instructions all specify a 12-bit *unsigned* immediate value. This value is added or subtracted from Rn. To achieve this, the 12 bit value must be sign-extended to 64 bits (0 padded because unsigned). It's always 0 padded, and these are the only values that are not traditionally sign-extended, as if they were 2's comp.
+  
+  #### D-format
+  
+  In a d-format, the opcode will either have a value of 1986 or 1984, for LDUR or STUR respectively.
+  Importantly, the DT address section is a 9-bit two's complement number, so it can be negative.
+  The op section isn't used in this course.
+  Remember, Rn + address is always a **multiple of 8**.
+  
+  #### B-Format
+  
+  #### CB-Format
+  
+  ---
+  
+  ![c3d6fe74.png](:storage/b3bef4d5-7d67-4214-bffa-4735e8c0a763/c3d6fe74.png)
+  
+  
+  
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

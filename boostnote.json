@@ -1,0 +1,50 @@
+{
+  "folders": [
+    {
+      "key": "90d26269830d31ab3ae8",
+      "color": "#1278BD",
+      "name": "Default"
+    },
+    {
+      "key": "aa4933591feb7023b3b6",
+      "color": "#2BA5F7",
+      "name": "ECON101/201"
+    },
+    {
+      "key": "b98556b417c909bf839c",
+      "color": "#B013A4",
+      "name": "CS251"
+    },
+    {
+      "key": "87ca028712a29f0836d6",
+      "color": "#2BA5F7",
+      "name": "CS240"
+    },
+    {
+      "key": "a19e96ef50a1cd554380",
+      "color": "#3FD941",
+      "name": "MATH237"
+    },
+    {
+      "key": "6846318772ea4992c116",
+      "color": "#2BA5F7",
+      "name": "WATORACE"
+    },
+    {
+      "key": "d16742818e07923e909e",
+      "color": "#2BA5F7",
+      "name": "ML"
+    },
+    {
+      "key": "2cfc1587c1af706688e2",
+      "color": "#2BA5F7",
+      "name": "CS350"
+    },
+    {
+      "key": "4762abcaae1e062538d9",
+      "color": "#E10051",
+      "name": "FINE112"
+    }
+  ],
+  "version": "1.0"
+}

@@ -1,0 +1,78 @@
+createdAt: "2020-05-26T16:58:18.320Z"
+updatedAt: "2020-08-14T17:46:18.909Z"
+type: "MARKDOWN_NOTE"
+folder: "b98556b417c909bf839c"
+title: "Week 03"
+tags: []
+content: '''
+  ### Week 03
+  
+  !!! note Decoder
+  A component that has converts binary to unary. So $110$ to $6$. There are $n$ inputs, $n$ binary digits, and $2^n$ outputs, each corresponding to a value.
+  ![f6c155bb.png](:storage/39d78a8c-5f84-487a-b71b-1416caecd495/f6c155bb.png)
+  The implementation of these decoders really just comes down to a bunch of and gates lol. It looks like spaghetti, very grid-like spaghetti.
+  !!!
+  
+  Decoders can be used for Memory Expansion; specifying which blocks of memory to use.
+  
+  !!! note Multiplexor
+  A component with $2^n$ inputs, $n$ _select lines_, and just one output.
+  The select lines choose which input the output should be. We want to choose which input to forward and show as the output. So it could be called a **selector**.
+  ![4f4d484b.png](:storage/39d78a8c-5f84-487a-b71b-1416caecd495/4f4d484b.png)
+  The implementation is what you would expect; a lot of ANDs and one OR at the end.
+  !!!
+  
+  The "Slash" notation is used to indicate lines carrying multiple bits, implying parallel constructions. The following are equivalent:
+  
+  ![b7350bfb.png](:storage/39d78a8c-5f84-487a-b71b-1416caecd495/b7350bfb.png)
+  MUXs are very common in circuit design.
+  
+  #### video 2
+  !!! note Read Only Memory
+  ROM.
+  A table of $2^n$ m-bit words.
+  Can think of ROM as implementing , one-bit functions of n variables.
+  !!!
+  
+  ### Clocks and Sequential Circuits
+  There are two types of sequential circuits:
+  - Synchronous: has a clock. Memory changes only at discrete points in time.
+  - Asyncronous: no clock. It's potentially faster and less power-hungry, but it's harder to design and analyse.
+  
+  Ok, but what's a clock?
+  
+  A clock is a controlled input signal into the system.
+  ![c4131564.png](:storage/39d78a8c-5f84-487a-b71b-1416caecd495/c4131564.png)
+  
+  The clock is literally just an inverter where the input drives the output. So it becomes and oscillator.
+  
+  
+  ### SR Latch
+  The simplest block of Memory.
+  We need a block to store a binary 0 or 1.
+  - Set: set Q to 1
+  - Reset: set Q to 0
+  
+  ![13b23705.png](:storage/39d78a8c-5f84-487a-b71b-1416caecd495/13b23705.png)
+  
+  Importantly, if $R = 1, S = 1$, Then $Q$ oscillates, and is illogical.
+  
+  Remember, this SR latch is asynchronous, meaning it doesn't depend on a clock.
+  
+  ### D Latch
+  Like SR, but now with a clock pulse.
+  ![1cba1067.png](:storage/39d78a8c-5f84-487a-b71b-1416caecd495/1cba1067.png)
+  
+  ![1f028128.png](:storage/39d78a8c-5f84-487a-b71b-1416caecd495/1f028128.png)
+  
+  However, this latch is also not perfect. Any change in D during the HIGH clock phase will be reflected in Q, at least momentarily. A good way to think about the D latch is that any time the clock is high, Q = D. When the clock switches to low, the value of Q is preserved. It's stateful.
+  
+  ## D flip-flop
+  ![f2634bf2.png](:storage/39d78a8c-5f84-487a-b71b-1416caecd495/f2634bf2.png)
+  
+  The D Flip-Flop doesn't get affected by bumps in the $D$ signal.
+  Also, The update to $Q_E$ occurs on the **falling edge** of the clock pulse.
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

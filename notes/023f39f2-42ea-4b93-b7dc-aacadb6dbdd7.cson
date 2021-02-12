@@ -1,0 +1,96 @@
+createdAt: "2020-05-25T00:40:42.464Z"
+updatedAt: "2020-06-01T21:59:26.189Z"
+type: "MARKDOWN_NOTE"
+folder: "87ca028712a29f0836d6"
+title: "Module 2: Data Structures and Data Management"
+tags: []
+content: '''
+  # Module 2: Data Structures and Data Management
+  
+  !!! hint Abstract Data Type (ADT)
+  A description of information and a collection of operations on that information. Information is accessed only through the operations (no tampering).
+  !!!
+  Examples include stacks, queues.
+  
+  #### heap2
+  ### Priority Queue
+  
+  ![1c4cb469.png](:storage/023f39f2-42ea-4b93-b7dc-aacadb6dbdd7/1c4cb469.png)
+  ### Implemented as an unsorted array:
+  Inserting is $O(1) \\iff \\text{array is not full}$, while deleteMax is $O(n)$. We assume dynamic arrays, so it's always assumed to be $O(1)$. It's **amortized** $O(1)$.
+  ### Implemented as a sorted array:
+  insert: $O(n)$
+  deleteMax: $O(1)$
+  
+  We can use Priority Queues for a sort.
+  ![abaa44cb.png](:storage/023f39f2-42ea-4b93-b7dc-aacadb6dbdd7/abaa44cb.png)
+  
+  If we implement with an unsorted array, we get selection sort, which is worst-case $O(n^2)$.
+  
+  If we implement with a sorted array, we get insertion sort, which has a runtime of Worst-case $O(n^2)$.
+  
+  ### Implemented as a Heap:
+  ![b118a8cc.png](:storage/023f39f2-42ea-4b93-b7dc-aacadb6dbdd7/b118a8cc.png)
+  
+  Remember, the height of a non-empty tree is the length of the longest path from $root \\to node$. The height of an empty tree is $-1$.
+  
+  ![654329fc.png](:storage/023f39f2-42ea-4b93-b7dc-aacadb6dbdd7/654329fc.png)
+  
+  This is a **Max oriented binary heap**. We could sort by min, and also relax the binary property.
+  
+  !!! note Lemma:
+  The height of a heap (or any binary tree) with n nodes is $\\Theta(\\log{n})$.
+  !!!
+  
+  !!! danger Storing Heaps
+  Heaps should NOT be stored as binary trees! It's unintuitive, but the values should be in an array, and they should be indexed level by level.
+  ![37e96808.png](:storage/023f39f2-42ea-4b93-b7dc-aacadb6dbdd7/37e96808.png)
+  !!!
+  ![3d85ac84.png](:storage/023f39f2-42ea-4b93-b7dc-aacadb6dbdd7/3d85ac84.png)
+  
+  ### heap4
+  ### Operations in heaps:
+  
+  Insert:
+  
+  ![22369a1c.png](:storage/023f39f2-42ea-4b93-b7dc-aacadb6dbdd7/22369a1c.png)
+  
+  Insert is $O(\\log n)$.
+  
+  ![c59d8b26.png](:storage/023f39f2-42ea-4b93-b7dc-aacadb6dbdd7/c59d8b26.png)
+  
+  Now, if we make a priority queue using heaps, we get that insert and deleteMax is $O(\\log n)$.
+  
+  ![d36ef900.png](:storage/023f39f2-42ea-4b93-b7dc-aacadb6dbdd7/d36ef900.png)
+  
+  #### heap5
+  
+  When implementing priority queues using binary heaps, $PQSort$ now takes $O(n \\log n)$ time, which is better than the $n^2$ implementations with the arrays. But we can do a little bit better:
+  
+  ### Heapify:
+  
+  ![7267519d.png](:storage/023f39f2-42ea-4b93-b7dc-aacadb6dbdd7/7267519d.png)
+  
+  This alg uses more fix-downs instead of fix-ups. Heapify can be done in-place, which means constant extra memory!
+  
+  #### heap6
+  
+  Proof that heapify is actually $\\Theta(n)$
+  
+  ![8772a4c5.png](:storage/023f39f2-42ea-4b93-b7dc-aacadb6dbdd7/8772a4c5.png)
+  
+  Heapsort iteration example.
+  
+  #### heap7
+  
+  ![7fe247f0.png](:storage/023f39f2-42ea-4b93-b7dc-aacadb6dbdd7/7fe247f0.png)
+  
+  Looking at selection problem solutions:
+  
+  ![04ebd4db.png](:storage/023f39f2-42ea-4b93-b7dc-aacadb6dbdd7/04ebd4db.png)
+  
+  
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

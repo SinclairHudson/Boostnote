@@ -1,0 +1,105 @@
+createdAt: "2020-06-18T14:27:42.086Z"
+updatedAt: "2020-08-09T18:15:10.455Z"
+type: "MARKDOWN_NOTE"
+folder: "aa4933591feb7023b3b6"
+title: "Module 07: Perfect Competition"
+tags: []
+content: '''
+  ## Module 07: Perfect Competition
+  
+  !!! note Perfect Competition
+  Perfect competition occurs when:
+  *  Many firms sell identical products to many buyers
+  * There are no restrictions to entry into the industry
+  * Established firms have no advantages over new ones
+  * Sellers and buyers are well-informed about prices.
+  !!!
+  
+  Usually, these occur when a firm's minimum efficeint scale is small relative to market demand, so there is room for many firms in the market.
+  
+  In perfect competition, firms are **price takers**. If the goods produced are truly perfect substitutes, demand is perfectly elastic and so the firm has no choice but to set the price to the market price. They're at the mercy of the market price; if they go above, then they'll get no sales.
+  
+  $MR$ is marginal revenue; the revenue made by a one unit increase in the quantity sold. This is a straight line, at the market price. When you sell one more unit, you get the price in revenue
+  $TR$ is the total revenue. The slope of this curve is the price, or $MR$. A firm can sell any quantity it produces (that's our assumption).
+  $$AVC = \\frac{TVC}{Q}$$
+  Which is the average variable cost.
+  
+  $$AFC = \\frac{TFC}{Q}$$
+  Which is the average fixed cost.
+  So the only questions that a firm can answer are:
+  1. How do we minimize our costs?
+  2. What quantity should we produce?
+  3. Should we exit the market, or enter it?
+  
+  Obviously, you can plot profit as revenue minus costs and figure out how much a firm wants to produce ideally. What would maximize their profit. 
+  
+  ![6174db60.png](:storage/df171c4f-f80e-4f9b-a05e-e22f75790a21/6174db60.png)
+  
+  Alternatively, because the marginal revenue is constant (the price is constant), you could look at **marginal revenue and marginal cost over the quantity produced**. You want to produce up until the marginal cost is greater than the marginal revenue. Past this, a firm will only lose money as they produce more. Remember, a firm wants to produce as much as possible, until it stops making money from doing so.
+  
+  ![6982ad4a.png](:storage/df171c4f-f80e-4f9b-a05e-e22f75790a21/6982ad4a.png)
+  
+  ### The shutdown point
+  
+  ![e7386663.png](:storage/df171c4f-f80e-4f9b-a05e-e22f75790a21/e7386663.png)
+  
+  ### The firm's supply curve
+  A firm's Short-Run Market Supply Curve show the quantity supplied by all firms in the market at each price, all other things remaining constant.
+  
+  ![45bfb071.png](:storage/df171c4f-f80e-4f9b-a05e-e22f75790a21/45bfb071.png)
+  
+  Notice that when the price drops below the shutdown point, the firm doesn't care to produce sweaters, hence the flat supply curve.
+  
+  Short-run market supply and market demand __determine the market price and output__.
+  A change in demand causes a change in price and a change in quantity produced.
+  
+  ![7bbbcf29.png](:storage/df171c4f-f80e-4f9b-a05e-e22f75790a21/7bbbcf29.png)
+  
+  ### Profits and losses in the short-run
+  
+  ![e01369b0.png](:storage/df171c4f-f80e-4f9b-a05e-e22f75790a21/e01369b0.png)
+  
+  ![84af454d.png](:storage/df171c4f-f80e-4f9b-a05e-e22f75790a21/84af454d.png)
+  
+  ![565a97d9.png](:storage/df171c4f-f80e-4f9b-a05e-e22f75790a21/565a97d9.png)
+  
+  An economic loss in the short run doesn't mean that the firm should automatically shut down. A firm should only shut down if it believes that the price is lower than the average **variable** cost. If it's below the ATC but above the AVC, the firm will still operate if it feels like the situation is temporary.
+  ### Entry and exit
+  
+  Interestingly, the equilibrium for firms in competitive markets is to make **zero economic profit**. If firms are making economic profit, then more firms want to join in. So they do, and then the total market supply goes up. This means that the equilibrium price shifts down, and now all firms are making less profit. But this continues until the whole market isn't profitable for anyone, assuming all the costs are the same for every firm.
+  
+  Now, if some firms are losing money, they might decide to leave the market, because they're just taking heavy losses. So they leave, the supply curve shifts left, and the market price moves up. Now, all firms are making more revenue. This continues until firms are making 0 profit, at which point no firms really need to leave. Again, this assumes that the costs of production are equal for all firms, which is almost never the case. Really then, it's a competition of "who can produce the most at the lowest cost". 
+  Efficiency is king.
+  
+  ## Changes in demand and supply, and technology
+  
+  Increase in demand shifts demand curve rightward, so price rises. Each firm produces more, of course, and firms make money
+  
+  ![eaa5c7a5.png](:storage/df171c4f-f80e-4f9b-a05e-e22f75790a21/eaa5c7a5.png)
+  
+  But then, of course, more suppliers enter the market, it gets less profitable because there's more supply, and then everything comes back to the same price. This can be seen in the below figure.
+  
+  ![ef09b864.png](:storage/df171c4f-f80e-4f9b-a05e-e22f75790a21/ef09b864.png)
+  
+  The opposite happens when demand goes down. In the long-run, it doesn't affect the price. It just affects how many firms are in the market lol. However, in the short run, it does affect profits.
+  
+  ### Tecc
+  
+  Firms that have a technological advantage have a lower productions cost, and so initially they make a profit. However, when more firms adopt the technology, market supply just increases and the price falls back to long-run equilibrium.
+  
+  The aim of the game is **efficiency**.
+  
+  ### The good news
+  
+  In competitive markets, consumers end up paying the lowest possible price. Each firm is also very efficient. They maximize value, which is a good thing.
+  
+  ![a9771cab.png](:storage/df171c4f-f80e-4f9b-a05e-e22f75790a21/a9771cab.png)
+  
+  ![7a7a4e4e.png](:storage/df171c4f-f80e-4f9b-a05e-e22f75790a21/7a7a4e4e.png)
+  
+  
+  
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

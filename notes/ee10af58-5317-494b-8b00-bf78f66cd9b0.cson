@@ -1,0 +1,87 @@
+createdAt: "2020-06-25T22:35:07.884Z"
+updatedAt: "2020-08-10T14:11:14.940Z"
+type: "MARKDOWN_NOTE"
+folder: "a19e96ef50a1cd554380"
+title: "Unit 09: Critical Points"
+tags: []
+content: '''
+  # Unit 09: Critical Points
+  
+  In single variable calc, we call $c \\in R$ a critical value of $f$ if $f'(c)=0$ or $f'(c)$ is undefined. These values are often used to find local extrema.
+  
+  A local maximum in multi-variable is exactly what you would think of:
+  In the neighbourhood around a local max, no other point yeilds a higher value of $f$. Likewise for min. Pretty obvious, but how do we find/prove these points?
+  
+  !!! note Theorem
+  If $(a,b)$ is a local max or min of $f$. then each partial derivative is either equal to zero or does not exist.
+  !!!
+  
+  This leads to the definition of a critical point:
+  
+  !!! abstract Definition
+  A point $(a, b)$ in the domain of $f(x,y)$ is called a **critical point** of $f$ if:
+  ![82308da5.png](:storage/ee10af58-5317-494b-8b00-bf78f66cd9b0/82308da5.png)
+  !!!
+  
+  All local maxima/minima are critical points, but not all critical points are local maxima/minima.
+  
+  ![68dfad0e.png](:storage/ee10af58-5317-494b-8b00-bf78f66cd9b0/68dfad0e.png)
+  
+  
+  !!! note Definition: Quadratic Form
+  A function $Q$ of the form
+  $$Q(u,v) = a_{11}u^2+2a_{12}uv+a_{22}v^2$$
+  
+  where the $a$s are constants, is called a quadratic form on $\\mathbb{R}^2$.
+  ![4074fc75.png](:storage/ee10af58-5317-494b-8b00-bf78f66cd9b0/4074fc75.png)
+  
+  ![7ca2ce75.png](:storage/ee10af58-5317-494b-8b00-bf78f66cd9b0/7ca2ce75.png)
+  
+  ![a9586b89.png](:storage/ee10af58-5317-494b-8b00-bf78f66cd9b0/a9586b89.png)
+  
+  Remember, in a matrix 
+  $$
+  A = 
+  \\begin{bmatrix}
+  a & b \\\\
+  c & d
+  \\end{bmatrix}
+  ,
+  det(A) = ad - bc
+  $$
+  !!!
+  
+  Before continuing, note that if we're close to a critical point $(a,b)$, $f_x(a,b) = 0 = f_y(a,b)$. This means that we can rearrange the second degree taylor polynomial as: 
+  $$ f(x,y) - f(a,b) \\approx \\frac{1}{2}(f_{xx}(a,b)(x-a)^2 + 2f_{xy}(a,b)(x-a)(y-b) + f_{yy}(a,b)(y-b)^2)$$
+  
+  The expression on the RHS is a quadratic form, with $u=x-a, yv=y-b$. The associated matrix is the Hessian matrix of $f$ at $(a,b)$:
+  $$Hf(a,b) = \\begin{bmatrix} f_{xx}(a,b) & f_{xy}(a,b) \\\\f_{xy}(a,b) & f_{yy}(a,b) \\end{bmatrix}
+  $$
+  
+  ![6ea3b25c.png](:storage/ee10af58-5317-494b-8b00-bf78f66cd9b0/6ea3b25c.png)
+  
+  !!! caution Degenerate Critical points
+  Lmao degenerates. Ok I'm done.
+  Note that the second partial derivatives test is inconclusive if the hessian matrix is semidefinite. In this case, we say that the critical point $(a,b)$ is degenerate. In order to classify the critical point, we need to find the sign of $f(x,y)-f(a,b)$ in the neighbourhood around $(a,b)$. Basically, if the neighbourhood contains positive and negative values, we have a saddle point. Else, if it only contains positive values, we've got a local min. Else, we've got a local max.
+  !!!
+  
+  ---
+  
+  ### Quick review of single variable:
+  
+  ![2879e70a.png](:storage/ee10af58-5317-494b-8b00-bf78f66cd9b0/2879e70a.png)
+  
+  ![ecdc4547.png](:storage/ee10af58-5317-494b-8b00-bf78f66cd9b0/ecdc4547.png)
+  
+  
+  ### Now onto two variables:
+  
+  ![9327e5d3.png](:storage/ee10af58-5317-494b-8b00-bf78f66cd9b0/9327e5d3.png)
+  
+  ![6e976980.png](:storage/ee10af58-5317-494b-8b00-bf78f66cd9b0/6e976980.png)
+  
+  ![6da7c831.png](:storage/ee10af58-5317-494b-8b00-bf78f66cd9b0/6da7c831.png)
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

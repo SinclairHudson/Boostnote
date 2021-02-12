@@ -1,0 +1,143 @@
+createdAt: "2020-07-09T19:39:13.115Z"
+updatedAt: "2020-08-09T19:25:42.605Z"
+type: "MARKDOWN_NOTE"
+folder: "aa4933591feb7023b3b6"
+title: "Module 09: Social Welfare"
+tags: []
+content: '''
+  # Module 09: Social Welfare
+  
+  !!! abstract Price Ceiling (or price gap)
+  a regulation that makes it illeal to charge a price higher than a specified level. When applied, to rent, it's called a **rent ceiling**.
+  !!!
+  
+  A price ceiling has no effect if it's set above the equilibrium point, because the price naturally doesn't go that high.
+  
+  However, if the rent ceiling is below the eqilibrium point, we get:
+  * A housing shortage
+  * Increased search activity (more people wasting time looking for housing)
+  * A black market (spooky)
+  
+  ![7d21bb95.png](:storage/7a6999c6-e3a8-4683-bcb7-21ba16820ae7/7d21bb95.png)
+  
+  These are all pretty explainable. Obviously, if there's a rent ceiling, demand outweights supply and there's a shortage. More people are looking for a place as a result, so search activity increases. Formally, search activity is defined as "time spent looking for someone with whom to do business."
+  
+  A **black market** is a market that operates in the illegal region of the market. People are still willing to pay more for a house, but they must do so illegally. The suppliers are selling for illegally high prices, but as long as people are buying and both are okay with skirting the law... The black market exists.
+  
+  !!! question Are rent ceilings fair?
+  In terms of **fair rules**, rent ceilings are **unfair** because they block voluntary exchange (legal voluntary exchange in the illegal region). Also, according to the **fair-results** view, rent ceilings are **unfair** because they generally don't benefit the poor.
+  !!!
+  
+  A rent ceiling decreases the quantity of housing, so housing becomes scarce. There's more homelessness, and there are weird ways for allocating housing:
+  1. Lottery: you have the option to buy a house if you're lucky :/
+  2. First-come-first-serve: those can buy a house first get the house, or those with more foresight or a more stable income.
+  3. Discrimination: Giving housing to those like you. This could be your friends, family, people at your church, etc. If housing is scarce and you're a supplier, you want to help your own.
+  
+  A rent ceiling lower than the equilibrium leads to inefficient **underproduction** of housing services.
+  
+  ![38dcea42.png](:storage/7a6999c6-e3a8-4683-bcb7-21ba16820ae7/38dcea42.png)
+  
+  ![9eb40135.png](:storage/7a6999c6-e3a8-4683-bcb7-21ba16820ae7/9eb40135.png)
+  
+  ---
+  
+  !!! abstract Price floor
+  A price floor is a regulation that makes it illegal to trade at a price lower than a specified level. When applied to labour markets, this is called **minimum wage**.
+  !!!
+  
+  What are the effects of a minimum wage that is above the equilibrium point?
+  **Persistent unemployment**. This is because there's more supply of labour than there is demand for labour, at the minimum wage. This is obviously inefficient. It should be noted however, that if you look at the diagram below, the worker's surplus is greater if they capitalize on the brown and peach regions - that is, if they don't waste resources finding a job. Minimum wage introduces a loss, however in this example the workers do benefit, or think they're benefitting.
+  
+  
+  ![0c2e3888.png](:storage/7a6999c6-e3a8-4683-bcb7-21ba16820ae7/0c2e3888.png)
+  
+  ![1f64bd55.png](:storage/7a6999c6-e3a8-4683-bcb7-21ba16820ae7/1f64bd55.png)
+  
+  ---
+  
+  !!! abstract Production quota
+  an **upper limit** to the quantity of a good that may be produced during a specified period. This often raises the price because the resource becomes more scarce.
+  !!!
+  
+  ![a662a30b.png](:storage/7a6999c6-e3a8-4683-bcb7-21ba16820ae7/a662a30b.png)
+  
+  !!! abstract Subsidy
+  A payment made by the government to a producer.
+  !!!
+  
+  ![46aed342.png](:storage/7a6999c6-e3a8-4683-bcb7-21ba16820ae7/46aed342.png)
+  
+  ---
+  
+  ### Taxes
+  
+  
+  !!! abstract Tax incidence
+  The division of the burden of a tax between the buyers and the sellers. It's the tax split.
+  !!!
+  
+  Consider a price change due to tax, at checkout:
+  1. If the price rises by the amount of the tax, then **the buyers pay the tax**.
+  2. If the price rises by a lesser amount than the tax amount, then **the buyers and sellers share the burden of the tax**.
+  3. If the price doesn't rise at all, then the seller is paying the tax.
+  
+  So tax incidence doesn't actually depend on the tax law, and it's the same result if we tax sellers or buyers:
+  
+  ![6716d6b3.png](:storage/7a6999c6-e3a8-4683-bcb7-21ba16820ae7/6716d6b3.png)
+  
+  ![2df6c3ad.png](:storage/7a6999c6-e3a8-4683-bcb7-21ba16820ae7/2df6c3ad.png)
+  Note: There's an error in the above graph: the green "Price kept by producers" should point at 5.
+  
+  So ok, here's the cool part: **The actual division of tax between buyers and sellers depends on the elasticities of demand and supply**. Consider the extreme cases:
+  
+  !!! note Perfectly Inelastic Demand
+  This is when demand curve is vertical, and the price doesn't affect how much people consume. In this case, the buyer pays the entire tax no matter what because they buy the same quantity no matter what.
+  
+  ![ad4dd560.png](:storage/7a6999c6-e3a8-4683-bcb7-21ba16820ae7/ad4dd560.png)
+  
+  !!!
+  
+  !!! note Perfectly Elastic Demand
+  This is when the demand curve is vertical; this fixes the price, and the quantity is determined by the supply curve. Basically, the consumers won't buy any of the good if it's not at the market price, so suppliers must absorb the burden of the tax.
+  
+  ![fe017ab5.png](:storage/7a6999c6-e3a8-4683-bcb7-21ba16820ae7/fe017ab5.png)
+  
+  !!!
+  
+  !!! note Perfectly Inelastic Supply
+  
+  This is when the supply curve is vertical. In this case, the sellers pay the entire tax, because the price shifts down without the supply changing.
+  
+  ![d76520a4.png](:storage/7a6999c6-e3a8-4683-bcb7-21ba16820ae7/d76520a4.png)
+  !!!
+  
+  !!! note Perfectly Elastic Supply
+  This is when the supply curve is horizontal. When a tax is imposed on this good, buyers pay the entire tax.
+  
+  ![f9c7fc34.png](:storage/7a6999c6-e3a8-4683-bcb7-21ba16820ae7/f9c7fc34.png)
+  
+  !!!
+  
+  ### The bottom line:
+  
+  **Taxes are levied on goods with inelastic demand or inelastic supply**
+  Alcohol, tobacco, and gas have inelastic demand, so buyers pay most of the tax.
+  
+  Labour has low elasticity of supply, so the worker pays most of the income tax and most of the social security tax.
+  
+  ### Taxes and inefficiency
+  Introducing a tax introduced inefficiency, in all but extreme cases.
+  
+  ![45a94d04.png](:storage/7a6999c6-e3a8-4683-bcb7-21ba16820ae7/45a94d04.png)
+  
+  ### Taxes and Fairness
+  
+  There are generally two main ideas on who should pay tax:
+  
+  There's the **benefits principle**, which says that those who use the benefits paid for by taxes should really be the ones paying for them.
+  
+  Then there's the **ability-to-pay principle**, which says that people who can pay should pay more than those that cannot. Those that can shoulder the burden should. This is the tax brackets thing, and usually what we use in Canada. Importantly, this is bracketed, so making more money is never really a disadvantage. If it were, we would have horrible inefficiency.
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

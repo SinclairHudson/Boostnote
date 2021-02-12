@@ -1,0 +1,88 @@
+createdAt: "2020-06-27T13:50:34.468Z"
+updatedAt: "2020-08-14T17:45:48.366Z"
+type: "MARKDOWN_NOTE"
+folder: "b98556b417c909bf839c"
+title: "Week 07: Single Cycle Conditional Branch"
+tags: []
+content: '''
+  # Week 07: Single Cycle Conditional Branch
+  ## Conditional Branches
+  ![73c83160.png](:storage/6904c891-a4a2-437d-84d0-a85666f595eb/73c83160.png)
+  
+  These are relative 2's complement addresses.
+  
+  Remember, $PC = PC + 4(Address)$. With the conditional branch.
+  Note: Rt = Rd. For some reason we just have Rt in this example. 
+  
+  To accomplish the $\\times 4$? We **bit-shift left 2** positions! We don't actually lose any info when bit shifting, because remember this 64 bit number was sign extended from 19 bits.
+  So PC gets ALU'd with a bit shift left to get the new PC. 
+  We use the "Pass b" operation in the main ALU to pass the Rt without modifying it. So the result is B, or Rt. And at the end of the ALU, we have the **Zero bit**. So we and it with the "Branch" control bit. If they're both true, then we branch, because it's CBZ.
+  
+  Note that we'll actually read from a random register for register 1. But we're passing B, so it doesn't matter.
+  
+  
+  ![b0ff60db.png](:storage/6904c891-a4a2-437d-84d0-a85666f595eb/b0ff60db.png)
+  
+  You have to set the memory bits to 0 to avoid a seg fault, even though we don't use memory. It still executes.
+  
+  ---
+  
+  ## Control units in the data path
+  Control Unit takes the opcode, and sets all the control bits. It also controls the ALUOp line, so it inadvertently controls the ALU Control.
+  !!! note ALU Control info
+  ALUOp bits: 
+  01 means "pass b"
+  00 is add,
+  11 is subtract,
+  10 mean's it's an R-format, so follow the function bits.
+  
+  Note that these are the **control bits**, not the actual input to the ALU.
+  
+  ![1a5f0d0d.png](:storage/6904c891-a4a2-437d-84d0-a85666f595eb/1a5f0d0d.png)
+  !!!
+  !!! danger Not testable
+  Internal Control unit looks like this:
+  ![03f2f147.png](:storage/6904c891-a4a2-437d-84d0-a85666f595eb/03f2f147.png)
+  !!!
+  
+  
+  ---
+  
+  ## Timing
+  Instruction memory reads take 200 picoseconds
+  Register File takes 100 picoseconds per read or write.
+  Main ALU take 200 picoseconds
+  Data memory takes 200 picoseconds.
+  
+  With the above info:
+  Rformat takes: $200+100+200+100 = 600ps$
+  LDUR takes $200+100+200+200+100 = 800ps$ (slowest)
+  CBZ takes $200+100+200 = 500ps$
+  STUR takes $200 + 100 + 200 + 200 = 700ps$
+  
+  Notice how we didn't give a timing for the ALUs at the top of the diagram. These ALUs happen in parallel to our other calculations, and they're **never actually the bottleneck**. So, we don't need to consider them.
+  
+  Now, let's assume the Control Unit takes $10ps$. In this case, for R format, we need to wait that 10ps before we read from registers. So we add the 10ps.
+  
+  Our clock cycle time has to be set to 800ps to accommodate the slowest operation, LDUR. Floating point instructions actually take longer, so this will change later.
+  
+  ---
+  
+  ### MOdifying the single cycle data path
+  For CBNZ and B instructions.
+  
+  ## B Instruction
+  
+  ![c4d3761f.png](:storage/6904c891-a4a2-437d-84d0-a85666f595eb/c4d3761f.png)
+  
+  For B, we can add a new control bit, B. B is 1 when we have the branch instruction. We can OR  the B signal with the AND of the Branch Control bit and the Zero ALU. This means that if B=1.
+  
+  This unconditional branch takes $200+200 = 400ps$
+  
+  ---
+  
+  There's a section here on modifications, but it's so easy. Just intuitive.
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

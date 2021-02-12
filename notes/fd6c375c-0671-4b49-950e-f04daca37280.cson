@@ -1,0 +1,75 @@
+createdAt: "2021-02-01T18:14:31.217Z"
+updatedAt: "2021-02-01T19:09:17.904Z"
+type: "MARKDOWN_NOTE"
+folder: "aa4933591feb7023b3b6"
+title: "Module 03.5: Government intervention"
+tags: []
+content: '''
+  # Module 03.5: Government intervention
+  
+  We'll be covering government taxation, quotas, etc.
+  
+  !!! note Quota
+  
+  The limit that a government sets on the quantity of a foreign-produced good that may be imported. So we can't be flooded with foreign goods.
+  
+  !!!
+  
+  !!! abstract Licensing Laws
+  
+  A limit of the number of firms that may sell goods in a market. LLBO, for example.
+  Or taxi cabs.
+  
+  !!!
+  
+  !!! note Price Ceilings
+  
+  The price can't be above this amount.
+  This would have no affect if the equilibrium price is lower than the value.
+  !!!
+  
+  !!! note Price Floors
+  
+  The price can't be **below** this amount.
+  This would have no affect if the equilibrium price is higher than the value.
+  
+  Minimum wage is a Price Floor on Labour.
+  
+  But of course, if mimium wage is above equilibrium, there's persistent unemployment, because there's a lack of demand.
+  
+  ![9a756919.png](:storage/fd6c375c-0671-4b49-950e-f04daca37280/9a756919.png)
+  !!!
+  
+  
+  ## Sales Tax
+  
+  !!!abstract _Ad Valorem_ Tax
+  For every dollar spent, the government keeps a fraction, $\\alpha$. This is like HST in Ontario.
+  !!!
+  
+  !!! abstract Unit Tax
+  A fixed tax on every unit sold. This tax is easier to analyze, and it has the same affect as _Ad Valorem_.
+  !!!
+  
+  #### It doesn't matter if the consumers or producers pay the tax; the equilibrium price shifts all the same, and the end result is the same.
+  
+  !!! abstract Incidence of Tax on Consumers
+  the share of the tax that falls on consumers.
+  
+  ![8496bf5e.png](:storage/fd6c375c-0671-4b49-950e-f04daca37280/8496bf5e.png)
+  
+  Here, $p$ is price, $\\tau$ is tax, $n$ is the elasticity of supply (pre-tax),
+  and $\\epsilon$ is the elasticity of demand (pre-tax).
+  
+  Remember, $\\epsilon < 0$, so the Incidence is always between 0 and 1.
+  
+  If demand is perfectly elastic, then this incidence is effectively 0; the suppliers pay all the tax. However, if demand is perfectly inelastic ($\\epsilon = 0$), then consumers end up paying all the tax.
+  
+  !!!
+  
+  ![ab42bd87.png](:storage/fd6c375c-0671-4b49-950e-f04daca37280/ab42bd87.png)
+  
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

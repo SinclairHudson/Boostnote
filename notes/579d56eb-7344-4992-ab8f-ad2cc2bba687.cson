@@ -1,0 +1,150 @@
+createdAt: "2020-06-30T22:35:33.551Z"
+updatedAt: "2020-08-14T17:45:55.093Z"
+type: "MARKDOWN_NOTE"
+folder: "b98556b417c909bf839c"
+title: "Week 08: Multicycle Datapath"
+tags: []
+content: '''
+  # Week 08: Multicycle Datapath
+  
+  The key is to break the single cycle into 5 different parts, and have 5 clock cycles.
+  5 shorter clock cyles, still 1 instruction.
+  The instructions remain the same.
+  
+  Here's the multicycle:
+  
+  ![defc600a.png](:storage/579d56eb-7344-4992-ab8f-ad2cc2bba687/defc600a.png)
+  
+  These intermediate registers (blue), let us carry information across clock cycles.
+  
+  The names are:
+  1. IF: instruction fetch
+   * compute and $PC=PC+4$ (could be modified later)
+   * Read the instruction
+  2. ID: instruction decode
+   * compute control bits
+   * Reading from register file
+  3. EX: execute
+   * Compute using the ALU
+   * branch offset if you're a branch
+  4. MEM: Memory
+   * Idle
+   * Dealing with memory (stur and ldur)
+   * Updating PC if required.
+   5. WB: Write back
+   * Write to register
+   
+   The clock cycle should be the maximum of any individual step cost. So 200ps. Memory read or write is the bottleneck.
+   
+   We also have an MCC Controller, which is an FSM, to make sure everything happens in order. First IF, then ID, etc. The MCC Controller also has control bits, like write bits for the intermediate register banks. It tells them when to write.
+   
+   At this point, a single instruction has **exclusive use of the data path**.
+   
+   ![23b6280d.png](:storage/579d56eb-7344-4992-ab8f-ad2cc2bba687/23b6280d.png)
+   
+   ---
+   ## Pipelining
+   An actual unit.
+  Now, we do parallel instruction computation. Big efficiency gains.
+  However, it's not perfect. There's a chance we get collisions, called **hazards**. For example, we can't use X5 before we've modified it, if it's used in two consecutive instructions.
+  
+  The same intermediate registers are in play, this time called "Pipeline registers".
+  
+  One new instruction starts every clock cycle. The ideal is that we finish one instruction every clock cycle.
+  
+  Most of the time, PC = PC+4. But branch occurs later. So we'll see that right after branches we fetch instructions that we might not want to. We have to discard these instructions.
+  
+  We actually don't have a Controller anymore, because the pipeline registers are written to every single cycle. The data relevant to the instruction is carried with the instruction through the pipeline.
+  
+  There are sometimes conflicts in the register file. We can allow read and then writing in the same clock cycle. But we should **write and then read**, to avoid reading outdated info. We also need to modify the D-Flip-Flops to write on the rising edge of the clock cycle, while reads occur on the falling edge. This means that both can happen in one clock cycle.
+  
+  Control bits also get carried forward in the Pipeline Registers. They're computed in the ID stage, and they pass through to enable correct execution.
+  
+  This specific pipelined datapath is called **Branch in the Mem Stage**:
+  
+  ![04716598.png](:storage/579d56eb-7344-4992-ab8f-ad2cc2bba687/04716598.png)
+  
+  ---
+  
+  Critically, CBZ updates the PC a little late, 3 other instructions have already been started. In this case, we just have to scrap those three instructions and start again, with the correct PC this time. This is just as good as waiting, and for most of the instructions parallel computation means faster throughput.
+  
+  In this video, rosina also goes through an example of an ADD instruction. Nothing unintuitive.
+  
+  ## Pipeline Hazards:
+  3 kinds:
+  Structural Hazard: with single instruction.data memory, instruction fetch cannot overalp with load/store
+  This isn't a problem for us, because our IM and DM are different.
+  
+  ### Data Hazard Example: Result of one instruction is needed by needed by next instruction.
+  For example:
+  ```
+  ADD X1, X2, X3
+  SUB X4, X1, X5
+  ```
+  ![934b416f.png](:storage/579d56eb-7344-4992-ab8f-ad2cc2bba687/934b416f.png)
+  
+  We can't go back in time! However, if we allow reading in the rising edge of the clock cycle, then we can write and read in a single clock cycle. This can be seen above, with the AND instruction.
+  
+  To fix this, we delay the execution of dependent instructions by using **NOPs**. No operations. They do nothing, but add space between dependent instructions.
+  So our code becomes:
+  ```
+  ADD X1, X2, X3
+  NOP
+  NOP
+  SUB X4, X1, X5
+  ```
+  The cost is one CC per NOP. The NOPs are added by the compiler, and they get their own line number.
+  
+  Is this the only solution?
+  
+  ![883b6f14.png](:storage/579d56eb-7344-4992-ab8f-ad2cc2bba687/883b6f14.png)
+  
+  Remember that the value put into X1 by the first add instruction is actually computed before it is written to the register... 2 clock cycles before, right after the ALU, the EX stage of the ADD intruction...
+  
+  So the second solution is to forward the result right to the ALUs in the dependent instructions, before the value is stored in mem.
+  This is called **Data Forwarding**:
+  
+  ![810f7e07.png](:storage/579d56eb-7344-4992-ab8f-ad2cc2bba687/810f7e07.png)
+  
+  The above diagram is not complete, just simplified.
+  
+  ![d3d5c39e.png](:storage/579d56eb-7344-4992-ab8f-ad2cc2bba687/d3d5c39e.png)
+  
+  There's a detection phase, made by the forwarding unit. It looks at the Rn or Rm and the Rd, to see if there are any hazards.
+  The purple path shows how the new value of X5 can be plugged in to the ADD instruction.
+  
+  Never grab mid-cycle; always grab from stable memory.
+  
+  ![7c9a042c.png](:storage/579d56eb-7344-4992-ab8f-ad2cc2bba687/7c9a042c.png)
+  
+  A cleaner diagram ^.
+  
+  So really, there are two steps:
+  1. Check to see if there are hazards, using the values of Rm, Rd, Rn of multiple commands.
+  2. Choose the correct values for ForwardA and ForwardB using the MUXes.
+  
+  Default choice for ForwardA and ForwardB is 0, use the mux to just pass what we normally would.
+  There are some conditions to check for data hazards.
+  
+  ![5e5f9f22.png](:storage/579d56eb-7344-4992-ab8f-ad2cc2bba687/5e5f9f22.png)
+  
+  ![f6eb8bef.png](:storage/579d56eb-7344-4992-ab8f-ad2cc2bba687/f6eb8bef.png)
+  
+  !!! danger LDUR
+  LDUR is an exception. There's no stable value in the Rd of LDUR until the result is in the WB stage. So we actually have to place a NOP between LDUR and a dependent instruction. This is a compiler issue.
+  
+  This is called a **load-use hazard**.
+  ![783b9219.png](:storage/579d56eb-7344-4992-ab8f-ad2cc2bba687/783b9219.png)
+  
+  If we have forwarding, we just need 1 NOP in between. Else, every data hazard needs 2 NOPS. Forwarding is clearly an improvement.
+  !!!
+  
+  ## Control Hazard Example: Conditional branch instruction may change sequence if instructions executed.
+  
+  
+  
+  
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

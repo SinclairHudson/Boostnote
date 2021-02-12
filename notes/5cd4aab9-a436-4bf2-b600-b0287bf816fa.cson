@@ -1,0 +1,19 @@
+createdAt: "2020-11-02T16:37:54.083Z"
+updatedAt: "2020-11-02T16:41:18.807Z"
+type: "MARKDOWN_NOTE"
+folder: "d16742818e07923e909e"
+title: "GANs"
+tags: []
+content: '''
+  # GANs
+  [paper](https://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf)
+  
+  
+  !!! danger Mode Collapse
+  Mode collapse refers to the issue where the generator disregards inputs, and outputs the same output over and over again, optimizing a single image to fool the discriminator. This is a more stable state, and the generator can see great success if it finds a single kind of image that fools the discriminator every time.
+  CycleGAN fixes this issue with cycle-consistency loss; the network has to map the output back to the input, so the learned mapping must be one-to-one.
+  !!!
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

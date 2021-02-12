@@ -1,0 +1,27 @@
+createdAt: "2021-01-12T14:41:32.840Z"
+updatedAt: "2021-01-12T15:15:03.818Z"
+type: "MARKDOWN_NOTE"
+folder: "2cfc1587c1af706688e2"
+title: "Lecture 1: Introduction"
+tags: []
+content: '''
+  # Lecture 1: Introduction
+  
+  What happens when you open a program?
+  What happens when you save to a file?
+  What happens when you malloc?
+  What happens when you type on the keyboard?
+  What happens when you print a file?
+  What happens when you use `printf`?
+  
+  ## What is an operating system?
+  
+  Well, it 
+  * manages resources
+  * creates execution environments
+  * loads programs
+  * provides common services and utilities
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

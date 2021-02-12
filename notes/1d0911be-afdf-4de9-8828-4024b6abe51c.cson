@@ -1,0 +1,18 @@
+createdAt: "2020-10-22T22:15:59.298Z"
+updatedAt: "2020-10-22T22:18:34.936Z"
+type: "MARKDOWN_NOTE"
+folder: "d16742818e07923e909e"
+title: "Normalization"
+tags: []
+content: '''
+  # Normalization
+  
+  This document does over different kinds of normalizations.
+  
+  The core idea is to normalize the distributions of the activations of the networks, to make it easier for downstream layers to learn important features.
+  You can imagine that if the activation distribution differs wildly batch to batch, the network has trouble building consistent dependencies. This issue is called **covariate shift**.
+  The original Google batch normalization paper showed that models with batch norm converge in 7% of the time.
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

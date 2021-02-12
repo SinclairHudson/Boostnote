@@ -1,0 +1,50 @@
+createdAt: "2020-07-30T14:38:25.744Z"
+updatedAt: "2020-08-06T12:42:10.964Z"
+type: "MARKDOWN_NOTE"
+folder: "a19e96ef50a1cd554380"
+title: "Unit 15: Triple Integrals"
+tags: []
+content: '''
+  # Unit 15: Triple Integrals
+  Oh baby a triple
+  
+  They're really similar to double integrals.
+  
+  ![60dddd6a.png](:storage/49e8ca98-b968-4404-9b8e-baa974fc8ca9/60dddd6a.png)
+  
+  ![df287482.png](:storage/49e8ca98-b968-4404-9b8e-baa974fc8ca9/df287482.png)
+  
+  
+  So it's a spicy Rienmann sum.
+  
+  ![c2ea2876.png](:storage/49e8ca98-b968-4404-9b8e-baa974fc8ca9/c2ea2876.png)
+  
+  And of course, we have the same laws for linearity and such.
+  
+  ![1d9eaf5a.png](:storage/49e8ca98-b968-4404-9b8e-baa974fc8ca9/1d9eaf5a.png)
+  
+  ![cc960e86.png](:storage/49e8ca98-b968-4404-9b8e-baa974fc8ca9/cc960e86.png)
+  
+  ![26bbff2f.png](:storage/49e8ca98-b968-4404-9b8e-baa974fc8ca9/26bbff2f.png)
+  
+  ![756d8e30.png](:storage/49e8ca98-b968-4404-9b8e-baa974fc8ca9/756d8e30.png)
+  
+  for solving these integrals, we can try to approach it one dimension at a time.
+  
+  ![0792b160.png](:storage/49e8ca98-b968-4404-9b8e-baa974fc8ca9/0792b160.png)
+  
+  We can also transform the space, but that's really tricky:
+  
+  ![5ba96da9.png](:storage/49e8ca98-b968-4404-9b8e-baa974fc8ca9/5ba96da9.png)
+  
+  Here are some very handy transformations:
+  
+  ![2d35703a.png](:storage/49e8ca98-b968-4404-9b8e-baa974fc8ca9/2d35703a.png)
+  
+  ![71f75f63.png](:storage/49e8ca98-b968-4404-9b8e-baa974fc8ca9/71f75f63.png)
+  
+  ![48084cde.png](:storage/49e8ca98-b968-4404-9b8e-baa974fc8ca9/48084cde.png)
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

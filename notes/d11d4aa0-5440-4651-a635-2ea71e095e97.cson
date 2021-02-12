@@ -1,0 +1,21 @@
+createdAt: "2020-11-17T13:49:36.185Z"
+updatedAt: "2020-11-24T15:56:38.391Z"
+type: "MARKDOWN_NOTE"
+folder: "d16742818e07923e909e"
+title: "Steps for a PR"
+tags: []
+content: '''
+  # Steps for a PR
+  
+  1. Write tests for whatever you've coded up
+  2. Remove all debugging code (`Rg print`)
+  2. Even better `git diff | grep "+.*print"`
+  3. Remove unused imports
+  4. Watch for test files, test models, etc.
+  5. look for TODOs you've created
+  6. Comment confusing parts of the code
+  7. `git add -p` for incremental add
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

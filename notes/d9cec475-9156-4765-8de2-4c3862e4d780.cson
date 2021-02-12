@@ -1,0 +1,141 @@
+createdAt: "2020-07-13T00:00:50.116Z"
+updatedAt: "2020-08-14T18:01:29.935Z"
+type: "MARKDOWN_NOTE"
+folder: "b98556b417c909bf839c"
+title: "Week 09: More MultiCyle"
+tags: []
+content: '''
+  # Week 09: More MultiCyle
+  
+  Remember, forwarding.
+  
+  ![0376b043.png](:storage/d9cec475-9156-4765-8de2-4c3862e4d780/0376b043.png)
+  
+  !!! danger Load Word Hazard
+  When LDUR is followed immediately by an instruction that uses LDURs destination Register. We use a single NOP to fix this hazard.
+  !!!
+  
+  ---
+  
+  What about, instead of NOPs, we just rearrange the code...? Restructure the code. That's called **Code Rearrangement**.
+  
+  There are obvious guidelines with code rearrangment. Don't swap lines with data dependencies,
+  and don't move inside or outside of loops.
+  
+  When computing execution time, we have to factor in pipeline startup time. This is 4 clock cycles, because we begin producing completed instructions after 4 clock cycles. After that, we produce one completed instruction per clock cycle.
+  
+  
+  When you need to add a NOP, you can actually do that in the hardware, and not the compiler.
+  We can add a **Hazard Detection Unit** to the data path, which takes the RN and Rm from the IF/ID intermediate register. It also gets ID/EX Memread, to check if there's a hazard. Implementation is fairly simple:
+  1. Zero out Control Bits - Converts instruction into NOP
+  2. But also block  IF/ID and PC from updating, so it doesn't skip anything.
+  
+  Effectively, we're letting the following instruction move forward, but a NOP version. And you keep the ID and IF and PC from updating so they're still in position.
+  
+  ![591a18e5.png](:storage/d9cec475-9156-4765-8de2-4c3862e4d780/591a18e5.png)
+  ![d5801669.png](:storage/d9cec475-9156-4765-8de2-4c3862e4d780/d5801669.png)
+  It's a stall, which is a hardware level NOP.
+  
+  ---
+  
+  ### Pipelining Control Hazards
+  
+  Control Hazards involve branching.
+  !!! caution In this section, we're assuming branch in the mem stage.
+  ![4c4b0dad.png](:storage/d9cec475-9156-4765-8de2-4c3862e4d780/4c4b0dad.png)
+  !!!
+  The issue is that we only know if `CBZ` or `CBNZ` is going to be branching at the MEM stage. At that point, we've already loaded the next 3 instructions, which we don't want to execute. These instructions are called "errant" intructions.
+  
+  We have to _flush_ the pipeline. We need to terminate them. Convert them into NOPs.
+  
+  To cancel an operation, you just zero out the control bits. However, the instruction in the IF stage doesn't have control bits yet! In that case, we simply convert it into an R-format, and then put set the destination register to `X31` (the one that's always 0). So modify the instruction bits.
+  
+  Of course, if you don't take the branch, there's no problem.
+  
+  Ok, so we waste 3cc per branch. This is a bit of an issue. How do we fix it?
+  Well, we can actually pull the Branch instructions into the `ID` stage.
+  
+  ![f418f959.png](:storage/d9cec475-9156-4765-8de2-4c3862e4d780/f418f959.png)
+  
+  Now, if we branch, we only have to flush 1 instruction, 1cc wasted. Way better than 3.
+  We also add IF.Flush, which is a control bit that is in charge of flushing after the IF stage. It's logic is unclear, but it sets the instruction to R format and then zeroes the write register.
+  
+  ---
+  
+  ### Code analysis
+  
+  Basically, if you do the cc analysis for loops, they're really inefficient if you have to flush and if you have to load stall. If you end your loop with a `CBNZ`, and you're branching in the MEM stage, then the 3 instructions after the end of the loop will still be fetched and flushed, on all but the last iteration. This adds $3n$cc to your program, where $n$ is the number of iterations.
+  
+  However, if you have branch in the `ID` stage, then you only have to add one cc per iteration. That's just $n$.
+  
+  If you have no flushing, you'll actually have to but NOPs after the loop to avoid errant instructions from actually being executed.
+  
+  But there's a problem: It's with forwarding. The issue is that with branch in the ID stage, we don't have time to fix data hazards above the `CBZ` stage. That gets fixed for the `EX` stage. So `CBZ` won't be using the right register value in the `ID` stage.
+  
+  This is called a 
+  !!! caution Branch Data Hazard
+  
+  ```
+  SUBI X1, X1, #1
+  CBNZ X1, #-4
+  ```
+  What's the solution? A hardware level **stall**.
+  
+  This is called **Branch Data Stalling**.
+  It has a cost of 1cc, in the loop usually.
+  !!!
+  
+  !!! danger Double Counting
+  Be careful not to double-count the instruction after the CBNZ, especially at the end of a loop. It's already fetched when the loop is executed, just not executed (until now). So you count it as part of the loop, and not after.
+  !!!
+  
+  ---
+  
+  ## Branch Prediction
+  
+  Can we avoid flushing?
+  
+  The thing we've been doing so far is **predict branch not taken**. Pretty self-explanatory. We always predict that the next instruction (one we load) is just $PC=PC+4$.
+  
+  Next is **predict branch taken**. Instead of automatically updating $PC=PC+4$, automatically update to the branch target address. You need to store the BTA in the IF stage to do this (and you also need to store the address of the CBZ instruction itself). If we don't take the branch, we'll have to flush.
+  
+  In actual application, Predict Taken is hard.
+  
+  The advantage for Predict Taken is that you're probably branching more than you're not. So you get more corrects than incorrects, so less flushing.
+  
+  There's an extension to this **one bit prediction**, which is easier to implement properly. Essentially, we're storing what we did last time in a table, so that next time the cycle can predict that we'll do that again. The table can hold multiple entries for multiple CBZs in a program.
+  
+  ![df1e6b64.png](:storage/d9cec475-9156-4765-8de2-4c3862e4d780/df1e6b64.png)
+  
+  ---
+  
+  Finally, we have **two-bit prediction**. Similar to one-bit, but now with a confidence factor. The 2 bits denote the state in the FSM.
+  00 is strong not taken
+  01 is not taken
+  10 is taken
+  11 is strong taken
+  
+  ![c7e64c7c.png](:storage/d9cec475-9156-4765-8de2-4c3862e4d780/c7e64c7c.png)
+  
+  This one is obviously more robust to one-off wrong predictions.
+  
+  It's also nice for nested loops, because you exit the interior, and then when you come across it again you don't assume you're exiting first time.
+  
+  
+  ### Performance of Pipelined Design
+  The main metric here is **Clock cycles per instruction**.
+  
+  We assume the gcc distribution of instructions:
+  22% loads
+  11% stores
+  49% R-format
+  16% branches
+  2% jumps
+  
+  We also assume half of all `LDUR` generate a load-use hazard.
+  We assume one quarter of branches are mispredicted.
+  So you can calculate the average CPI, by calculating the average per instruction type and then multiplying by the proportion of the code that is that instruction type.
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

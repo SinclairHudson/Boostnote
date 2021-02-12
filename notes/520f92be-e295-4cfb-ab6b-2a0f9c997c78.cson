@@ -1,0 +1,66 @@
+createdAt: "2020-07-29T16:04:04.554Z"
+updatedAt: "2020-07-29T19:33:30.726Z"
+type: "MARKDOWN_NOTE"
+folder: "b98556b417c909bf839c"
+title: "Week 12: Parallel Computation"
+tags: []
+content: '''
+  ## Week 12: Parallel Computation
+  
+  Motivations are obvious. Redundancy, increased throughput, scalability.
+  
+  But how do we solve issues of data sharing, and number of workers, and coordination?
+  
+  Obviously, there are limitations to the coordination. 2x the cores doesn't mean 2x the speed.
+  
+  We also need to make sure multiple things take parallelism into account:
+  ![3cae9bde.png](:storage/520f92be-e295-4cfb-ab6b-2a0f9c997c78/3cae9bde.png)
+  
+  ### Terminology:
+  
+  There's a measure of **parallelizability**: how much of the program can execute at the same time? It's how effective we can split up the tasks among the cores.
+  
+  ![9d79c5ef.png](:storage/520f92be-e295-4cfb-ab6b-2a0f9c997c78/9d79c5ef.png)
+  
+  ![5672d1b6.png](:storage/520f92be-e295-4cfb-ab6b-2a0f9c997c78/5672d1b6.png)
+  
+  
+  ![3707f3d0.png](:storage/520f92be-e295-4cfb-ab6b-2a0f9c997c78/3707f3d0.png)
+  
+  An example of parallelism is bubble sort. Or merge sort. You can assign the sorting of two different sub-arrays to two different cores. 
+  
+  ---
+  
+  ![daafe66a.png](:storage/520f92be-e295-4cfb-ab6b-2a0f9c997c78/daafe66a.png)
+  
+  ![49dfa423.png](:storage/520f92be-e295-4cfb-ab6b-2a0f9c997c78/49dfa423.png)
+  
+  ![6fe1d178.png](:storage/520f92be-e295-4cfb-ab6b-2a0f9c997c78/6fe1d178.png)
+  
+  Messages can be passed between processors. It's fast but expensive.
+  
+  One issue we run into is **cache coherency**: how do we sync data among the caches of all the processors?
+  
+  ![855308ff.png](:storage/520f92be-e295-4cfb-ab6b-2a0f9c997c78/855308ff.png)
+  
+  One idea to solave cache coherency is a snooping protocol: each processor's cache monitors the bus for updates. This really increases bus traffic, limints scalability, but is fast. This is called **write update**.
+  
+  The better idea is called **Write-invalidate**: When a processor writes to a block, it sends a message to all other cores to invalidate their version of the block. This is less bus traffic because there's only one bit being passed.
+  
+  ---
+  
+  ## Network Topology
+  
+  How do we organize the cores?
+  
+  Rings, Meshes, Cubes?
+  
+  We need to consider communication latency, fault tolarance, and enery cost, and heat dissipation.
+  
+  ![31d80d9b.png](:storage/520f92be-e295-4cfb-ab6b-2a0f9c997c78/31d80d9b.png)
+  
+  wtffffff. Processors are squares.
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

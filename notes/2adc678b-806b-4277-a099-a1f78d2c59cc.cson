@@ -1,0 +1,50 @@
+createdAt: "2020-05-27T13:25:42.114Z"
+updatedAt: "2020-08-10T14:06:40.996Z"
+type: "MARKDOWN_NOTE"
+folder: "a19e96ef50a1cd554380"
+title: "Unit 04: Partial Derivatives"
+tags: []
+content: '''
+  # Unit 04: Partial Derivatives
+  
+  YAY!
+  ![003c5ec8.png](:storage/2adc678b-806b-4277-a099-a1f78d2c59cc/003c5ec8.png)
+  
+  It's literally just differentiating with respect to one variable and not the other. There are also some notation shortcuts, so we don't have to write as much. 
+  !!! danger differentiation rules
+  Sometimes, the standard differentiation rules don't apply, resulting in a function that can't be evaluated at the point we need. In this case, we **must** use the formal definition of partial derivatives, to see if the partial derivative actually exists.
+  !!!
+  
+  !!! danger partial derivatives
+  a function's partial derivative can exist at a point, while being discontinuous at that point! differentiable does not imply continuous in multiple dimensions!
+  !!!
+  
+  ![3c2b8d87.png](:storage/2adc678b-806b-4277-a099-a1f78d2c59cc/3c2b8d87.png)
+  
+  Importantly, unlike in single-variable functions, differentiability does not imply continuity.
+  
+  ![3ad6299a.png](:storage/2adc678b-806b-4277-a099-a1f78d2c59cc/3ad6299a.png)
+  
+  So this means, if you take derivatives with respect to x and y, as long as they are both continuous, the order doesn't matter. This extends to higher order derivatives as well.
+  
+  If the $k$-th partial derivatives of $f$ are continuous, then we write
+  $$
+  f \\in C^k
+  $$
+  and say "$f$ is in class $C^k$".
+  
+  ![634ec23d.png](:storage/2adc678b-806b-4277-a099-a1f78d2c59cc/634ec23d.png)
+  
+  The tangent plane is really just an extension of the linear approximation of the function.
+  
+  In higher orders, the above notation gets tedious.
+  It's better to have everything in a dot product of vectors.
+  So the **gradient** is the vector of all the partial derivatives evaluated at $\\vec{a}$.
+  
+  ![a90aba1a.png](:storage/2adc678b-806b-4277-a099-a1f78d2c59cc/a90aba1a.png)
+  
+  
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

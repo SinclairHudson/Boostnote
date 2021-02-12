@@ -1,0 +1,64 @@
+createdAt: "2020-07-12T01:37:28.635Z"
+updatedAt: "2020-07-13T17:01:36.346Z"
+type: "MARKDOWN_NOTE"
+folder: "a19e96ef50a1cd554380"
+title: "Unit 12: Mapping of $R^2$ into $R^2$"
+tags: []
+content: '''
+  # Unit 12: Mapping of $R^2$ into $R^2$
+  
+  So far we've just dealt with scalar functions. They map from $R^n \\rightarrow R$. Now we'll look at **vector-valued functions**, which maps $R^n \\rightarrow R^m$.
+  
+  !!! abstract Mapping
+  
+  A vector-valued function whoese domain is a subset of $R^n$ and whose codomain is a subset of $R^m$ is called a **mapping**.
+  !!!
+  
+  We can use individual functions to specify the coordinates of a point in the codomain, based on inputs that are the point in the domain. These functions are called **component functions**. For example, if $F(x,y) = (f(x,y),g(x,y))$, then $f, g$ are component functions.
+  
+  If a mapping $F$ acts on a curve $C$ in its domain, $F(C)$ is called the **image of $C$ under $F$**.
+  
+  ![44f3babc.png](:storage/f2bddf06-2c03-4dae-93cc-6d53341d8cdf/44f3babc.png)
+  
+  Similarly, if $F$ acts on any subset $S$ in the domain, $F(S)$ is called the **image of $S$ under $F$**.
+  
+  ---
+  
+  ## Linear Approximation of a Mapping
+  
+  Consider a mapping $F$ where $u = f(x,y)$, $v = g(x,y)$.
+  
+  Assume that $F$, and thus its partial derivatives, have continuous partial derivatives.
+  
+  We can create a linear approximation for how small changes in the domain (from a point $(a,b)$) affect the position in the codomain. We can use partial derivatives, of course:
+  
+  ![0c7ed0d7.png](:storage/f2bddf06-2c03-4dae-93cc-6d53341d8cdf/0c7ed0d7.png)
+  
+  ![e7a99627.png](:storage/f2bddf06-2c03-4dae-93cc-6d53341d8cdf/e7a99627.png)
+  
+  
+  ![f0dafba0.png](:storage/f2bddf06-2c03-4dae-93cc-6d53341d8cdf/f0dafba0.png)
+  
+  Of course, these ideas can be generalized to more dimensions. 
+  
+  we can have a function $\\vec{u}=F(\\vec{x}) = (f_1(\\vec{x}), ..., f_m(\\vec{x}))$.
+  
+  ![b843d406.png](:storage/f2bddf06-2c03-4dae-93cc-6d53341d8cdf/b843d406.png)
+  
+  ![e6e655a0.png](:storage/f2bddf06-2c03-4dae-93cc-6d53341d8cdf/e6e655a0.png)
+  
+  ---
+  
+  ## Composite Mappings and the Chain rule
+  
+  It's time to get funky. 
+  
+  ![79a6fefb.png](:storage/f2bddf06-2c03-4dae-93cc-6d53341d8cdf/79a6fefb.png)
+  
+  ![a7596749.png](:storage/f2bddf06-2c03-4dae-93cc-6d53341d8cdf/a7596749.png)
+  
+  The proof of the above is pretty trivial; multiplying the matrices is like the chain rule in every entry.
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

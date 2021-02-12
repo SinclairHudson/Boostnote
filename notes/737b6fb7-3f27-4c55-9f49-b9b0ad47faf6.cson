@@ -1,0 +1,110 @@
+createdAt: "2020-09-03T14:09:04.867Z"
+updatedAt: "2020-09-03T18:33:18.417Z"
+type: "MARKDOWN_NOTE"
+folder: "6846318772ea4992c116"
+title: "VRXPERIENCE Training Day 1"
+tags: []
+content: '''
+  # VRXPERIENCE Training Day 1
+  
+  ### VM Structure
+  There are 6VMs per team on microsoft Azure
+  
+  The 3 NV12 Machines are used for VRXPERIENCE **and** SCADE.
+  The 3 DsV2 Machine are used for **SCADE only**.
+  
+  All software is pre-installed.
+  
+  There are 3 Microsoft Accounts, each with one of each type of VM.
+  
+  The NV12 machines have 2 GPUS and are better than the DsV2. They're windows (yuck).
+  
+  If two students log into the same VM, they will be using the same remote desktop session. This could be useful for pair programming.
+  !!! danger VM Quota
+  Of course, shut down the VMS when not in use.
+  Each microsoft account allocated to the team has a quota in VM hours, which ticks down whenever the VM is running. Shut it down when not in use to avoid depleting resources.
+  !!!
+  
+  
+  SCADE is simply code generation! You can run linux on the vehicle when it comes time. The code is C or C++ so it's agnostic. The simulators are all in windows, however.
+  
+  We can't use azure to set up other VMs :/
+  
+  ---
+  ## Simulation Race Rules
+  
+  THe driving simulator will be available only in SCADE. The outputs from sensors and inputs for vehicle control are in SCADE. We can still import code into SCADE. It's being done this way for consistency. Also, we need to directly include our code into the SCADE project, and not import it in a machine-specific way. 
+  
+  The race will be run in **synchronous mode**.
+  
+  !!! caution Importantly...
+  When running the competition, all vehicle parameters will be reset to defaults. So really, we shouldn't modify the params!
+  !!!
+  
+  ---
+  
+  ## Simulator Tour
+  
+  !!! abstract Note
+  This simulator is more than just racing. It looks like it was built for regular driving scenarios for regular AVs. As such, there are a lot of features that aren't applicable to us and can be confusing. Things like traffic lanes and specific intersection rules.
+  If we find odd behaviours, we might have to consider default settings that were put in place for cars on normal roads. That's just something to keep in mind.
+  !!!
+  There are 5 main tabs:
+  1. Terrain, for editing the track and parameters
+  2. Vehicle, for modifying the vehicle model
+  3. Scenario, for generating all the dynamic aspects of the scene like other cars and such
+  4. Simulation, for running created scenarios
+  5. Analysis, for logging.
+  
+  !!! note Presets
+  Presets can be created and found in `C:\\ANSYS\\SCANeRstdio_1.8\\data`.
+  All the data for these simulations is found in this folder. So stuff like car models, track models, scenarios, etc. To import, just drag the files in.
+  !!!
+  
+  ### Terrain
+  
+  Terrain is organized in layers, and is pretty high definition. It sort of looks like AutoDesk software. Movement in 3D space looks very similar to autodesk.
+  
+  The official track has **5** lanes defined. The lanes aren't defined on intersections to and from the pits, however. The Egovehicle can **disregard these lanes**. It's more for the other agents, passing other vehicles, and such. It's for controlling automated traffic, for generating scenarios.
+  
+  The INDY track is a very high-fidelity recreation of the physical track.
+  
+  There are speed limits defined per lane!
+  
+  We won't be modifying the terrain because the track is set. However, it's useful for scenario building to be able to create specific environments.
+  
+  ### Vehicle
+  
+  Each vehicle has a TON of params. Modifying tires, chassis, tires, center of gravity, etc. 
+  Again, there's a default vehicle that we'll be using so we won't use this tab much but it would be cool to mess around with it. It can also be useful for generating specific code. Knowing the parameters will come in handy when developing our stack. There are **drag coefficients**. You can even change the gears in the transmission.
+  
+  ### Scenario
+  
+  The real meat. Start by dragging in your egovehicle. The standard is `Motorsport_GP2`. The egovehicle **must be vehicle 0** and it must be a "callas" vehicle. All other vehicles will be "simple" vehicles. A "callas" vehicle is doing more computations; it's calculating drag, torques, fuel consumption, etc. Simple vehicles do not do this. We should **use simple vehicles on everything but the ego vehicle to reduce computational burden**.
+  
+  An important tab, after double clicking on a vehicle, is the _Driver_ tab. Set the process to "AQUISITION" for the ego vehicle, for connecting the AI agent. The rest can be set to "TRAFFIC" and the type to "Traffic driver (autonomous)" for bots. The best way to turn the traffic bots into race car driver is by setting the "Norm" to "Aggressive". That way, they'll actually overtake. You also want to change the "Overtake risk" super low, so that the agent has no fear and always tries to overtake.
+  
+  It's recommended that all the vehicles check the "Stay on lane" param in the "Driver" tab, such that it doesnt interfere with the egovehicle. It doesn't fight it when trying to overtake etc.
+  
+  ---
+  
+  #### Scripts
+  Scripts are a way to control things inside the simulation. It's the way you build complex scenarios. It's completely a GUI, and it looks very annoying. It's a global script, which means if you want to have agents with different actions, you have to specify tasks for each one individually.
+  
+  !!! caution Python support
+  Apparently, according to FAQs, you can do the scripting in Python. This is huge!
+  !!!
+  
+  There are two main types of actions: Target and Obligatory.
+  In target, the agent tries its best to achieve that speed or acceleration or something else. However, it cares about the road laws other vehicles, etc.
+  Obligatory does not care about any road rules. It will try to get up to speed no matter what. It's a more rogue agent.
+  
+  The simulations are deterministic (bruh). The only way to get variation out of the same scripts is to restart the software, which reinitializes the bot's internal neural networks.
+  
+  ---
+  
+  ### Overtaking maneuver
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

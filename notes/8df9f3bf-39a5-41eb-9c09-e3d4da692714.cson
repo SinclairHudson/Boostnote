@@ -1,0 +1,140 @@
+createdAt: "2020-07-14T14:59:08.027Z"
+updatedAt: "2020-08-14T19:17:23.779Z"
+type: "MARKDOWN_NOTE"
+folder: "b98556b417c909bf839c"
+title: "Week 10: Memory Hierarchies"
+tags: []
+content: '''
+  # Week 10: Memory Hierarchies
+  
+  So far we've just seen the cache, which has instruction memory and data memory. These are separate from Registers.
+  
+  Then there's RAM. For a large program, RAM loads code from the disk to the RAM, so that when the caches need it they only have to go to RAM. It fetches page by page, so it can actually execute really large programs.
+  
+  The RAM is partitioned based on programs. Every program thinks its start address is address 0x0. They are independent. A page includes both code an data. The code gets moved to the IM cache, and Data goes to the DM cache. Both are stored in the L1 cache.
+  
+  Previously, we had the illusion of unlimited IM and DM. Now, we need to actually implement that, where everything is actually finite.
+  
+  !!! abstract Principle of Locality
+  Temporal Locality: If one data location is referenced once, then it will tend to be referenced again soon.
+  
+  Spatial Locality: It one data location is referenced, that data locations with nearby addresses will also tend to be referenced soon. This is highly relevant for code.
+  !!!
+  
+  $\\text{Clock Rate} = \\frac{1}{\\text{time of one clock cycle}}$
+  If the cc takes 250 ps, that's 4GHz (pretty fast processor).
+  
+  ## The speed heirarchy:
+  1. Register File
+  2. Caches (L1, L2, IM, DM) SRAM
+  3. Main Memory (RAM) DRAM
+  4. Disk Drive (or SSD)
+  
+  Remember, SRAM uses more transistors (6 transistors), DRAM just uses one transistor and a capacitor, but the cap has to be recharged all the time. It's for the reason that DRAM is slower but cheaper than SRAM.
+  
+  ---
+  
+  Insruction cache miss - the next value of PC isn't really in the cache. We have to fetch. The cost or "penalty" is 100cc or something. How do we place the memory in the cache when we fetch it?
+  
+  So we need some sort of mapping strategy.
+  
+  ### Direct Mapping
+  
+  ![a7caf28a.png](:storage/8df9f3bf-39a5-41eb-9c09-e3d4da692714/a7caf28a.png)
+  
+  Use the lower bits of the memory address, which are called **index bits**, of the address to hash instructions into the index of the cache.
+  We also have to store the higher bits of the memory address with the instruction into the cache, called the **tag bits**, because the mapping is many to one.
+  
+  We have tables for this data. There's no chaining; so if you ask for two memory entries back to back, and they hash to the same cache slot, you're going to have to do a trip to memory on the second one for sure. The first one might already be there, but when you fetch you overwrite that position in the cache. You use the tag bits to make sure it's the correct instruction.
+  
+  The cache is not pre-populated: we let cache misses populate the cache. That's why sequential operations are faster than the first one.
+  
+  ![b7177485.png](:storage/8df9f3bf-39a5-41eb-9c09-e3d4da692714/b7177485.png)
+  
+  This is called a "One way associative cache".
+  
+  Here's a 64 bit example:
+  
+  ![fb681cbc.png](:storage/8df9f3bf-39a5-41eb-9c09-e3d4da692714/fb681cbc.png)
+  
+  We need a byte offset of 2 bits because the lower order bits are always 00, since they're multiples of 4.
+  
+  The number of index bits is determined by the size of the cache. You need enough to specify all the rows in your cache. You should have $n$ index bits and $2^n$ cache rows.
+  
+  ---
+  
+  ### 2-way set associative cache
+  
+  Like chaining in hash tables, but fixed lengths:
+  ![53e85299.png](:storage/8df9f3bf-39a5-41eb-9c09-e3d4da692714/53e85299.png)
+  
+  When we increase the number of columns, we're trying to increase the number of cache hits. The lookup time remains the same but hardware increases.
+  
+  4-way associative exists. If our cache size is only 8, then we only have 2 rows and thus 1 index bit. We will need more tag bits though, to give more detail on who is living in what column. The columns are not indexed by the tag bits, just an FYI.
+  
+  ![d27d446f.png](:storage/8df9f3bf-39a5-41eb-9c09-e3d4da692714/d27d446f.png)
+  
+  ![19a73b0d.png](:storage/8df9f3bf-39a5-41eb-9c09-e3d4da692714/19a73b0d.png)
+  
+  Finally, we have 8-way associative cache.
+  We only have 1 row (assuming we have 8 entries), so we don't even need an index bit. We call this type of cache **fully associative**. However, we need to store the whole address as the tag bits.
+  
+  ![9a65ba3b.png](:storage/8df9f3bf-39a5-41eb-9c09-e3d4da692714/9a65ba3b.png)
+  
+  When we kick anything out of a full cache, we want to kick out the oldest one, because we assume it's the least likely occur again soon. We got through the **history of requests, not misses**.
+  
+  ![0fa37cfc.png](:storage/8df9f3bf-39a5-41eb-9c09-e3d4da692714/0fa37cfc.png)
+  
+  Answer is 18. Be sure to not double-count addresses.
+  
+  ---
+  
+  ### Chunks
+  
+  Instead of fetching a single instruction when we miss, why not bring a chunk? It should hopefully save us a bit of time.
+  
+  We're going to fetch from ram at 1 block = 64 bits per fetch. That equates to 2 instructions. If we had a block size of 128 bits, it would be 4 instructions per block.
+  
+  When we increase the block size, the time required to fetch the block from ram increases. So if RAM access time is 100cc, 104cc is required to bring in a block of 4 words, 108cc to bring a block of 8 words.
+  
+  Remember, the word size in Data cache is 64 bits (8 bytes). We'll call this a double word. Instructions are just 32 bits, a single word.
+  
+  Blocks are, of course, consecutive.
+  
+  We can treat indexes as Tag bits, Index bits, Block bits, and Byte bits. We split it up so that we know which index to look in, and then what block, etc.
+  The byte bits (lowest 3) are all 0, because all the addresses are multiples of 8.
+  
+  With this system, when we have a cache miss, we fetch the 4 8-byte data points, and then store them in the cache. Critically, **we do not split up blocks**. So if the last index in a block is requested, you actually grab that one and the previous 3 and return them to the cache. If you request the index that begins a new block, then you also grab the next 3.
+  This is called **block alignment**.
+  
+  ![830ab08e.png](:storage/8df9f3bf-39a5-41eb-9c09-e3d4da692714/830ab08e.png)
+  
+  The above code, assuming no hazards, takes 4cc + 104cc = 108 cc. 4cc for 4 instructions and 104cc for that RAM fetch.
+  
+  If we increased the block size, we should have more columns in the Cache, and we need more block bits. We'd take one from the index bit and move it to a block bit.
+  Now, if we maintained the number of rows in our cache, we'll still need the same number of index bits. So we steal the lowest tag bit and it becomes an index bit.
+  
+  When you get a collision, you have to overwrite the whole block.
+  
+  ![d3b29014.png](:storage/8df9f3bf-39a5-41eb-9c09-e3d4da692714/d3b29014.png)
+  
+  !!! note STUR
+  We've talked about reading, but what about writing?
+  We can modify the cached value, but the parent doesn't get modified. We need to indicate that we've modified a cache value. We do this via a **dirty bit**, which is one bit per block. If the dirty bit is 1, that means that something in that block has been modified, and it needs to be updated in RAM. Then, when that block gets kicked out of the cache, only then will we update it.
+  !!!
+  
+  #### Write Back
+  
+  When the block gets kicked from the cache, update it if it's been modified. This will cost you 104cc. There's also **write-through**, which updates RAM immediately.
+  
+  So when you get a collision miss in the cache table, and the block is modified, it's going to cost you 104cc to WB and 104cc to fetch the next block.
+  
+  ---
+  
+  We can combine this idea of blocking with 2-Way associativity, and now we're cooking with gas. There's room for more.
+  
+  Average Memory access time is = time for a hit + miss rate $\\times$ miss penalty
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

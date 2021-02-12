@@ -1,0 +1,37 @@
+createdAt: "2020-09-04T14:55:47.038Z"
+updatedAt: "2020-09-19T23:21:42.911Z"
+type: "MARKDOWN_NOTE"
+folder: "6846318772ea4992c116"
+title: "VREXPERIENCE Day 2"
+tags: []
+content: '''
+  # VREXPERIENCE Day 2
+  
+  In simulation, all the processes are shown in the bottom panel:
+  
+  ![1722a612.png](:storage/82d6da2f-a48c-4f97-8603-d060ac1c8c75/1722a612.png)
+  
+  
+  When you hit play on the simulation, only the required processes will run. So if you want more features such as recording and "control panel", you're going to have to turn those on before you run.
+  
+  Press the blue button first, "start simulator" to start all the processes you select, before you start the actual simulation.
+  
+  After making changes to the scenario and such, be sure to restart the simulator. This is different from rerunning the simulation.
+  
+  ---
+  ## Parametric Exploration
+  
+  These are parameter sweeps, it auto-generates a ton of scenarios, and then runs them one at a time.
+  
+  
+  ## Offline Scheduler
+  
+  For running sims that are too heavy for realtime performance. This will be the way, in syncronous mode, for the competition. This is because the competition is very intensive. So we need to make sure our car works in this mode.
+  
+  $$
+  a=\\frac{-510(1-x)^3+194-y}{27.6}
+  $$
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

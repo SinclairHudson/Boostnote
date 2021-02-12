@@ -1,0 +1,38 @@
+createdAt: "2020-10-22T22:18:39.194Z"
+updatedAt: "2020-10-25T18:24:34.421Z"
+type: "MARKDOWN_NOTE"
+folder: "d16742818e07923e909e"
+title: "Activation Functions"
+tags: []
+content: '''
+  # Activation Functions
+  
+  ## ReLU
+  Rectified Linear Unit
+  $$ ReLU(x) = max(0, x) $$
+  Relu is a classic, being applied to computer vision and then NLP as well.
+  What makes ReLU good is that it creates **sparsity**.
+  
+  !!! caution The dead ReLU problem
+  There is a chance that the network is initialized such that parts of the  activation just before the ReLU are always negative. For example, if your input was always positive and your first weight was negative. Then, the result out of the ReLU would always be 0. But if it's always 0, it does not contribute to the loss function, meaning the gradient is 0. So the update is 0. So the weight never updates and the activation just sits there, wasting memory. You can run a test to see which activations are 0 throughout the whole dataset.
+  !!!
+  
+  ## GeLU
+  Gaussian Error Linear Units
+  $$ GeLU(x) = max(0, x) $$
+  
+  ## Swish
+  [Paper](https://arxiv.org/pdf/1710.05941.pdf)
+  
+  Swish was found by Google using an optimization approach. It looks pretty similar to ReLU.
+  $$y = x \\times sigmoid(x)$$
+  ## tanh
+  
+  
+  ## Sigmoid
+  
+  ## Softmax
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

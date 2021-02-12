@@ -1,0 +1,70 @@
+createdAt: "2020-07-20T14:53:08.994Z"
+updatedAt: "2020-07-20T16:45:03.528Z"
+type: "MARKDOWN_NOTE"
+folder: "a19e96ef50a1cd554380"
+title: "Unit 14: Double Integrals"
+tags: []
+content: '''
+  ## Unit 14: Double Integrals
+  
+  "I don't even know how to do a single integral" :(
+  
+  Remember Rienmann sums? Double integrals work the same, but in 2D. Now, we subdivide into little areas instead of little sections.
+  
+  First, the single-variable calculus:
+  
+  ![9221c09f.png](:storage/c666b153-e1ac-4ad2-9f5e-fa23ddaeae13/9221c09f.png)
+  
+  And now, a "Rienmann Sum" in 2d.
+  ![b1353b84.png](:storage/c666b153-e1ac-4ad2-9f5e-fa23ddaeae13/b1353b84.png)
+  
+  ![ce548e0a.png](:storage/c666b153-e1ac-4ad2-9f5e-fa23ddaeae13/ce548e0a.png)
+  
+  ![4abe7141.png](:storage/c666b153-e1ac-4ad2-9f5e-fa23ddaeae13/4abe7141.png)
+  
+  Where a single-variable integral can calculate areas, a double integral can calculate volumes.
+  
+  ![c12ec2e2.png](:storage/c666b153-e1ac-4ad2-9f5e-fa23ddaeae13/c12ec2e2.png)
+  
+  ![b925a62a.png](:storage/c666b153-e1ac-4ad2-9f5e-fa23ddaeae13/b925a62a.png)
+  
+  And now, we have some pretty intuitive rules and inequalities:
+  
+  ![aaef4785.png](:storage/c666b153-e1ac-4ad2-9f5e-fa23ddaeae13/aaef4785.png)
+  
+  ![e093fc21.png](:storage/c666b153-e1ac-4ad2-9f5e-fa23ddaeae13/e093fc21.png)
+  
+  
+  ![14b6c98b.png](:storage/c666b153-e1ac-4ad2-9f5e-fa23ddaeae13/14b6c98b.png)
+  
+  ![46343a79.png](:storage/c666b153-e1ac-4ad2-9f5e-fa23ddaeae13/46343a79.png)
+  
+  ---
+  
+  ### Iterated integrals
+  
+  The basic idea here is to break up the double integral into two, single-variable integrals that can actually be computed.
+  
+  ![0eb13c1c.png](:storage/c666b153-e1ac-4ad2-9f5e-fa23ddaeae13/0eb13c1c.png)
+  
+  The order in which you integrate is important; and sometimes only one will work.
+  
+  It's also important to consider that we may have to decompose areas in order to actually integrate them. Take this for example:
+  
+  ![baf33f2f.png](:storage/c666b153-e1ac-4ad2-9f5e-fa23ddaeae13/baf33f2f.png)
+  
+  You could split this into quarters, or find the volume of the outer circle and then the inner circle and find the difference.
+  
+  ---
+  
+  ## Change of Variable Theorem
+  
+  In the previous units we saw how we can find areas more easily by deforming into a different coordinate system and then re-forming. For double integrals, this is called a "change of variables".
+  
+  ![03674c81.png](:storage/c666b153-e1ac-4ad2-9f5e-fa23ddaeae13/03674c81.png)
+  
+  ![f8320ec9.png](:storage/c666b153-e1ac-4ad2-9f5e-fa23ddaeae13/f8320ec9.png)
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

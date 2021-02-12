@@ -1,0 +1,48 @@
+createdAt: "2020-07-14T18:57:37.152Z"
+updatedAt: "2020-07-16T19:38:50.690Z"
+type: "MARKDOWN_NOTE"
+folder: "a19e96ef50a1cd554380"
+title: "Unit 13: Jacobians and Inverse Mappings"
+tags: []
+content: '''
+  # Unit 13: Jacobians and Inverse Mappings
+  
+  There are mappings, and there are inverse mappings. Of course.
+  
+  ![c6104a64.png](:storage/91633a1e-366c-470a-be32-077daf6eb80f/c6104a64.png)
+  
+  A mapping is said to be **one-to-one** (injective) iff $F(a,b) = F(c,d) \\implies (a,b) = (c,d)$ for all points.
+  
+  One-to-one implies Invertible.
+  
+  ![5553f451.png](:storage/91633a1e-366c-470a-be32-077daf6eb80f/5553f451.png)
+  
+  ![c8ffaae6.png](:storage/91633a1e-366c-470a-be32-077daf6eb80f/c8ffaae6.png)
+  
+  Remember that a square matrix has an inverse iff its determinant is non-zero.
+  
+  ![919543c4.png](:storage/91633a1e-366c-470a-be32-077daf6eb80f/919543c4.png)
+  
+  ![a385a241.png](:storage/91633a1e-366c-470a-be32-077daf6eb80f/a385a241.png)
+  
+  ![dfa2cb80.png](:storage/91633a1e-366c-470a-be32-077daf6eb80f/dfa2cb80.png)
+  
+  ---
+  
+  Remember that the determinant of a matrix made up of 2d vectors is the area o the parallelagram described by them. The Jacobian of the mapping F describes the extent F increases or decreases areas. For small areas, multiplying the area in $xy$ with the Jacobian gives a good approximation of the area in $uv$.
+  
+  This idea also extends to 3D: the jacobian is like the approximate volume magnification factor.
+  
+  ![1c2e3b70.png](:storage/91633a1e-366c-470a-be32-077daf6eb80f/1c2e3b70.png)
+  
+  ---
+  
+  ## Constructing Mappings
+  
+  When working with multi-integrals, it's important to construct mappings that are invertable that transforms one region into a simpler region.
+  
+  Basically, look at the shape, then try to find **linear** equations $u=f(x,y)$ and $v=g(x,y)$ such that the boundaries of the parallelogram line up to a square. If the mapping is linear, that means that the linear approximation is  a perfect approximation. This means that multiplying the area by the jacobian will actually yeild the correct area in the mapped domain. or you could divide to go the other way.
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

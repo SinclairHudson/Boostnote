@@ -1,0 +1,154 @@
+createdAt: "2020-05-19T20:31:58.250Z"
+updatedAt: "2021-02-01T18:39:35.744Z"
+type: "MARKDOWN_NOTE"
+folder: "aa4933591feb7023b3b6"
+title: "Module 02: Supply and Demand"
+tags: []
+content: '''
+  # Module 02: Supply and Demand
+  ## Demand
+  
+  !!! note Market
+  
+  A market is any arrangement that enables buyers and sellers to get information and do business with each other.
+  
+  A **competitive market** is a market that has many buyers and many sellers so no single buyer or seller can influence the price.
+  
+  !!!
+  
+  !!! note Money Price
+  The money price of a good is the amount of money needed to buy it. We normally just call this the price.
+  !!!
+  
+  !!! note Relative Price
+  This is like the opportunity cost. The ratio of its money price to the money price of the next best alternative good or service. The relative price is the **opportunity cost**.
+  !!!
+  
+  To **demand** something, one must:
+  1. want it,
+  2. be able to afford it,
+  3. have made a definite plan to buy it.
+  
+  Wants are unlimited, but demands reflect a decision about which wants to satisfy.
+  
+  The **quantity demanded** is the amount of a good or service that consumers _plan_ to buy during a particular time period and at a particular price. The time interval and price must be set.
+  
+  The **demand curve** is defined as a consumer's willingness and ability to pay for a good or service, at a given price, at a particular time. Again, this definition doesn't require consumers to actually make the purchase.
+  
+  !!! abstract Ceteris Paribus
+  "All else equal" in latin. It's just used to say that there are no other changing variables.
+  !!!
+  
+  ### The Law of Demand
+  
+  The law of demand is obvious: there is a negative correlation between the price and quantity of goods (or services) demanded. Prices go up, demand goes down. Price goes down, demand goes up.
+  
+  !!! note Substitution Effect
+  When two goods solve the same problem, or satisfy the same want, they can be substituted in the eye of the consumer. When the relative price of a good or service increases, so does the opportunity cost. And when the opportunity cost rises, consumers will turn around and buy the substitute. This is the substitution effect.
+  !!!
+  !!! note Income Effect
+  When an increase of the relative price of a good occurs, consumers have less money to spend on **all** goods and services. This is based on the assumption that consumers have limited wealth; a fair assumption. As the price of the good or service rises, so does the relative price. This also means that people cannot afford to buy the same amount of the good or service. Normally, if prices rise the good is purchased less, but not always.
+  !!!
+  ### Demand Curve and Demand Schedule
+  Despite the weird definition above, the demand curve is also the relationship between price vs quantity demanded. A few points on the demand curve can be called the **demand schedule** (points A to E). We can also call the demand curve the _willingness and ability to pay curve_ or the _marginal benefit curve_.
+  
+  ![cfb5d6c0.png](:storage/5865d88f-e1e7-4bdc-9b46-b658723ac983/cfb5d6c0.png)
+  
+  ### A Change in Demand
+  A change in demand occurs when something other than the price related to a good changes. The demand curve will translate either left or right, for less or more demand respectively. A change in _quantity demanded_ occurs when the price changes, and is a movement **along the curve**. When a change in _demand_ occurs, **the whole curve shifts**, which is completely different.
+  
+  Here are some things that can create a change in demand:
+  - **Prices of related goods**: if the price of a substitute goes down, the demand will decrease for this good because more people will migrate to the cheaper alternative. The opposite is true for complement goods. If the price of golf clubs goes down, the demand for golf _balls_ will go up, because more people can afford to play golf. The two goods complement each other.
+  - **Expected Future Price**: Get the goods while they're cheap. A simple example is real estate.
+  - **Income**: As people have more desposable income, they consume more of _most_ goods. Demand increases with income, and decreases with it.
+  !!! note Normal Goods vs Inferior Goods
+  A normal good is one for which demand increases as income increases. Most things like golf clubs, steak, camping gear, etc.
+  An inferior good is a good for which demand decreases as income increases. Things that you avoid if you have more money, like Kraft Dinner :( and canned soup.
+  !!!
+  - **Expected Future Income and Credit**: You buy more because you think the money will come in later. Classic human nature.
+  - **Population**: Simply put, if you have more consumers in your target market, your demand increases.
+  - **Preferences**: Supreme brand gets famous, demand increases. Marketing is an attempt to swing more consumers to prefer the good, therefore increasing demand. Scientific research and percieved health benefits can swing preferences in the food industry, for example.
+  
+  ## Supply
+  Supply is the opposite of demand, and it's for firms. In a firm supplies a good or service, it must:
+  1. have the resources and technology to produce it,
+  2. be able to **profit** from producing it,
+  3. have a definite plan to produce and sell it.
+  
+  The **quantity supplied** is the amount that producers plan to sell during a given period of time at a particular price.
+  
+  The **supply curve** is defined as the producer's willingness and ability to sell a good or service, at a price, at a particular time.
+  
+  ### The Law of Supply
+  The **higher** the price of a good or service, the **larger the quantity supplied** will be, and vice versa. Marginal cost increases as the price increases. If you're able to sell a $200 phone for $1000, of course you're going to want to produce more of those phones!
+  ### Supply Curve and Supply Schedule
+  
+  ![16803853.png](:storage/5865d88f-e1e7-4bdc-9b46-b658723ac983/16803853.png)
+  
+  Similar to the demand curve, the supply curve is the relation between quantity supplied of a good or service measured in a time interval, versus the price of a good or service. The collection of points A to E are called the **supply schedule**. The supply curve has a positive slope, due to the law of supply. A move along the supply curve is called a **change in quantity supplied**.
+  
+  ### A Change in Supply
+  When something other than the price of a good changes, there is a **change in supply**. This is a shift of the supply curve left or right. These are factors that can change supply:
+  
+  - **The Prices of Factors of Production**: Supply for a good or service decreases if the cost of producing said good or service increases. It's less profitable now so less gets produced. The supplier can choose to raise prices, but that's a separate action.
+  - **The Prices of Related Goods Produced**: **substitute** and **complement** goods exist in supply, but they're different. A substitute good is something you can make with the same resources. So if the price of a chocolate bar rises over another chocolater bar, the producer will switch to producing the more expensive one, because it yields higher profit. Complement goods are by-products of production, like leather and beef. Supply of beef will rise if the price of leather rises, because the byproduct is more valuable, and the two must be produced together.
+  - **Expected Future Prices**: Supply for a good or service decreases if we expect the price to rise in the future. We might as well wait until it's more profitable.
+  - **Number of Suppliers**: As the number of suppliers increases, then the supply will rise, obviously. There are more people supplying!
+  - **Technology**: As technology makes production more efficient, supply can increase without incurring any additional cost. As tech advances, supply increases.
+  - **State of Nature**: Random earth events like earthquakes destroying factories or great weather yeilding more fruit. Supply can increase or decrease.
+  
+  ## Market Equilibrium
+  
+  When we put the supply curve and demand curve together, the intersection is the market equilibrium price and quantity. Specifically, at this price, the quantity demanded equals the quantity supplied.
+  
+  ![5ca57c4c.png](:storage/5865d88f-e1e7-4bdc-9b46-b658723ac983/5ca57c4c.png)
+  
+  ### Shortage and Surplus
+  The market will always move towards equilibrium, because the price acts as a regulator.
+  
+  !!! question What happens if the price is above market equilibrium?
+  There's an excess in supply, called **surplus**. In this case, the producers are not able to sell the quantity of bars that they are willing and able to sell. To sell the surplus, the producers must reduce the price.
+  ![8fc99650.png](:storage/5865d88f-e1e7-4bdc-9b46-b658723ac983/8fc99650.png)
+  !!!
+  
+  !!! question What happens if the price is below market equilibrium?
+  There's an excess in demand, called a **shortage**. In this case, consumers are not able to by the quantity of goods that they are willing to buy. The producers have no reason to want a shortage; so they raise the price, towards equilibrium.
+  ![c3f04831.png](:storage/5865d88f-e1e7-4bdc-9b46-b658723ac983/c3f04831.png)
+  !!!
+  
+  ## Predicting Changes in Supply and Demand Curves
+  !!! hint Increase in Demand
+  Let's say that demand increases. In this case, the demand curve shifts rightward. At the original price, there is now a shortage. So the price rises, and more of the good is produced.
+  ![967419ce.png](:storage/5865d88f-e1e7-4bdc-9b46-b658723ac983/967419ce.png)
+  !!!
+  !!! hint Decrease in Demand
+  Let's say that demand decreases. In this case, the demand curve shifts leftward. At the original price, there is now a surplus. So the price falls, and less of the good is produced.
+  ![866bc552.png](:storage/5865d88f-e1e7-4bdc-9b46-b658723ac983/866bc552.png)
+  !!!
+  !!! hint Increase in Supply
+  Say a tech advancement makes production easier. The supply curve shifts rightward. At the original price, there's now a surplus. So the price shifts down, and a higher quantity is produced.
+  ![ecbe6081.png](:storage/5865d88f-e1e7-4bdc-9b46-b658723ac983/ecbe6081.png)
+  !!!
+  !!! hint Decrease in Supply
+  Supply curve shifts left, the original price is now in shortage. The price goes up, but the quantity produced and demanded goes down.
+  ![ec2606b7.png](:storage/5865d88f-e1e7-4bdc-9b46-b658723ac983/ec2606b7.png)
+  !!!
+  
+  The situation becomes more complex if the supply and demand both change. If Demand and Supply increase proportional to each other, the price stays the same while the production increases. The same happens if Demand and Supply decrease proportional to each other, but the production decreases. The other cases are summarized in the following table:
+  ![1e28ec19.png](:storage/5865d88f-e1e7-4bdc-9b46-b658723ac983/1e28ec19.png)
+  
+  ## When to apply Supply and Demand Models
+  
+  The following conditions should be met:
+  1. Everyone is a price taker (and not a price maker/setter)
+  2. Firms sell identical products
+  3. Everyone has full information about the market
+  4. Costs of trading are low
+  
+  These are all characteristics of **perfect competition**. If some of these conditions are not met, then the model breaks down.
+  
+  
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

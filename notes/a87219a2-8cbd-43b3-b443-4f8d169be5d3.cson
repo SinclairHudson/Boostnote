@@ -1,0 +1,50 @@
+createdAt: "2020-06-13T22:08:22.629Z"
+updatedAt: "2020-08-10T14:11:08.465Z"
+type: "MARKDOWN_NOTE"
+folder: "a19e96ef50a1cd554380"
+title: "Unit 07: Directional Derivatives"
+tags: []
+content: '''
+  ## Unit 07: Directional Derivatives
+  
+  Finally! This is critical for deep learning, as you know.
+  
+  ![00e17ad3.png](:storage/a87219a2-8cbd-43b3-b443-4f8d169be5d3/00e17ad3.png)
+  !!! danger common mistakes:
+  Don't be a __numpty__: evaluate the derivative first, then set s=0.
+  Also, the unit vector __must always be normalized__!
+  !!!
+  
+  And we can calculate these directional derivatives in terms of partial derivatives:
+  
+  ![c944292a.png](:storage/a87219a2-8cbd-43b3-b443-4f8d169be5d3/c944292a.png)
+  
+  ---
+  
+  ![eae6b12b.png](:storage/a87219a2-8cbd-43b3-b443-4f8d169be5d3/eae6b12b.png)
+  
+  This is the money maker! Remember the property of the dot product:
+  $$ \\vec{x} \\cdot \\vec{y}  = ||\\vec{y}||||\\vec{x}||\\cos\\Theta$$
+  Which is maximized when $\\Theta = 0$. Alternatively, if we wanted to go down the slope, as is the case in gradient descent, we would choose $\\Theta = \\pi$, so $\\cos{\\Theta} = -1$ and the rate of change is just as great, but negative. Also, we could find the minimum rate of change by setting $\\Theta = \\frac{\\pi}{2}$.
+  
+  As we have an intuition for, the maximum rate of change is in a direction orthogonal to the level curve. This is formalized in the following theorem:
+  
+  ![af0e4b18.png](:storage/a87219a2-8cbd-43b3-b443-4f8d169be5d3/af0e4b18.png)
+  
+  We way orthogonal and not perpendicular because we can be working in more than 2 dimensions:
+  
+  ![10077c5a.png](:storage/a87219a2-8cbd-43b3-b443-4f8d169be5d3/10077c5a.png)
+  
+  So there's going to be a 3D surface, and the normal vector of that surface at a specific point is the Greatest Rate of Change vector.
+  
+  So there's going to be a 3D surface, and the normal vector of that surface at a specific point is the Greatest Rate of Change vector.
+  
+  ![6a83fc9d.png](:storage/a87219a2-8cbd-43b3-b443-4f8d169be5d3/6a83fc9d.png)
+  
+  The equation of the tangent plane of a surface is given by:
+  $$f_x(a,b,c)(x-a) + f_y(a,b,c)(y -b) + f_z(a,b,c)(z-c) = 0$$
+  
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

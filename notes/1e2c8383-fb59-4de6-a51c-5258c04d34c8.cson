@@ -1,0 +1,95 @@
+createdAt: "2020-05-20T15:17:21.141Z"
+updatedAt: "2020-08-14T17:46:23.918Z"
+type: "MARKDOWN_NOTE"
+folder: "b98556b417c909bf839c"
+title: "Week 02"
+tags: []
+content: '''
+  # Week 02
+  ## Logic Blocks:
+  There are two types:
+  1. **Combinational**: without memory
+  2. **Sequential**: with memory
+  
+  Inputs are binary, High/Low.
+  
+  ### Electricity
+  $V=IR$
+  
+  The voltage is continuous in time, and it's hard to measure accurately. Can we go from analog to digital? This process is called **digitizing**. There are only two values, high and low, and it's **Direct Current**. We work with Digital circuits, not analog circuits. We will use truth tables to specify circuit behaviour, but it's not very discriptive. Instead, we can use **Boolean algebra**. 
+  - $AB$ is AND
+  - $A+B$ is OR
+  - $\\neg{A}$ or $\\bar{A}$ is NOT
+  
+  Any boolean function can be represented as a **sum of products** (OR of ANDs) of literals.
+  
+  Sometimes, in truth tables, there will be an $X$. This symbolizes that we "don't care" about that value; it can be 1 or 0.
+  
+  A | B | C | F
+  --- | --- | --- | ---
+  0|0|X|0
+  0|1|X|1
+  1|X|X|X
+  
+  This greatly simplifies the truth table, condensing similar cases together. We can use Boolean algebra to simplify terms as well.
+  
+  ### Boolean Algebra Axioms:
+  Rule | Dual Rule
+  ---|---
+  $\\overline{\\overline{X}} = X$ |  -
+  $X + 0 = X$ | $X1=X$
+  $X+1 = 1$ | $X0 = 0$
+  $X+X=X$ | $XX = X$
+  $X+\\bar{X}=1$ | $X\\bar{X}=0$
+  $X + Y = Y + X$ | $XY=YX$
+  $X + (Y + Z) = (X+Y)+Z$ |$X(YZ)=(XY)Z$
+  $X(Y+Z)=XY+XZ$ | $X+YZ=(X+Y)(X+Z)$
+  $\\overline{X+Y}=\\bar{X}\\bar{Y}$| $\\overline{XY}=\\bar{X}+\\bar{Y}$
+  
+  The last one in the chart is DeMorgan's law.
+  
+  We can use these axioms to simplify boolean algebra formulae.
+  
+  The standard gate symbols are used in this course.
+  
+  ![e4464dc6.png](:storage/1e2c8383-fb59-4de6-a51c-5258c04d34c8/e4464dc6.png)
+  The XOR construction.
+  
+  Be careful with formatting! You can represent inputs multiple times:
+  ![3e475b87.png](:storage/1e2c8383-fb59-4de6-a51c-5258c04d34c8/3e475b87.png)
+  
+  
+  ## Transistors
+  Blahblah history.
+  
+  A transistor is just an electrically-controlled switch.
+  We will be looking at an NMOS transistor:
+  ![93087916.png](:storage/1e2c8383-fb59-4de6-a51c-5258c04d34c8/93087916.png)
+  It's not really truly opened or closed; it's a matter of changing resistance.
+  If $V_{gate}$ is low, There's a high resistance and no current.
+  If $V_{gate}$ is high, there's a low resistance and so current flows.
+  
+  There's also a PMOS transistor setup, which is the opposite.
+  ![7f013293.png](:storage/1e2c8383-fb59-4de6-a51c-5258c04d34c8/7f013293.png)
+  
+  The difference is the transistor substrate: PMOS is P-doped while NMOS is N-doped. It should be noted that at times we have **weak signal**, where the analog value is in between our High and Low voltage. The different transistors have weak signals at different points. To combat this, we introduce the CMOS:
+  ![512018fa.png](:storage/1e2c8383-fb59-4de6-a51c-5258c04d34c8/512018fa.png)
+  A | $Q_1$|$Q_2$|F
+  ---|---|---|---
+  0|Low|High|1
+  1|High|Low|0
+  CMOS has very low power consumption (leakage and transition), and it's simple.
+  
+  ![1bd466bd.png](:storage/1e2c8383-fb59-4de6-a51c-5258c04d34c8/1bd466bd.png)
+  
+  To reason out these circuits, think of the states of the transistors based on their gate voltage. Then, connect paths. The output $Z$ will have a direct connection to either 5V (HIGH) or Ground (LOW).
+  
+  ![531fac3b.png](:storage/1e2c8383-fb59-4de6-a51c-5258c04d34c8/531fac3b.png)
+  
+  ![34cd1bbc.png](:storage/1e2c8383-fb59-4de6-a51c-5258c04d34c8/34cd1bbc.png)
+  
+  The NAND gate is cheaper when compared to the AND and OR. NAND has fewer transistors.
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

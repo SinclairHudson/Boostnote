@@ -1,0 +1,158 @@
+createdAt: "2020-05-20T21:35:50.542Z"
+updatedAt: "2020-06-01T20:00:50.258Z"
+type: "MARKDOWN_NOTE"
+folder: "87ca028712a29f0836d6"
+title: "Module 1:"
+tags: []
+content: '''
+  # Module 1:
+  
+  Intro terminology:
+  
+  !!! note Problem
+  Given a problem instance, carry out a particular computational task.
+  !!!
+  !!! note Problem Instance
+  Input for the specified problem.
+  !!!
+  !!! note Problem Solution
+  The correct answer for a specified problem instance.
+  !!!
+  !!! note Size of a problem instance
+  A positive integer which is a measure of the size of the instance $I$.
+  !!!
+  !!! note Algorithm
+  A step-by-step process for carrying out a series of computations, given an arbitrary problem instance $I$. An algorithm solves a problem if for very instance $I$, the algorithm finds a valid solution for the instance $I$ in finite time.
+  !!!
+  
+  !!! note Program
+  An implementation of an algorithm using a specified computer language.
+  !!!
+  
+  There are two metrics for assessing efficiency of a program: Runtime and Space. "How long does it take to run?" and "How much memory does it need to run?". These two are called **runtime efficiency** and **memory efficiency**. Or time complexity and memory complexity, or whatever. These terms get abused.
+  
+  We could analyze efficiency empirically, but it would be tedious, hardware dependent, language dependent, implementation dependent. It would be stupid. So instead, we simplify algorithms and look at them mathematically. We don't talk about absolute time, but instead relative runtime, and the relationship between input size and runtime.
+  
+  !!! hint $O$-notation
+  $f(n) \\in O(g(n))$ if $\\exists$ constants $c>0$ and $n_0 > 0$ such that $|f(n)| \\leq c|g(n)| \\forall n \\geq n_0$
+  This is essentially like an epsilon-delta limit. Note that it's not tight. $2n^2+3n+11 \\in O(n^2)$, but the same function is also $\\in O(n^{10})$. So if we want something tight, we've gotta use something else. Big O is like "$f$ grows this fast or less fast". Asymptotically not bigger.
+  !!!
+  !!! hint $\\Omega$-notation
+  $f(n) \\in \\Omega(g(n))$ if $\\exists$ constants $c>0$ and $n_0 > 0$ such that $c|g(n)|  \\leq |f(n)|\\forall n \\geq n_0$
+  This is the opposite of Big O. Functions are members of $\\Omega(g(n))$ if $f$ grows asymptotically faster. $2n^2 \\in \\Omega(1), \\in \\Omega(n), \\in \\Omega(n^2)$. This one isn't really useful, but it's defined.
+  Asymptotically not smaller.
+  !!!
+  !!! hint $\\Theta$-notation
+  $f(n) \\in \\Theta(g(n))$ if $\\exists$ constants $c_1>0$, $c_2>0$ and $n_0 > 0$ such that $c_1|g(n)|  \\leq |f(n)| \\leq c_2|g(n)|\\forall n \\geq n_0$
+  Now this one is spicy. It really says something. $2n^2+11n+3 \\in \\Theta(n^2)$
+  Importantly, $f(n)\\in\\Theta(g(n)) \\iff f(n) \\in O(g(n)) \\cap \\Omega(g(n))$
+  Asymptotically the same. The growth rates are the same.
+  !!!
+  These are ok, but can we talk about strict inequalities?
+  !!! hint $o$-notation
+  $f(n) \\in o(g(n))$ if $\\exists$, **for all constants** $c>0$, an $n_0 > 0$ such that $|f(n)| < c|g(n)|\\forall n \\geq n_0$
+  Asymptotically strictly smaller than $g(n)$. The growth rate of $f$ is smaller than the growth rate of $g$.
+  !!!
+  !!! hint $\\omega$-notation
+  $f(n) \\in \\omega(g(n))$ if **for all constants** $c>0$, $\\exists$ constant  $n_0 > 0$ such that $0 \\leq c|g(n)|<|f(n)|\\forall n \\geq n_0$.
+  Asymptotically strictly larger than $g(n)$. The growth rate of $f$ is larger than the growth rate of $g$.
+  This one is rarely proved from first principles.
+  !!!
+  
+  Remember, all of the above are **sets**, families of functions.
+  #### part 7
+  ![9e718e1d.png](:storage/d4c2a80f-9630-46e2-a814-9b05fcda40e6/9e718e1d.png)
+  ### Max Rules
+  $O(f(n)+g(n)) = O(\\max{f(n), g(n)})$
+  $\\Omega(f(n)+g(n)) = \\Omega(\\max{f(n), g(n)})$
+  
+  There is also transitivity, which is trivial.
+  
+  We can find membership of sets using a l'Hopital's rule limit.
+  !!! note Finding complexity with limits
+  Suppose $f(n)>0$ and $g(n) > 0$ for all $n \\geq n_0$. Suppose that
+  $$L = \\lim_{n \\to \\infty}\\frac{f(n)}{g(n)}$$
+  Then
+  $$f(n) \\in \\begin{cases}
+  o(g(n)) & \\text{if } L=0 \\\\
+  \\Theta(g(n)) & \\text{if } 0 < L < \\infty \\\\
+  \\omega(g(n)) & \\text{if } L = \\infty \\\\
+  
+  \\end{cases}
+  $$
+  Note that this is a one way implication! You can't have membership and then assume that the limit exists!
+  !!!
+  
+  #### part 8
+  Example with limit rule.
+  
+  #### part 9
+  Example where limit DNE. The solution is to bound the function on both sides, and then use the definition of $\\Theta(g(n))$ to prove membership.
+  
+  #### part 10
+  $log(n) = log_2(n)$ in this course.
+  Compare $log(n)$ and $n$ using the limit rule and l'hopital's. So $log(n) \\in o(n)$.
+  $$ lim_{n \\to \\infty}\\frac{(log(n))^c}{n^d} = 0 $$
+  with recursive applications of L'Hopital's. So we find that $(log(n))^c \\in o(n^d)$, for arbitrary positive constants $c$ and $d$.
+  
+  #### part 11
+  ![c7bed1f1.png](:storage/d4c2a80f-9630-46e2-a814-9b05fcda40e6/c7bed1f1.png)
+  Seeing what doubling the input size does to the runtime of these different growth rates.
+  
+  #### part 12
+  Now we will get into actually using these techniques for real alg analysis.
+  
+  ### Strategy 1:
+  - **Elementary Operations** are constant time $\\Theta(1)$. Start by identifying these.
+  - Next, look at the loops from inner to outer. These loops will be represented as summations of whatever is inside them.  
+  - There will be a lot of nested summations. Work outwards. Keep track of all your indices!
+  
+  This section goes over a simple nested loop example, it ends up being $\\Theta(n^2)$.
+  #### part 13
+  Using the example of part 12, we look at solving the problem a different way. 
+  ### Strategy 2:
+  We can find an upper and lower bound in our massive summation problem, by simplifying the problem. For example, you can add terms to make an upper bound, and remove some to make a lower bound. If you can show that the upper and lower bounds are in $O(g(n))$ and $\\Omega(g(n))$ respectively, then you can prove membership in $\\Theta(g(n))$.
+  
+  #### part 14
+  Another example, using tight $\\Theta$ bounds throughout first, and then using the other strategy of proving a $O$ bound and a $\\Omega$ bound separately.
+  
+  #### part 15
+  Ok, so far so good. But we haven't looked at algorithms that change based on input. The running time can change dependent on the input, and not just the size. For example, it takes almost no time to sort an array that's already sorted! The runtime can actually be a range of things, depending on the input.
+  
+  $T_A(I)$ Denotes the running time of alg $A$ on instance $I$.
+  !!! hint Worst-case complexity of an alg
+  take the worst $I$.
+  $$
+  T_A(n) = max\\{{T_A(I):Size(I) = n}\\}
+  $$
+  !!!
+  !!! hint Average-case complexity of an alg
+  average over all the $I$ of the same size.
+  ![343053c1.png](:storage/d4c2a80f-9630-46e2-a814-9b05fcda40e6/343053c1.png)
+  !!!
+  !!! hint Best-case complexity of an alg
+  take the best $I$
+  !!!
+  Note: We assume that all instances have the same probability of  occurence. You have to decide which kind of running time you're talking about, then you can discuss the membership of the time complexity in $O$ or $\\Omega$. In this course, **we default to worst case**. Proofs in this course don't always have to be super formal with a bunch of summations and everything kept in.
+  
+  #### part 16
+  We can't conclude that algs are more or less efficient than each other based on worst case time-complexity. Also, $O(n)$ is not a good notation. Use $\\Theta(n)$ bounds, because there's a chance we could prove a tighter $O$ bound. Remember, the average complexity is more important in real world. And remember, all these comparisons are in the limit of $n \\to \\infty$. With smaller sizes, constant terms become more significant.
+  
+  #### part 17 & 18
+  
+  Analysis of mergesort.
+  ![f9e098ba.png](:storage/d4c2a80f-9630-46e2-a814-9b05fcda40e6/f9e098ba.png)
+  
+  ![14833c75.png](:storage/d4c2a80f-9630-46e2-a814-9b05fcda40e6/14833c75.png)
+  
+  #### part 19
+  ![05615a12.png](:storage/d4c2a80f-9630-46e2-a814-9b05fcda40e6/05615a12.png)
+  
+  #### part 20
+  ![3d7b6acd.png](:storage/d4c2a80f-9630-46e2-a814-9b05fcda40e6/3d7b6acd.png)
+  You can use the following identities without proof:
+  ![6f037081.png](:storage/d4c2a80f-9630-46e2-a814-9b05fcda40e6/6f037081.png)
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

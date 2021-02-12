@@ -1,0 +1,148 @@
+createdAt: "2020-06-09T17:16:56.075Z"
+updatedAt: "2020-08-14T17:46:06.798Z"
+type: "MARKDOWN_NOTE"
+folder: "b98556b417c909bf839c"
+title: "Week 05"
+tags: []
+content: '''
+  ## Week 05
+  
+  ### Data representations and basic math operations
+  
+  #### Characters:
+  ASCII is 7 bits for 128 characters, with one extra bit for error checking in the front.
+  
+  Unicode is 16 bits per character.
+  
+  Remember, one **word** is 4 bytes.
+  
+  ![ed717ad2.png](:storage/232ce97f-f29c-4c34-9cc2-be891b6d7939/ed717ad2.png)
+  
+  So if this pattern is incorrect, we know there's an error.
+  
+  !!! note Useful powers
+  $2^5 = 32$
+  $2^{10} = 1K$
+  $2^{20} = 1M$
+  $2^{30} = 1G$
+  !!!
+  
+  We should use two's complement, because a sign bit is tedious, has two $0$s, etc.
+  
+  Two's complement: let the MSB represent a power of **negative 2**, while the others represent powers of positive 2.
+  
+  To negate in 2's complement, just invert all bits and add 1.
+  
+  ---
+  
+  To translate a two's complement number from say 4 bits to 8 bits, simply pad on the MSB side using the original **MSB**.
+  
+  Addition is now simple to define. Just use the old elementary school technique, and throw away the final carry if there is one. To subtract, just negate then add.
+  
+  !!! danger Overflow
+  Overflow is a real concern here. Importantly, it can only occur if the operands have the same sign. If the result has the same sign, then there's no overflow. If the result has a different sign, then yes an overflow has occured.
+  !!!
+  
+  ## Building an Addition Circuit
+  We need **full adders** (thank you knowles).
+  $$
+  S = A \\oplus B \\oplus C
+  $$
+  $$
+  C = AB + AC + BC_{in}
+  $$
+  
+  ![57334b1b.png](:storage/232ce97f-f29c-4c34-9cc2-be891b6d7939/57334b1b.png)
+  
+  ## Logical shift
+  There are many shifts
+  1. Arithmetic shift left or right
+  Corresponds to multiplying or dividing by 2. Just move all the bits over by one, either left or right. Void space is assumed to be $0$.
+  2. Circular Shift
+  Any overflow just loops back around. Again, there's a left and a right variant.
+  
+  ![18bc9e49.png](:storage/232ce97f-f29c-4c34-9cc2-be891b6d7939/18bc9e49.png)
+  
+  
+  ## Arithmetic Logic Unit (ALU)
+  
+  ![30aeef49.png](:storage/232ce97f-f29c-4c34-9cc2-be891b6d7939/30aeef49.png)
+  
+  But, we can improve this in a few ways:
+  
+  ![d7058659.png](:storage/232ce97f-f29c-4c34-9cc2-be891b6d7939/d7058659.png)
+  
+  This is a really cool little contraption.
+  This is the final design, with a bunch chained together for 64 bits:
+  
+  ![d5cdc51b.png](:storage/232ce97f-f29c-4c34-9cc2-be891b6d7939/d5cdc51b.png)
+  
+  Which can be represented as:
+  
+  ![359102e9.png](:storage/232ce97f-f29c-4c34-9cc2-be891b6d7939/359102e9.png)
+  
+  ---
+  
+  ## Multiplication
+  
+  ![a5de2fd2.png](:storage/232ce97f-f29c-4c34-9cc2-be891b6d7939/a5de2fd2.png)
+  
+  It's just shifts and adds
+  
+  ![6760b3f6.png](:storage/232ce97f-f29c-4c34-9cc2-be891b6d7939/6760b3f6.png)
+  
+  ![e784d338.png](:storage/232ce97f-f29c-4c34-9cc2-be891b6d7939/e784d338.png)
+  
+  ![2d305477.png](:storage/232ce97f-f29c-4c34-9cc2-be891b6d7939/2d305477.png)
+  
+  There's another type of multiplier that's more efficient.
+  
+  ---
+  
+  ## IEEE Floating point bois
+  
+  We need more than decimal numbers. We need floating points, and fractional values.
+  
+  We hagve the mantissa (the significant digits) and the exponent. Note that for computers, it's natural to use base 2 for the exponent. So an example would be $1.01_2\\times2^4$.
+  
+  In normalized binary, the **leading digit of significand is always 1**.
+  
+  Note that in binary, we can't always represent numbers exactly how they are. We can't represent $1.33$ exactly in binary scientific notation, and we also can't represent $1.1$. They just can't be accurately expressed as powers of 2.
+  
+  ![cf1d895d.png](:storage/232ce97f-f29c-4c34-9cc2-be891b6d7939/cf1d895d.png)
+  
+  ![1a23ce83.png](:storage/232ce97f-f29c-4c34-9cc2-be891b6d7939/1a23ce83.png)
+  
+  Typo in the above slide ^ 
+  Single precision is `float32`.
+  
+  We always **assume there's a leading 1** in our numbers, so we don't actually have to store it. The only exception to that statement is the number $0$. If an exponent is all zeros, that means the number is actually 0.
+  
+  The $11111111$ exponent is also a special case, which is reserved for interpretting numbers that are not floating point (outside this course).
+  So we can represent exponents from $[00000001, 11111110]$.
+  !!! danger Watch out for the exponent representation.
+  It's not 2's complement. It's $\\text{real exponent} = x - 127$, where $x$ is the 8 bits. It's always positive, and it's unsigned. Keep in mind, this is the **BINARY** exponent, so it's the $2^x$. It's not the $10^x$. 
+  Why?
+  BECAUSE ITS FAST FOR SORTING!
+  If we consider the **whole** floating point number as a 2's complement number, then we can actually sort effectively.
+  !!!
+  There are FP registers, which are registers specifically interpretted as floats.
+  
+  To convert from decimal fractional number to a binary fractional number, it's quite simple:
+  1. multiply by 2.
+  2. keep the non-fractional digit (it will be a 1 or 0)
+  3. repeat until you're left with 0. (won't always be possible, that's a repeating fraction)
+  
+  The list of digits you kept will be the corresponding binary fractional representation, $0.a_1a_2a_3...$.
+  
+  Truncation isn't that bad. First you normalize, and then you truncate. Don't truncate and then normalize; that's wasteful.
+  
+  !!! question How do I detect overflow?
+  Well, the mantissa is no problem. You can just truncate it. Of course, you'll lose some precision, but it's not a big deal. The main issue is this: Can I represent an exponent that large (overflow) or small (underflow)?
+  !!!
+  
+  Floating point addition is icky. It's more complicated than multiplication.
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false
