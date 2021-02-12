@@ -1,0 +1,151 @@
+createdAt: "2019-11-27T17:36:58.124Z"
+updatedAt: "2019-11-28T15:09:11.584Z"
+type: "MARKDOWN_NOTE"
+folder: "13f1477d1dab07e879ca"
+title: "Problem 30: Total Control"
+tags: []
+content: '''
+  ## Problem 30: Total Control
+  
+  C++ lets you control pretty much everything.
+  
+  Why not go the rest of the way and take control over memory allocation?
+  Memory allocators are tricky to write, of course.
+  
+  So why would you want to?
+  * the built-in one is too slow
+    * The built-in one is to general-purpose
+      * eg if you know you will always allocate objects of the same size, a custom allocator may perform better.
+    * you want to optimize locality
+      * maybe you want a seperate heap just for objects of some class C.
+      * keeps objects closer to one another, and improves cache performance
+    * you want to use "special memory"
+      * maybe you want to put your objects in shared memory, where other programs can see them.
+    * you want to profile your program
+      * maybe you just want to collect stats on your program's allocation patterns, so you can decide whether further optimization is required.
+  
+  We'll focus on the last one for now.
+  
+  How do you customize allocaton? Well, you overload operator `new`. If you define a glabel non-member operator new, all allocations in your program will use your allocator.
+  You'll also have to write operator delete, or else it's undefined behaviour.
+  
+  ```cpp
+  void *operator new(size_t size){
+    cout << "Request for "<< size << "bytes" << endl;
+    return malloc *(size);
+  }
+  void operator delete(void *p){
+    cout << "Freeing"<<p<< endl;
+    free(p);
+  }
+  ```
+  The above works, but it's not correct. It doesn't adhere to convention in terms of exeption safety.
+  If operator new fails, it it supposed to throw `bad_alloc`.
+  
+  Actually, if operator new fails, it is supposed to call the function `new_handler`.
+  The new_handler function can:
+  * free up space (somehow)
+  * install a different new handler/deinstall the current
+  * throw bad_alloc
+  * abort/exit
+  
+  new_handler should be called in an infinite loop. If new_handler is nullptr, operator new throws. Also, new must return a valid pointer if size ==0, and delete nullptr must be safe.
+  
+  So here's the correct implementation:
+  ```cpp
+  #include <new>
+  void *operator new(size_t size){
+    cout <<" Request for " << size << "bytes" << endl;
+    if(size == 0 ) size = 1;
+    while(true){
+      void *p = malloc(size);
+      if(p) return p;
+      std::new_handler h = std::get_new_allocator();
+      if(h) h();
+      else throw std::bad_alloc{};
+    }
+  }
+  
+  void operator delete(void *p){
+    if(p ==nullptr) returnl //ez clap
+    cout << "Deleting "<< p <<endl;
+    free(p);
+  }
+  ```
+  
+  Replacing global operator new/operator delete affects your whole program.
+  More likely, you want to replace these operators on a class by class basis, especially if you are writing allocators specifically tuned to the sizes of your objects.
+  
+  To do this, define operator new/operator delete with your classes. They **must** be static members
+  
+  ```cpp
+  class C{
+  public:
+    static void *operator new(size_t size){
+      cout << "Running class C's allocator" << endl;
+      return ::operator new(size); //means global, if there's nothing in front of the double ::
+    }
+    static void operator delete(void *p) noexcept{
+      cout << "Freeing" << p << endl;
+      return ::operator delete(p);
+    }
+  };
+  
+  class C{
+    public:
+      static void *operator new(size_t size, std::ostream &out){
+        out << ~~~~~~~~~ << endl;
+        return ::operator new(size);
+      }
+  };
+  
+  C *x = new (cout) C; //log to cout
+  ofstream f{"filename.txt"};
+  C * y = new (f) C;
+  ```
+  
+  Must also write specialized delete:
+  ```cpp
+  class C{
+    public: ...
+    static void operator delete (doid *p, std::ostream &out) no except{
+      out << "Special delete: " << p << endl;
+      return ::operator delete(p);
+    }
+  };
+  ```
+  
+  This won't compile, because you also have to write ordinary delete. We've already written it before.
+  
+  ```cpp
+  C * p = new (f) C; //running C's allocator...
+  
+  delete p; //ordinary delete (uses cout)
+  ```
+  There needs to be an ordinary delete as well.
+  
+  Special operator delete will only occur in one case: the constructor when you call special new could throw, in which case the special operator delete will run. If there isn't one, no delete gets called => leak. This is the only case. You can't call it yourself. 
+  
+  Example:
+  ```cpp
+  class C{
+  ~~~~
+    public:
+    ~~~~
+    C(bool b){if(b) throw 0;}
+  };
+  ~~~~~
+  try{
+    C *p=new(cout) C (true); //throws - specialized operator delete is called automatically.
+    delete p; //not reached
+  }catch(...){}
+  
+  C*q = new (cout) C (false); //does not throw
+  delete q; //ordinary operator delete.
+  ```
+  
+  Customizing array allocation: overload operator new[] and operator delete[].
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

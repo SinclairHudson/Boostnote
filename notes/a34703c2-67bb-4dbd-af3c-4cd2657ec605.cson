@@ -1,0 +1,38 @@
+createdAt: "2020-07-06T15:27:20.216Z"
+updatedAt: "2020-07-06T16:39:26.960Z"
+type: "MARKDOWN_NOTE"
+folder: "ca12cf9bf699a6cfcfed"
+title: "Week 9: More Pipelining"
+tags: []
+content: '''
+  # Week 9: More Pipelining
+  
+  
+  Remember, forwarding.
+  
+  ![0376b043.png](:storage/a34703c2-67bb-4dbd-af3c-4cd2657ec605/0376b043.png)
+  
+  Forwarding unit checks all the conditions to make sure we're forwarding correctly.
+  
+  !!! danger Load Word Hazard
+  When LDUR is followed immediately by an instruction that uses LDURs destination Register. We use a single NOP to fix this hazard.
+  !!!
+  
+  ---
+  
+  What about, instead of NOPs, we just rearrange the code...? Restructure the code. That's called **Code Rearrangement**. 
+  
+  There are obvious guidelines with code rearrangment. Don't swap liens with data dependencies,
+  and don't move inside or outside of loops.
+  
+  When computing execution time, we have to factor in pipeline startup time. This is 4 clock cycles, because we begin producing completed instructions after 4 clock cycles. After that, we produce one completed instruction per clock cycle.
+  
+  
+  When you need to add a NOP, you can actually do that in the hardware, and not the compiler.
+  We can add a **Hazard Detection Unit** to the data path, which takes the RN and Rm from the IF/ID intermediate register. It also gets ID/EX Memread, to check if there's a hazard. Implementation is fairly simple:
+  1. Zero out Control Bits - Converts instruction into NOP
+  2. But also block  IF/ID and PC from updating, so it doesn't skip anything.
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

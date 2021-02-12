@@ -1,0 +1,94 @@
+createdAt: "2019-11-28T15:17:14.910Z"
+updatedAt: "2019-11-28T15:46:32.224Z"
+type: "MARKDOWN_NOTE"
+folder: "13f1477d1dab07e879ca"
+title: "Problem 31: I want total control over vectors + lists"
+tags: []
+content: '''
+  ## Problem 31: I want total control over vectors + lists
+  
+  How can we incorporate custom allocation into our containers?
+  
+  But there's an issue: we may want different allocators with different kinds of vectors.
+  
+  Solution: pass in the allocator as a template argument.
+  
+  Since most users won't write allocators, we will need a default value.
+  ```cpp
+  template<typename T, typename Alloc=allocator<T>> class vector{
+  ~~~
+  }
+  template <typename T> class allocator{ //default - uses standard operator new/delete
+    public:
+      using value_type = T;
+      using pointer = T*;
+      using reference = T&;
+      using const_pointer = const T*;
+      using const_reference = const T&;
+      using size_type = size_t;
+      using difference_type = ptrdiff_t;
+      //bruh
+      
+      allocator() noexcept{}
+      allocator(const allocator &) noexcept{};
+      ~allocator() noexcept{}
+      pointer address(reference x) const noexcept{return &x;}
+      const_pointer address(const_reference x) const noexcept{return &x;}
+      pointer allocate(size_type n){
+        return ::operator new(n*sizeof(T));
+      }
+      void deallocate(pointer p, size_type n){ ::operator delete(p);}
+      template<typename U, typename ...Args>
+      void construct(U *p, Args && ... args){
+        ::new (p) U(forward<Args>(args)...);
+      }
+      template <typename U> void destroy(U *p){p->~U();}
+  };
+  ```
+  If you want to write your own allocator for use with standard containers, it must use this interface.
+  
+  To adapt vector to use this:
+  * vector has a field Alloc alloc;
+  * replace calls to operator new with alloc.allocate
+  * replace calls to placement new with alloc.construct
+  * replace calls to destructor (explicitly) with alloc.destroy
+  * replace calls to operator delete with alloc.deallocate
+  * everwhere vector takes an address, call alloc.address
+  
+  
+  Can we do the same with list? Not exactly.
+  ```cpp
+  teplate<typename T, typename Alloc = allocator<T>> class list{~~~};
+  ```
+  
+  Correct so far, but Alloc will never be used to allocate memory in list.
+  
+  Why not? lists are node-based - means you dont actually want to  allocate T objects; you want to allocate __nodes__. (which contain T objects and pointers)
+  
+  But Alloc allocates T objects.
+  
+  How do we get an allocator for nodes?
+  Every conforming allocator has a member template called rebind that gives the allocator type for another type.
+  
+  ```cpp
+  template <typename T> class allocator{
+  ~~~
+  public:
+    ~~~
+    template <typename U> struct rebind{
+      using other=allocator<u>;
+    };
+    ~~~~
+  };
+  ```
+  
+  Within list - to create an allocator for nodes as a field of list:
+  ```cpp
+  Alloc::rebind<Node>::other alloc;
+  ```
+  
+  Then use as in vector.
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

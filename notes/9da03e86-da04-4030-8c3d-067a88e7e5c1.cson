@@ -1,0 +1,165 @@
+createdAt: "2019-10-03T15:11:05.740Z"
+updatedAt: "2019-12-05T02:12:03.065Z"
+type: "MARKDOWN_NOTE"
+folder: "13f1477d1dab07e879ca"
+title: "Problem 13 - Less copying"
+tags: []
+content: '''
+  ## Problem 13 - Less copying
+  
+  Before:
+  ```cpp
+  void push_back(int n);
+  ```
+  Now:
+  ```cpp
+                //(1)
+  void push_back(T x){ //if T is an object, how many times is T being copied? 
+    increateCap();
+    new (theVector + (n++)) T(x);
+                          //(2)
+  }
+  ```
+  
+  If arg is an lvalue: (1) is a copy constructor, (2) is a copy constructor
+  
+  If arg is an rvalue (1) is a move constructor, (2) is a copy constructor
+  
+  Fix:
+  ```cpp
+  void pushback (T x){
+    increaseCap();
+    new (theVector +(n++)) T (std::move(x));
+    //x will still be a valid object, but unspecified contents.
+  }
+  ```
+  lvalue: copy + move
+  rvalue: move + move
+  
+  Unless, of course, T doesn't have a move constructor. Then it's still 2 copies.
+  
+  Better Fix: Take x by ref.
+  
+  ```cpp
+  void push_back(const T &x){
+    increaseCap();
+    new (theVector + (n++)) T(x); //copy ctor
+  }
+  void push_back(T &&x){
+    increaseCap();
+    new (theVector + (n++)) T(std::move(x));
+  }
+  ```
+  l-values: 1 copy
+  r-values: 1 move
+  no move constructor: 1 copy
+  
+  Consider:
+  ```cpp
+  vector<Posn> v;
+  v.push_back(Posn{3,4});
+  ```
+  1. Constructor call to create the object
+  2. Copy of move construction into the vector (depending on whether Posn has a move constructor)
+  3. Destructor call on temporary object.
+  
+  We could eliminate 1 and 3 if we could make vector build the object.
+  Pass constructor args to the vector, not the actual object.
+  
+  But how do we do this?
+  
+  ---
+  A note on template functions.
+  Consider `std::swap`. It works on all types? Swap is a **template function**.
+  Implementation:
+  ```cpp
+  template<typename T>  void swap(T &a, T&b){
+    T tmp (std::move(a));
+    a = std::move(b);
+    b = std::move(tmp);
+  }
+  int x = 1, y = 2;
+  swap(x,y); // Equiv swap<int>(x,y)
+  ```
+  But you do not have to say `swap<int>`. C++ can deduce this from the types of x and y, like auto.
+  
+  ---
+  Back to vector - passing constructor arguments.
+  We don't know what types the constructor arguments should have?
+  T could be any class, it could have several constructors.
+  
+  Idea: write a member template function, like swap.
+  
+  Ok, but how many constructor arguments?
+  
+  **variadic templates**
+  ```cpp
+  template <typename T> class vector{
+  ~~~~~
+    public:
+      ~~~~              //vv this ... is meant
+      template<typename ... Args> void emplace_back(Args... args){
+        increaseCap();
+        new (theVector+(n++)) T (args...);
+        
+      }
+  };
+  ```
+  `Args` is a sequence of type variables, denoting the types of the actual arguments of `emplace_back`.
+  `args` is a sequence of program variables denoting the actual arguments of `emplace_back`.
+  ```cpp
+  vector<Posn> v;
+  v.emplace_back(3,4)
+  ```
+  
+  Problem: the args are being taken by value. That means copying. So can we take args by reference instead? But what kind of reference? lvalue, rvalue, or a mix of both?
+  ```cpp
+  //back in the templace of class vector.
+  template<typename ... Args> void emplace_back(Args &&... args){
+    increaseCap();
+    new (theVector + (n++)) T(args...);
+  }
+  ```
+  There are sepecial rules happening here: `Args &&` is a **forwarding reference**. (or universal reference)
+  So it can refer to either an rvalue or an lvalue.
+  
+  When is a reference universal?
+  1. Must have the form T&&, where T is the type argument being deduced for the current template function call.
+  
+  Examples:
+  ```cpp
+  template <typename T> class C{
+    public:
+      template <typename U> void f(U&& x); //universal
+      template <typename U> void g(const U&& x); //not universal
+      void h(T&& x); //not universal. Nothing's being deduced.
+  }
+  ```
+  Recall
+  ```cpp
+  class C{...};
+  void f(C &&x){ //rvalue ref - x points to an rvalue, but x _is_ an lvalue.
+     g(x); //x will be passed as an lvalue to g.
+  }
+  ```
+  If you want to preserve the fact that x is an rvalue ref, so that a "moving" version of g is called:
+  ```cpp
+  void f(c&&x){
+    g(std::move(x));
+  }
+  ```
+  But now it's a little different. In the case of args, we don't know if they're lvalues or rvalues.
+  Want to call move on the args _iff_ the original arguments are rvalues.
+  
+  ```cpp
+  template<typename...Args> void emplace_back(Args&&...args){
+    increaseCap();
+    new (theVector + (n++))T(std::forward<Args>(args)...); //calls std::move iff arg is an rvalue ref. else does nothing.
+  }
+  ```
+  Now args is passed to T's constructor with lvalue/rvalue information preserved.
+  This is called **perfect forwarding**.
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

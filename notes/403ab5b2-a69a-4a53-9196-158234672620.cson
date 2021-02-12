@@ -1,0 +1,65 @@
+createdAt: "2019-11-26T15:52:54.240Z"
+updatedAt: "2019-11-27T17:36:57.010Z"
+type: "MARKDOWN_NOTE"
+folder: "13f1477d1dab07e879ca"
+title: "Problem 28: Polymorphic Cloning"
+tags: []
+content: '''
+  ## Problem 28: Polymorphic Cloning
+  
+  ```cpp
+  Book *pb1 = ~~~~~~~;
+  
+  Book *pb2 = // I want an exact copy of *pb1. but I don't know which constructor to call.
+  ```
+  Can't call a constructor directly - don't know what *pb1 is, so I don't know which constructor to call.
+  
+  Standard solution: virtual `clone` method; known as the **
+  ## incomplete
+  
+  ## incomplete
+  
+  ```cpp
+  template<typename T, typename Data> class Logger{
+    public:
+      void loggedSet(Data x){
+        cout << "Setting x to "<< x << endl;
+        static_cast<T*>(this)->set(x);
+      }
+  };
+  
+  class Box: public Logger<Box, int>{
+    friend class Logger;
+    int x;
+    void set(int y){x=y;}
+    ...
+  };
+  
+  class Box{
+    int x;
+    public:
+      void set(int y){x=y;}
+  };
+  template<typename T,typename Data> class Logger: public T{
+    public:
+    void loggedSet(Data x){
+      cout << "Setting x to "<< x << endl;
+      set(x);
+    }
+  };
+  
+  using BoxLogger = Logger<Box,int>;
+  Box Logger b;
+  b.loggedSet(1);
+  b.loggedSet(4);
+  b.loggedSet(7);
+  
+  ```
+  
+  If SpecialBox is a subclass of Box, then Logger<Box, int> is not a subclass of SPecialBox under the second solution. Also, Logger<SpecialBox, int> is not a subtype of Logger<Box,int>
+  
+  But in the first solution, SpecialBox is a subtype of Logger<Box,int> => can specialize virtual behaviour.
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

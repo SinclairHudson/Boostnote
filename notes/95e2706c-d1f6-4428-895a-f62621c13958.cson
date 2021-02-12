@@ -1,0 +1,132 @@
+createdAt: "2019-10-01T14:13:04.903Z"
+updatedAt: "2019-12-05T01:42:16.102Z"
+type: "MARKDOWN_NOTE"
+folder: "13f1477d1dab07e879ca"
+title: "Problem 09: Staying in Bounds"
+tags: []
+content: '''
+  ## Problem 09: Staying in Bounds
+  
+  ```cpp
+  vector v;
+  v.push_back(4);
+  v.push_back(5);
+  v[2]; //illegal OOF, undefined behaviour. arrayOutOfBoundsException
+  ```
+  But can we make it safer?
+  
+  Adding bounds checks to `operator[]` may be needlessly expensive.
+  Alternatively, we could provide a second operator that has extra checks, and then the user could decide which one they want to use.
+  
+  ```cpp
+  class range_error{};
+  class vector{
+    ...
+    public:
+      int &at(size_t i){
+        if(i<=n){
+          return a[i];
+        }
+        else{
+        //??? it doesn't "fix" the problem.
+        //we can't just return a flag int like -1
+        //returning something that's not an int isn't an option, type error
+        //crash the program intentionally? - can we do better?
+        //We need to raise an 'exception'
+          throw range_error{}; //construct an object and throw it.
+        }
+      }
+  }
+  ```
+  Exceptions are like baseballs.
+  Client options:
+  1) Do nothing - will crash the program
+  2) Catch it -
+  ```cpp
+  try{
+    vector v;
+    vector.push_back(1);
+    v.at(1);
+  }                 //r is the thrown object, caught by reference.
+  catch(range_error &r){
+    //do something
+  }
+  ```
+  3) let your caller catch it.
+  ```cpp
+  int f(){
+    vector v;
+    v.push_back(1);
+    v.at(1);
+  }
+  int g(){
+    try{
+      f();
+    }
+    catch(range_error &r){
+      //do something
+    } //control resumes after the catch block.
+  }
+  ```
+  3 involves "unwinding the stack".
+  if no handler is found, program aborts.
+  
+  ---
+  What happens is a constructor throws an exception?
+  The object would be considered partially constructed.
+  Is it safe for the destructor to run? no. The destructor will not run on partially constructed objects.
+  
+  ```cpp
+  class C{...};
+  class D{
+    C a;
+    C b;
+    int *c;
+    public:
+      D(){
+        c = new int[10];
+        ...
+        if(~) throw something; //*
+      }
+      ~D(){delete [] c;}
+  };
+  D d;
+  ```
+  At \\*, the D object is not fully constructed. So **~D() will not run on d**.
+  But a and b are fully constructed, so their dtors will run.
+  
+  **So if a constructor throws, it has to be responsible for its own cleanup**.
+  ```cpp
+  class C{...};
+  class D{
+    C a;
+    C b;
+    int *c;
+    public:
+      D(){
+        c = new int[10];
+        ...
+        if(~){
+          delete []c;
+          throw something;
+        } 
+      }
+      ~D(){delete [] c;}
+  };
+  D d;
+  ```
+  
+  What happens if a destructor throws?
+  Trouble lol.
+  By default, the program aborts immediately.
+  std::terminate is called.
+  
+  If you really want a throwing destructor, tag it with `noexcept(false)`.
+  But you really don't want a throwing destructor.
+  
+  You can't have more than one active exception; the program will abort guaranteed. You can only play ball with one baseball I guess.
+  
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

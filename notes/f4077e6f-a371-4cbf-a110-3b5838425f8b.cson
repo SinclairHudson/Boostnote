@@ -1,0 +1,50 @@
+createdAt: "2019-10-29T14:17:52.671Z"
+updatedAt: "2019-10-29T15:42:57.533Z"
+type: "MARKDOWN_NOTE"
+folder: "13f1477d1dab07e879ca"
+title: "Problem 20: I want a class with no objects"
+tags: []
+content: '''
+  ## Problem 20: I want a class with no objects
+  ```cpp
+  class Student{
+    public:
+      virtual float fees() const;
+  };
+  
+  class RegularStudent: public Student{
+    public:
+      float fees() const override; //regular student fees
+  };
+  
+  class CoopStudent: public Student{
+    public:
+      float fees() const override; //co-op student fees
+  };
+  ```
+  
+  What should Student::fees do?
+  Don't know - every student should be Regular or Co-op.
+  
+  The solution is to explicitly give Student::fees no implementation.
+  ```cpp
+  class Student{
+    public:
+      virtual float fees() const = 0; //garbage language design but ok
+      //this is a pure virtual method
+  };
+  ```
+  A class that contains at least one **pure virtual method** is called an **abstract class**. Because you can't make an object with it. Abstract classes cannot be instantiated.
+  `Student s;` will not compile.
+  `Student *s = new Student;` will also not compile.
+  `Student *s = new Regular Student;`
+  
+  Subclasses of abstract classes are abstract, unless they implement all pure virtual methods.
+  Abstract Classes:
+  * used to organize concrete classes
+  * can contain common fields, methods, default implementations
+  
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

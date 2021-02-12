@@ -1,0 +1,102 @@
+createdAt: "2019-11-14T16:03:23.946Z"
+updatedAt: "2019-11-19T15:30:42.315Z"
+type: "MARKDOWN_NOTE"
+folder: "13f1477d1dab07e879ca"
+title: "Problem 23: Shared Ownership"
+tags: []
+content: '''
+  ## Problem 23: Shared Ownership
+  
+  The unique_ptrs that we wrote don't respect "is_a".
+  
+  ```cpp
+  unique_ptr<Base> p = {new Derived {...}} //OK
+  p->virt_fn(); //runs Derived version. OK
+  ```
+  BUT,
+  
+  ```cpp
+  unique_ptr<Derived> q = ~~~~~
+  unique_ptr<Base> p = std::move(q); //X Type error - no conversion between unique_ptr<Derived> and unique_ptr<Base>
+  ```
+  But this is easy to fix.
+  ```cpp
+  template<typename T> ckass unique_ptr{
+  ~~~ T*p;
+  public:
+    ~~~
+    template <typename U> unique_ptr(unique_ptr<U> &&q):
+      p{q.p}{q.p = nullptr;}
+    template <typename U> unique_ptr &operator=(unique_ptr<U> &&q){
+      std::swap(q.p,p);
+      return *this;
+    }
+  };
+  ```
+  
+  I want two unique pointers that point to the same thing! It's not unique at that point, but you get the idea. Why not have one `unique_ptr` while the others are just raw pointers. When do you __truly__ want shared ownership?
+  
+  Recall, in Racket:
+  ```
+  (define l1 (cons 1 (cons 2 (cons 3 empty))))
+  (define l2 (cons 4 (rest l1)))
+  # they have shared tails!
+  ```
+  But shared data structures are a **nightmare** in C.
+  How can we ensure that each node is freed exactly once? This is easy in garbage-collected languages.
+  
+  Enter `shared_ptr`
+  
+  ```cpp
+  template <typename T> class shared_ptr{
+    T*p;
+    int *refcount; //counts how many shared_ptrs point to *p;
+    //p is deleted when its refcount reaches 0.
+    public:
+    ~~~~~
+  }
+  ```
+  
+  ```cpp
+  struct Node{
+    int data;
+    shared_ptr<Node> next;
+  }
+  ```
+  This node in a linked list structure is easy. the deallocation happens automatically. 
+  UNLESS, we have a cycle. Then the ref count will never get to 0. You may have to break the cycle.
+  
+  Also watch:
+  ```cpp
+  Book *p = new Book ~~~~~;
+  shared_ptr<Book> p1 {p};
+  shared_ptr<Book> p2 {p};
+  
+  ```
+  
+  !!! danger This is wrong
+  This is two shared pointers, they will not share a ref count. To point 2 shared pointers at the same object, initialize one from the object and then copy the shared pointer. 
+  !!!
+  
+  But you can't dynamic cast shared pointers...
+  SO WE'LL WRITE OUR OWN!
+  ```cpp
+  template<typename T, typename U> shared_ptr<T>
+  dynamic_pointer_cast(const shared_ptr<u> &spu){
+    // this is a little tricky
+    auto p= dynamic_cast<T*>(spu.get()); //check to see if the underlying pointer is castable
+    if(p){
+      return shared_ptr<T>{spu, p};
+    }
+    else{
+      return shared_ptr<T>{};
+    }
+  }
+  ```
+  Similarly, there is `const_pointer_cast` and `static_pointer_cast`.
+  
+  Don't try to shortcut the ownership rules.
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

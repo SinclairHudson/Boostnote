@@ -1,0 +1,81 @@
+createdAt: "2019-10-31T15:08:21.205Z"
+updatedAt: "2019-11-05T16:02:57.525Z"
+type: "MARKDOWN_NOTE"
+folder: "13f1477d1dab07e879ca"
+title: "A Big Unit on Object-Oriented Design"
+tags: []
+content: '''
+  ## A Big Unit on Object-Oriented Design
+  
+  System modelling - UML - Unified Modelling Language
+  Makes it easy to communicate what the design of your program is.
+  ![uml_2.png?width=600&name=uml_2.png](https://www.gliffy.com/hs-fs/hubfs/uml_2.png?width=600&name=uml_2.png)
+  
+  * Italic Class = abstract
+  * Italic Method = virtual
+  *  \\- private
+  *  \\# protected
+  *  \\+ public
+  
+  @startuml
+  Book <|-- Text
+  Book <|-- Comic
+  Motor <--* Car
+  
+  @enduml
+  
+  Here, a Car owns a Motor. The motor is part of the car. does not have an independent existence.
+  To copy a car, you would deep copy the motor.
+  But consider the following:
+  @startuml
+  
+  Duck --o Pond
+  
+  @enduml
+  A pond **has a** duck, also known as an aggregation. Copying and destroying the pond does not imply that you copy and destroy the Ducks. Typical implementation is by a pointer field.
+  
+  !!! note Ownership
+  Who (which class) has ownership, and who is umtimately responsible for it. It's a big part of the course, and central to object oriented design in C++. Every resource should be owned by an object that will release it - RAII. A unique-ptr owns the memory it points to.
+  * A unique pointer **owns** the memory it points to.
+  * A raw pointer should be regarded as not owning the memory it points to.
+  
+  So you can say that raw pointers should never be deleted. If it's unique, it'll be deleted for you. If it's a raw pointer, it's someone else's job to delete it.
+  !!! 
+  
+  If you need to point at the same object with several pointers, one pointer should own it and be a `unique_ptr`. The rest should be raw pointers. When we move a `unique_ptr`, we're really transferring ownership. If you need **true** shared ownership, ~~~~~.
+  
+  ### Measures of Design Quality
+  
+  Coupling and Cohesion. How much stuff to you keep in a module?
+  !!! hint Coupling
+  How strongly different modules depend on each other. How independent are they?
+  * **low**: function calls with params/results of basic types
+  * **low-med**: function calls with array/struct params.
+  * **med**: modules affect each other's control flow
+  * **high**: modules access each other's implementation. They're friends.
+  
+  Perfect coupling is that everything is the same class.
+  !!!
+  
+  !!! hint Cohesion
+  How closely are element of a module related to each other?
+  * **low**: arbitrary grouping (eg `<utility>`)
+  * **low-med**: some common theme, otherwise unrelated. Might share some base code. (eg `<algorithm>`)
+  * **med**: elements manipulate state over the lifetime of an object. (eg open/read/close files)
+  * **med-high**: elements pass data to each other
+  * **high**: elements cooperate to perform exactly one task. They can't function without each other. UwU <3
+  
+  Perfect Cohesion means everything is in different modules but everything communicates.
+  !!!
+  
+  It's hard to change a module in high coupling without changing other modules. Harder to reuse individual modules. Low cohesion is poorly organized, hard to understand, hard to maintain. Hard to reuse small pieces. 
+  
+  #### We want high cohesion, low coupling.
+  
+  
+'''
+linesHighlighted: [
+  69
+]
+isStarred: false
+isTrashed: false

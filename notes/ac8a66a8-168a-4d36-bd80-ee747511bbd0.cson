@@ -1,0 +1,42 @@
+createdAt: "2019-10-01T15:07:53.128Z"
+updatedAt: "2019-12-05T01:43:24.001Z"
+type: "MARKDOWN_NOTE"
+folder: "13f1477d1dab07e879ca"
+title: "Problem 10: Vector of chars"
+tags: []
+content: '''
+  ## Problem 10: Vector of chars
+  
+  Do we start over? no. 
+  We introduce a major abstraction mechanism - **template** - which generalize over types.
+  ```cpp
+  namespace CS246E{
+    template<typename T> class vector{
+      T *theVector;
+      size_t n, cap;
+      public:
+        vector();
+        ...
+        void push_back(T n);
+        T &operator[](size_t i);
+        const T &operator[](size_t i) const;
+        typedef T *iterator;
+        typedef const T *const_iterator;
+    };
+    template <typename T> vector<T>::vector():n{0},cap{1},
+      theVector{new T[cap]}{}
+    template <typename T> vector<T>::push_back(T n){...}
+    //etc
+  }
+  ```
+  
+  When it comes to templates, **you must put implementation in .h file**.
+  
+  The first time the compiler encounters `vector<int>`, it creates a version of the code for vector, where int replaces T, and compiles that new class. So it has to be in the same file.
+  
+'''
+linesHighlighted: [
+  14
+]
+isStarred: false
+isTrashed: false

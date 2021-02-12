@@ -1,0 +1,276 @@
+createdAt: "2019-09-26T14:17:30.381Z"
+updatedAt: "2019-12-05T01:36:45.596Z"
+type: "MARKDOWN_NOTE"
+folder: "13f1477d1dab07e879ca"
+title: "Problem 08: Efficient Iteration"
+tags: []
+content: '''
+  ## Problem 08: Efficient Iteration
+  
+  ```cpp
+  vector v;
+  v.push_back(...);
+  ...
+  for(size_t i=0; i<v.size();++i){
+    cout << v[i] << endl;
+  }
+  ```
+  $$O(n)$$
+  Great.
+  Let's do the same thing with a list.
+  ```cpp
+  list l;
+  l.push_back(...);
+  ...
+  for(size_t i=0; i<l.size();++i){
+    cout << l[i] << endl; //O(i)
+  }
+  ```
+  $$O(n^2)$$
+  OOF. In obscuring the node, we made the retrieval linear time complexity.
+  
+  !!! note Design Patterns
+  A problem that comes up a lot, and here's a solution that a lot of people have thought about and is proven to work. Can be adapted to suit current needs.
+  !!!
+  
+  !!! note Iterator Pattern
+  For efficient iteration over a collection without exposing underlying structure.
+  !!!
+  
+  **The idea**: create a class that "remembers" where you are in the list.
+  This is an abstraction of a pointer.
+  
+  ##### Inspiration: C
+  ```c
+  for(int *p=arr; p!=a+size; ++p){
+    print("%d\\n", *p);
+  }
+  ```
+  Now in C++
+  ```cpp
+  class list{
+  struct Node{...};
+  Node *theList;
+  public:
+    class iterator{ //nested public class! 
+      Node *p;
+      public:
+      iterator (Node *p):p{p}{} //this iterator object is like the pointer in the above C code.
+      bool operator!=(const iterator &other)const{return p!=other.p;}
+      iterator &operator++(){p=p->next; return *this;}
+      int &operator*(){return p->data;}
+    }
+    iterator begin(){return iterator {theList};}
+    //iterator needs to be one past the end of the list.
+    iterator end(){return iterator{nullptr};}
+  };
+  
+  list l;
+  ... //populate
+  for(list::iterator it= l.begin; it!=l.end(); ++it){
+    cout *it <<endl;
+  } //We're back to O(n)
+  ```
+  
+  Should list::begin and list::end be const methods?
+  
+  Consider:
+  ```cpp
+  ostream &operator<<(ostream &out, const list &l){
+    for(list::iterator it=l.begin(); it!=l.end(); ++it){
+      out << *it <<endl; //this won't compile if begin/end are not const.
+    }
+    return out;
+  }
+  ```
+  Ok, so let's suppose they are const:
+  ```cpp
+  ostream &operator<<(ostream &out, const list &t){
+    for(list::iterator it=l.begin(); it!=l.end(); ++it){
+      out << *it <<endl;
+      ++*it; //WILL compile, but it shouldn't. Because the list should be const.
+      //operator * returns a non-const ref.
+      //but it should compile if the list is not const.
+    }
+    return out;
+  }
+  ```
+  The act of iterating over a const list vs a non-const list are two different things.
+  
+  So uhhh, we need a **seperate iterator class**.
+  ```cpp
+  class list{
+  struct Node{...};
+  Node *theList;
+  public:
+    class iterator{
+      Node *p;
+      public:
+      iterator (Node *p):p{p}{} //this iterator object is like the pointer in the above C code.
+      
+      bool operator!=(const iterator &other)const{
+        return p!=other.p;
+      }
+      iterator &operator++(){
+        p=p->next; return *this;
+      }
+      int &operator*(){ 
+        return p->data;
+      }
+    };
+    class const_iterator{
+      Node *p;
+      public:
+        const_iterator(Node *p):p{p}{}
+        
+        bool operator!=(const const_iterator &other)const{
+          return p!=other.p;
+        }
+        const_iterator &operator++(){
+          p=p->next; return *this;
+        }
+        const int &operator*() const{ //dereference
+          return p->data;
+        }
+    };
+    
+    iterator begin(){
+      return iterator {theList};
+    }
+    //iterator needs to be one past the end of the list.
+    iterator end(){
+      return iterator{nullptr};
+    }
+    //const overloading
+    const_iterator begin() const{return const_iterator{theList};}
+    const_iterator end() const {return const_iterator{nullptr};}
+  
+    ostream &operator <<(ostream &out, const list &l){
+      for(list::const_iterator it=l.begin(); it!= l.end(); ++it){
+        out << *it<<endl;
+      }
+      return out;
+    }
+  }; //end of list class
+  ```
+  So now begin and end will do the same thing
+  ```cpp
+  list::const_iterator it=l.begin() //mouthful.
+  
+  ostream &operator<<(....){
+    for(auto it=l.begin(); int!=l.end(); ++it){
+      out << *it<<endl;
+    }
+  }
+  ```
+  !!! note `auto`
+  I'm too lazy to write the type down. The type I mean for x to have is the type expr's type. Whatever the expression returns, that's what it will be.
+  !!!
+  EVEN SHORTER:
+  ```cpp
+  ostream &operator<<(....){
+    for(auto it:l){ //range-based for loops
+      out << *it<<endl;
+    }
+  }
+  ```
+  Available for any class with
+  1) methods `begin` and `end` that return an iterator object
+  2) the iterator object must support unary \\*, prefix ++, and !=
+  
+  `for(auto n:l) ++n` will compile, but n was declared by value. `++n` increments n, not the list values.
+  `for(auto &n:l) ++n` will update the list items, because now `n` is a reference.
+  `for(const auto &n:l) ++n` will not work, because `n` cannot be mutated.
+  
+  One small encapsulation problem:
+  client: `list::iterator it{nullptr};`
+  !!! error forgery - can create an end iterator without calling `l.end()`
+  !!!
+  We could fix this by making iterator constructors private. But then list can't create an iterator.
+  
+  Solution: friendship.
+  
+  ```cpp
+  class list{
+  struct Node{...};
+  Node *theList;
+  public:
+    class iterator{
+      Node *p;
+      iterator (Node *p):p{p}{} 
+      public:
+      bool operator!=(const iterator &other)const{return p!=other.p;}
+      iterator &operator++(){p=p->next; return *this;}
+      int &operator*(){return p->data;}
+      friend class list; //list has access to all of iterator
+  
+    };
+    class const_iterator{
+      Node *p;
+      const_iterator(Node *p):p{p}{}
+      public:
+        bool operator!=(const const_iterator &other)const{
+          return p!=other.p;
+        }
+        const_iterator &operator++(){p=p->next; return *this;}
+        const int & operator*()const{return p->data;}
+        friend class list; //list has access to all of iterator
+    };
+    
+    iterator begin(){return iterator {theList};}
+    //iterator needs to be one past the end of the list.
+    iterator end(){return iterator{nullptr};}
+    //const overloading
+    const_iterator begin() const{return const_iterator{theList};}
+    const_iterator end() const {return const_iterator{nullptr};}
+  
+    ostream &operator <<(ostream &out, const list &l){
+      for(list::const_iterator it=l.begin(); it!= l.end(); ++it){
+        out << *it<<endl;
+      }
+      return out;
+    }
+  }; //end of list class
+  ```
+  LIMIT FRIENDSHIPS lol.
+  
+  We can do the same thing for vectors:
+  ```cpp
+  class vector{
+    int *theVector;
+    size_t n, cap;
+    public:
+      ...
+      class iterator{
+        int *p;
+        ...
+      };
+      class const_iterator{
+        ...
+      };
+      iterator begin(){return iterator{theVector};}
+      iterator end(){return iterator{theVector+n};}
+      const iterator begin/end //similar
+  }
+  ```
+  
+  ## OR
+  ```cpp
+  class vector
+  ...
+    public:
+      typedef int *iterator; //using iterator = int*
+      typedef const int *onst_iterator; //using const_iterator= const int*;
+      ...
+      iterator begin(){return theVector;}
+      iterator end(){return theVector+n;}
+  ```
+  
+  
+  
+'''
+linesHighlighted: [
+  42
+]
+isStarred: false
+isTrashed: false

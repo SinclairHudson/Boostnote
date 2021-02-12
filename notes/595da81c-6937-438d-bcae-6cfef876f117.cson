@@ -1,0 +1,52 @@
+createdAt: "2019-10-02T16:30:34.017Z"
+updatedAt: "2019-10-08T14:03:47.378Z"
+type: "MARKDOWN_NOTE"
+folder: "13f1477d1dab07e879ca"
+title: "Version Control"
+tags: []
+content: '''
+  ## Version Control
+  time to git good.
+  
+  `git add file.txt` adds the file, it is now  tracked
+  
+  `git commit -m "My message"` commits the changes
+  
+  Commits are checkpoints. You can roll back to any one of them.
+  
+  `git clone sshudson@git.uwaterloo.ca:sshudson/repo`
+  
+  Clones from the central repository.
+  
+  `git push`
+  
+  Pushes your local commits to the remote repository.
+  
+  `.gitignore` ignores any files that are contained within it.
+  It's just a plaintext file.
+  Ignore .o files, things that are created on compilation.
+  
+  `git rm file1.txt` removes the file from the repo.
+  
+  `git checkout [git checkpoint or branch] file.txt` recovers file.txt from the git commit
+  
+  `git checkout .` Will take anything from the last commit, the back step.
+  
+  `git pull` updates to latest version
+  
+  `git branch -a` gives you a list of all the branches
+  
+  `git branch nameOfNew nameOforigin`
+  
+  `git checkout nameOfNew` , and we're now in the new branch.
+  
+  To merge a branch:
+  
+  `git checkout master`
+  `git pull`
+  `git merge nameOfBranch`
+  And then finish merge conflicts.
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

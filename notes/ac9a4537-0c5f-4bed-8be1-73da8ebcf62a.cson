@@ -1,0 +1,211 @@
+createdAt: "2019-10-08T14:59:58.661Z"
+updatedAt: "2019-12-05T02:23:09.190Z"
+type: "MARKDOWN_NOTE"
+folder: "13f1477d1dab07e879ca"
+title: "Problem 14: Memory management is hard!"
+tags: []
+content: '''
+  ## Problem 14: Memory management is hard!
+  
+  No it isn't.
+  - Vectors can do everything arrays can do
+  - they grow as needed in $O(1)$ (amortized).
+  - Clean up autimatically when they go out of scope.
+  - Tuned to minimize copying.
+  
+  Use vector, and you'll never have to manage arrays again. 
+  
+  C++ has enough abstraction abilities to make programming easier than in C.
+  
+  But what about single objects? Those aren't arrays.
+  ```cpp
+  void f(){
+    Posn *p = new Posn{1,2};
+    ...
+    delete p; //must deallocate the Posn. not that bad. 
+  }
+  ```
+  
+  First ask:
+  Do you need to use the heap? Could you have used the stack instead?
+  
+  ```cpp
+  void f(){
+    Posn p{1,2};
+    ... //no cleanup.
+  }
+  ```
+  Sometimes you need the heap. Calling delete isn't so bad. 
+  Now, consider:
+  
+  ```cpp
+  class BadNews{};
+  void f(){
+    Posn *p = new Posn{1,2};
+    if(some condition) throw BadNews{};
+    delete p; 
+  } // p is leaked if f throws
+  ```
+  
+  Raising + handling an exception should not corrupt the program. Let's fix that. We desire **exception safety**.
+  
+  Leaks are a corruption of the program's memory. They will eventually degrade performance and crash the program. If we can't recover properly, then we might as well crash.
+  
+  **What constitutes exception safety?**
+  
+  3 levels:
+  1) Basic guarantee - once an exception has been handled, the program is in some valid state. No leaked memory, no corrupted data structures, any invariants are still true.
+  2) Strong guarantee - if an expression propagates out of a function `f`, then the state of the program will be as if `f` had not been called. `f` either succeeds completely or not at all.
+  3) No-Throw guarantee - `f` offers the no-throw guarantee if it never emits an exception, and **always** accomplishes its purpose.
+  
+  We will revisit this.
+  But back to `f`.
+  ```cpp
+  class BadNews{};
+  void f(){
+    Posn *p = new Posn{1,2};
+    if(some condition){
+      delete p; //duplicated effort
+      throw BadNews{};
+    } 
+    delete p; //duplicated effort
+  } //looks like memory management isn't that easy after all...
+  ```
+  We only want to say the same thing once.
+  We want to guarantee that `delete p;` happens no mater what.
+  In other languages, you can use something like `finally`. 
+  ![pather.jpg](https://i.kym-cdn.com/entries/icons/original/000/026/366/pather.jpg)
+  In C++, we do something different. C++ only guarantees that destructors for stack-allocated objects will be called when they go out of scope.
+  
+  Let's create a class with a destructor that deletes the pointer. 
+  
+  ```cpp
+  template<typename T> class unique_ptr{
+    T *p;
+    public:
+      unique_ptr(T *p):p{p}{}
+      ~unique_ptr(){delete p;}
+      T *get() const {return p;}
+      T *release(){
+        T *q=p;
+        p = nullptr;
+        return q;
+      }
+  };
+  
+  //now f
+  void f(){
+    unique_ptr<Posn>p{new Posn{1,2}};
+    if(some condition) throw BadNews{};
+  }
+  ```
+  
+  And that's it - less memory management effort than we started with!
+  
+  Using `unique_ptr` - we can use get to fetch the pointer.
+  But we can do one better: make the `unique_ptr` act like a pointer by giving it pointer operations.
+  ```cpp
+  template<typename T> class unique_ptr{
+    T *p;
+    public:
+    ...
+    T &operator *() const {return *p}; //return the internal pointer dereferenced.
+    T *operator->() const { //return the thing you want the compiler to apply the arrow to.
+      return p; //THIS IS WEIRD! but so is the arrow operator so meh.
+    }
+    operator bool() const { return p; }
+    void reset(T *p1){ delete p; p = p1;}
+    void swap(unique_ptr &other){std::swap(p, other.p);}
+  };
+  
+  void f(){
+    unique_ptr<Posn> p {new Posn{1,2}};
+    cout << p->x << ' ' << p->y <<endl;
+  }
+  ```
+  But Consider:
+  
+  ```cpp
+  unique_ptr<Posn> p {new Posn{1,2}};
+  unique_ptr<Posn> q = p; //OOF
+  ```
+  Essentially, we have two pointers to the same object, and they can't both delete it. That would be undefined behaviour.
+  So what do we do?
+  
+  Copying `unique_ptrs` is simply not allowed. But it would be ok to move them.
+  So here's the fix:
+  ```cpp
+  template<typename T> class unique_ptr{
+    T *p;
+    public:
+    ...
+    unique_ptr(const unique_ptr &other) = delete; //this is how streams are uncopyable
+    unique_ptr &operator=(const unique_ptr &other) = delete;
+    unique_ptr (unique_ptr &&other):p{other.p}{other.p=nullptr;}
+    unique_ptr &operator=(unique_ptr &&other){
+      swap(other);
+      return *this;
+    }
+    ...
+  };
+  ```
+  !!! note Copying of streams
+  This is how copying streams is prevented.
+  !!!
+  
+  But there's a small exn safety issue. Consider:
+  ```cpp
+  class c {...};
+  void f(unique_ptr<c>x, int){...}
+  int g(){...}
+  
+  f(unique_ptr<c>{new C}, g());
+  ```
+  !!! danger Argument Evaluation
+  C++ does not enforce an order of argument evaluation.
+  !!!
+  It could be that 
+  1) new C
+  2) g()
+  3) unique_ptr<c>{(1)}
+  
+  and what if g throws? Yeets? 1) is leaked.
+  So we need to make 1 and 3 inseparable, so that nothing whack occurs between them.
+  
+  The Solution: a helper function
+  
+  ```cpp
+  template <typename T, typename... Args>
+  unique_ptr<T> make_unique(Args&&... args){
+    return unique_ptr<T>{new T(std::forward<Args>(args)...)};
+  }
+  ```
+  
+  Example becomes
+  
+  ```cpp
+  f(make_unique<c>(), g()); //checkmate bitch
+  //make_unique either runs in full or it doesn't.
+  ```
+  No leak if g throws
+  
+  ![maxresdefault.jpg](https://i.ytimg.com/vi/m5gVQvYNUdI/maxresdefault.jpg)
+  
+  `unique_ptr` is an example of the C++ idiom called **Resource Acquisition Is Initialization**. (RAII)
+  
+  !!! note Resource Acquisition Is Initialization (RAII)
+  Any resource that must be properly released (memory, file handle, etc.) should be wrapped in a stack-allocated object who's destructor frees it.
+  This is a very important concept in this course
+  !!!
+  
+  Examples of RAII
+  * unique_ptr
+  * ifstream/ofstream
+  
+  Acquire the resource when the object is initialized, and released when the object's destructor runs.
+'''
+linesHighlighted: [
+  171
+]
+isStarred: false
+isTrashed: false

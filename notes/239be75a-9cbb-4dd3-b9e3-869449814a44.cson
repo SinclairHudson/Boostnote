@@ -1,0 +1,70 @@
+createdAt: "2019-11-26T15:35:50.138Z"
+updatedAt: "2019-11-26T15:51:20.444Z"
+type: "MARKDOWN_NOTE"
+folder: "13f1477d1dab07e879ca"
+title: "Problem 27: Resolving Method Overrides at Compile-time"
+tags: []
+content: '''
+  ## Problem 27: Resolving Method Overrides at Compile-time
+  
+  Recall: Template Method Pattern:
+  
+  ```cpp
+  class Turtle{
+    public:
+      void draw(){
+        draw Head();
+        draw Shell();
+        drawFeet();
+      }
+    private:
+      void drawHead();
+      virtual void drawShell();
+      void drawFeet();
+  }
+  
+  class RedTurtle: public Turtle{
+    void drawShell() override;
+  };
+  ```
+  
+  Consider:
+  ```cpp
+  template<typename T> class Turtle{ //turtle wil know what its subclass will be
+    public:
+      void draw(){
+        void drawHead();
+        static_cast<T*>(this)->drawShell(); //bruh
+        void drawFeet();
+      }
+    private:
+      void drawHead();
+      void drawFeet();
+  };
+  ```
+  So now the subclasses look a little something like this:
+  ```cpp
+  class RedTurtle: public Turtle<RedTurtle>{
+    friend class Turtle;
+    void drawShell();
+  }; //no virtual methods, no vtable lookup.  
+  
+  class GreenTurtle: public Turtle<GreenTurtle>{
+    friend class Turtle;
+    void drawShell();
+  };
+  ```
+  Great! So why don't we do this all the time? The drawback now is that redTurtle and greenTurtle are not related to each other. They don't share a parent anymore. So you can't store a mix of them in a container.
+  
+  You could give Turtle a parent:
+  ```cpp
+  typename <typename T> class Turtle: public Enemy{~~~~~};
+  ```
+  And then you could store Enemy pointers in the same array. But it can't access the draw method. So you could give Enemy a virtual draw method. Which would defeat the purpose.
+  
+  
+  ## INCOMPLETE
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

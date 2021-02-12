@@ -1,0 +1,256 @@
+createdAt: "2019-11-20T18:00:28.056Z"
+updatedAt: "2019-11-26T15:10:27.282Z"
+type: "MARKDOWN_NOTE"
+folder: "13f1477d1dab07e879ca"
+title: "Problem 25: I want an even faster vector"
+tags: []
+content: '''
+  ## Problem 25: I want an even faster vector
+  ![96d.jpg](https://i.kym-cdn.com/photos/images/newsfeed/001/473/129/96d.jpg)
+  
+  In the good old days of C, you could copy an array very quickly. Even an array of structs.
+  The function was **memcpy** (similar to strcpy), but for arbitrary memory, so not just strings.
+  
+  **memcpy** was probably written in assembly, and was as fast as the machine could possibly be. 
+  
+  ---
+  
+  But C++ is more complicated. Copies invoke copy Constructors, which are costly function calls.
+  
+  If we're talking about simple data, we could still technically use `memcpy`.
+  
+  !!! hint POD (plain old data)
+  
+  * has a trivial default constructor ( = default)
+  * if it's trivially copyable. (copy/move/destructors have defailt implementations)
+  * is **standard layout** (it looks like C)
+    * no virtual methods, or bases.
+    * all members have the same visibility.
+    * no reference members
+    * no fields in both base class and subclass, or in multiple bas classes.
+  !!!
+  
+  For POD types, the semantics are compatible with C, and `memcpy` is safe to use.
+  
+  How can we use it? Only safe if T is a POD type.
+  
+  ```cpp
+  template <typename T> class vector{
+    T *theVecotr;
+    size_t n, cap;
+    public:
+      ~~~~
+      vector(const vector &other): theVector{static_cast<T*>(operator new (other.n*sizeof(T)))},
+      n{other.n}, cap{other.cap}{
+        if(std;;is_pod<T>::value){ //but this should be known at compile-time
+          memcpy(theVector, other, theVecotr, n*sizeof(T));
+        }
+        else{
+        ~~~~ //AS BEFORE
+        }
+      }
+  }
+  ```
+  So here's the second option, involving no runtime cost:
+  
+  !!! danger Doesn't work
+  ```cpp
+  template <typename T> class vector{
+    ~~~~
+    public:
+      template <typename x = T> vector(enable_if<std::is_pod<x>::value, const vector<T>&>::type other):
+      theVector{~~~~~},n{~~~~~},cap{~~~~~~~}{
+        memecpy(theVector, other.theVector, n*sizeof(T));
+      }
+      template<typename x = T> vector(enable_if<!std::is_pod<x>::value, const vector<T>&>::type other):
+      theVector{~~~~~{,n{~~~~},cap{~~~~~}{
+        for(size_t i = 0; i < n; ++i){
+          new (theVector+i) T(other[i]);
+        }
+      }
+      ~~~~~~
+  };
+  ```
+  !!!
+  
+  How does this work?
+  ```cpp
+  template<bool b, typename T> struct enable_if;
+  
+  template<typename T> struct enable_if<true,T>{
+    using type = T;
+  };
+  ```
+  
+  With metaprogramming, what you don't say is as important as what you do say.
+  If b is true, enable_if defines a struct whose 'type' member typedef is T. So if stdLLis_pod<T>::value == true, then `enable_if<is_pod<T>::value, const T&> == const T&`
+  
+  If b is false, the struct is declared, but not defined. So enable_if<b,T> won't compile.
+  
+  So one of the two versions of the copy constructor (the one with the false condition) won't compile.
+  
+  So then how is this a valid program?
+  
+  !!! note SFINAE
+  Substitution failure is not an error. The compiler eliminates that function as a valid option. If t is a type, and template<typename T>__f(__){____} is a template function, and substituting T=t results in an invalid function, the compiler does not signal an error. ALl it does is remove that function from consideration during overload resolution.
+  !!!
+  
+  On the other hand, if no version of the function is in scope to handle the call, that is an error.
+  Q: Why is this wrong?
+  
+  ```cpp
+  template <typename T> class vector{
+    ~~~
+    public:
+    vector(enable_if(is_pod<T>::value, const T&)::type other){~~~~~}
+    vector(enable_if(!is_pod<T>::value~~~~~~~~))
+  };
+  ```
+  The copy constructors must be templated, because SFINAE applies to template functions, and those constructors would be ordinary functions. It depends on T, but T's value has already been set. SO make the constructor a template woth new arg X, which can be defaulted to T. But the above program does not work.  
+  
+  And it's because we're getting the compiler-supplied copy constructor, which is doing shallow copies. These tempaltes are not enough to suppress the auto-generated copy constructor. A non-templated match is always preferred to a non-templated one. 
+  
+  You're not allowed to disable the copy constructor and then define your own... but it's a good idea.
+  
+  Solution: overloading.
+  ```cpp
+  template <typename T> class vector{
+    ~~~~
+    struct dummy {};
+    public:
+      vector(const vector &other):vector{other,dummy{}}{}
+      template <typename x = T> vector(enable_if<std::is_pod<x>::value, const vector<T>&>::type other, dummy):
+      theVector{~~~~~},n{~~~~~},cap{~~~~~~~}{
+        memecpy(theVector, other.theVector, n*sizeof(T));
+      }
+      template<typename x = T> vector(enable_if<!std::is_pod<x>::value, const vector<T>&>::type other, dummy):
+      theVector{~~~~~{,n{~~~~},cap{~~~~~}{
+        for(size_t i = 0; i < n; ++i){
+          new (theVector+i) T(other[i]);
+        }
+      }
+      ~~~~~~
+  };
+  ```
+  We get around this by using a dummy struct, so the parameters are different, but the default ends up calling one of our own constructors.
+  
+  This is really clunky, so C++14 provides helper definitions.
+  ```cpp
+  template<typename T> constexpr bool is_pod_v = is_pod<T>::value
+  
+  template <bool b, typename T> using enable_if)t = typename enable_if<b,T>::type
+  ```
+  WHich enables:
+  ```cpp
+  template<typename T> class vector{
+    ~~~~~
+    public:
+      template<typename x = T> vector(enable_ift<is_pod_v<x>, const vector<T>&> other, dummy){ ~~~~~}
+      ~~~~
+  };
+  ```
+  
+  ### Generic Visitor Pattern:
+  ```cpp
+  
+  template <typename ...> class visitor{
+    public:
+      void visit(){}
+      virtual ~Visitor(){}
+  };
+  
+  template<typename T, typename ... Ts> class Visitor<T,Ts ...>
+  public Visitor<Ts...>{
+      public:
+        using Visitor<Ts ...>::visit; //bring this method into scope
+        virtual void visit(T&x) = 0; //so this ends up bringing visit commands in for each Class you specify. They accumulate.
+  };
+  ```
+  
+  using BookVisitor = Visitor<Book, Text, Comic>;
+  
+  ### Move/forward Implementation
+  std::move: first attempt
+  ```cpp
+  template <typename T> T && move (T&&x){
+    return static_cast<T&&>(x);
+  }
+  ```
+  Doesn't quite work - T && is a universal reference, not an rvalue ref.  So if x was an lvalue, T && will be an lvalue ref. We need to make sure the type is not an lvalue ref. If T is an lvalue ref, get rid of the ref.
+  
+  std::move: correct version
+  ```cpp
+  template <typename T> inline typename std::remove_reference<T>:: type && move (T &&x){
+  return static_cast< typename std::remove_reference<T>::type &&>(x); //turns T& / T&& into T
+  }
+  ```
+  std:: forward - first attempt
+  
+  temaplte <typename T> inline T&& forward (T &&x){
+    return static_cast<T&&>(x);
+  }
+  Reasoning: if x is an lvalue, T&& is an lvalue ref. If x is an rvalue, T&& is an rvalue ref. But x is always an lvalue, so this reasoning is flawed. Forward is called on expressions that may "point" to rvalues, but are lvalues.
+  
+  In order to work, forward must know what type was deduced for x. So forward<T>(x) would work, while forward(x) would not work.
+  
+  This works:
+  ```cpp
+  template<typename T> inline comstexpr T&& forward(std::remove_reference<T> &x){
+      return static_cast<T&&>(x);
+    }
+  ```
+  
+  Q: can we save some typing:
+  ```cpp
+  template<typename T> auto move(~~~~)~~~~~
+  ```
+  No, not in that way. By-value auto throws away refs + outerconsts.
+  ```cpp
+  int z;
+  int &y = z;
+  auto x = y; //x is int
+  const int &w = z;
+  auto v = w; //v is int
+  ```
+  auto uses the type a value would have in expressions if copied.
+  
+  We need a type deduction rue that doesn't discard refs.
+  
+  enter `decltype(~~~~)`. This returns the type ~~~~ was declared to have.
+  
+  `decltype(var)` - returns the declared type of the var.
+  
+  decltype(expr) - returns an lvalue or rvalue ref, depending on whether expr is an lvalue or rvalue.
+  
+  ```cpp
+  int z;
+  int &y = z;
+  decltype(y) x = z; //x is an int&
+  x = 4; //affects z
+  
+  //As opposed to
+  auto x = z;
+  x = 4 //does not affect z
+  
+  //as opposed to
+  decltype(z) s = z; //s is int
+  s = 5; //does not affect z
+  
+  //as opposed to 
+  decltype((z)) r =z; // r is int&
+  r = 6; //affects z
+  ```
+  To use,
+  ```cpp
+  decltype(auto) //perform type deduction like auto, but use the decltype rules.
+  ```
+  Correct move:
+  ```cpp
+  template <typename T> decltype(auto) move(T &&x){
+    return static_cast<std::remove_reference_t<x>&&>(x);
+  }
+  ```
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

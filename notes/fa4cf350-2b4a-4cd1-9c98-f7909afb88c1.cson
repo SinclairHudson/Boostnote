@@ -1,0 +1,146 @@
+createdAt: "2019-10-27T20:10:13.308Z"
+updatedAt: "2019-12-04T21:17:21.405Z"
+type: "MARKDOWN_NOTE"
+folder: "13f1477d1dab07e879ca"
+title: "Problem 01: Input and Output"
+tags: []
+content: '''
+  ## Problem 01: Input and Output
+  
+  Let's start with the basics.
+  
+  `./programname` will run your program, as long as it is in the current directory. the file path is a command.
+  
+  ### Input
+  You can provide input in two ways:
+  1) Command argurments
+  2) `std::cin` - "standard input" typing input after executing the program.
+  
+  Command arguments look like `./programname arg1 arg2 arg3`, while `std::cin` just means you run the program and typing something, then pressing enter gives the input to the program.
+  
+  Remember, arguments are actually written to the memory, and they can be accessed inside the main function of the program. `argv[0]` is `./programname`, `argv[1]` is `arg1`, etc. `argv` has length `argc`.
+  
+  ### Output
+  Output comes in many forms, but most of the time it will be to print something to the screen. Printing is actually fairly expensive, so C++ gives you two options:
+  1. `stdout` - buffered
+  2. `stderror` - not buffered
+  
+  
+  ### Redirects
+  In the linux command line, we can use < and > to convey where we want the output to go.
+  
+  `./program < inFile > outFile > errorFile` will run the program, which will use inFile as input, "print" the output to the outFile, and print errors to the errorFile.
+  
+  
+  ### Compilation
+  
+  To compile a program, use the command `gcc -std=c++14 -Wall program.cc -o exec`.
+  This will convert program.cc into exec, which can be run. -Wall gives you all compiler warnings.
+  
+  ### File Access
+  ```cpp
+  #include <iostream> //for files
+  
+  int main(){
+  int x, y;
+  
+  std::cin >> x >> y;
+  std::cout << x + y << std::endl;
+  
+  }
+  ```
+  `std::cin`, `std::cout`, etc are stream types. `<<` is an operator, which populates or prints as a side effect, and returns the stream so they can be chained together. That's why the second works.
+  
+  If we want to actually read from a file, we can do:
+  ```cpp
+  std::ifstream f{"filename"}; //i f stands for input file. there's also ofstream, which is output file stream.
+  char c;
+  
+  while(f >> c){ // pull characters from f and puts them in c. returns bool if successful
+  std::cout << c;
+  }
+  ```
+  But this skips whitespace. If we want to preserve white space, we have to insert the following: `f >> std::noskipws`.
+  
+  Consider:
+  ```cpp
+  #include <iostream>
+  
+  using namespace std;  // Avoids having to say std::
+  
+  void echo (istream f) {
+      char c;
+      f >> noskipws;;
+      while (f >> c) {
+          cout << c;
+      }
+  }
+  
+  int main(int argc, char *argv[]) {
+      if (argc == 1) {
+          echo(cin);
+      } else {
+          for (int i = 1; i < argc; ++i) {
+              ifstream f{argv[i]};
+              echo(f);
+          }
+      }
+  }
+  ```
+  
+  This actually won't even compile. Why? It's not a type mismatch, because ifstream is a type of istream. It's actually because **streams can't be copied**. When we pass it to echo, it gets copied. 
+  Ok, so we should use a pointer to `f`? Not really. What we need is called a **reference**.
+  
+  !!! note reference
+  References are similar to pointers, but they have auto dereferencing. So it's like an alias for the same object; a different name.
+  ```cpp
+  int y = 10;
+  int &z = y; //z is a reference to y
+  z = 12; //y is also changed
+  ```
+  z is called an **l-value reference** to y. l-value references must be initialized to something that actually has an address. So, for example,
+  
+  ```cpp
+  int &z = 12 + 14;
+  ```
+  Doesn't work, because 12 + 14 doesn't have an address.
+  !!!
+  
+  The best use for references is to use them in function parameters. In the above code, if we were to do 
+  
+  ```cpp
+  #include <iostream>
+  
+  using namespace std;  // Avoids having to say std::
+  
+  void echo (istream &f) { //NEW
+      char c;
+      f >> noskipws;;
+      while (f >> c) {
+          cout << c;
+      }
+  }
+  
+  int main(int argc, char *argv[]) {
+      if (argc == 1) {
+          echo(cin);
+      } else {
+          for (int i = 1; i < argc; ++i) {
+              ifstream f{argv[i]};
+              echo(f);
+          }
+      }
+  }
+  ```
+  
+  Then it would work, because we're no longer copying f, just passing an alias. `echo` is now pass by reference, not pass by value. This is also handy because we don't spend time copying parameters if they don't need to be copied. However, **passing by reference means that the functon can mutate the object**. This is just like pointers. If we want to prevent that, we can pass a `const` reference, like so:
+  
+  ```cpp
+  int h(const int &n){ 
+  ~~~~~~ //we can't modify n here.
+  }
+  ```
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

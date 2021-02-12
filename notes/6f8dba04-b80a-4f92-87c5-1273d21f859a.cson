@@ -1,0 +1,69 @@
+createdAt: "2019-10-22T15:10:09.261Z"
+updatedAt: "2019-12-05T17:11:18.659Z"
+type: "MARKDOWN_NOTE"
+folder: "13f1477d1dab07e879ca"
+title: "Problem 17: Abstraction over Containers"
+tags: []
+content: '''
+  ## Problem 17: Abstraction over Containers
+  
+  Recall: map from Racket
+  ```
+  (map f (list abc)) => (list (f a) (f b) (f c))
+  ```
+  We may want to do the same with vectors.
+  Let's assume target has enough space to hold a much of source as we want to send.
+  ```cpp
+  template<typename T1, typename T2>
+  void transform(const vector <T1> &source, vector<T2> &target, T2(*f)(T1)){
+    auto it = target.begin();
+    for(const auto &x:source){
+      *it = f(x);
+      ++it;
+    }
+  }
+  ```
+  But, what if we only want part of the source?
+  What if we want to send the source to the middle of target, and not the beginning?
+  
+  More general: use iterators:
+  
+  ```C++
+  template <typename T1, typename T2> void transform(vector<T1>::iterator start, 
+      vector<T1>::iterator finish, vector <T2>::iterator target, T2 (*f)(T1)) {
+      while (start != finish) {
+          *target = f(*start);
+          ++start;
+          ++target;
+      }
+  }
+  ```
+  
+  Ok, but what if I want to transform a list? I'd like to reuse this function.
+  What if I want to transform a list to a vector, or vice versa?
+  
+  Make the types stand for the iterators, not the container elements. But then how do we indicate the type for `f`?
+  
+  ```C++
+  template<typename InIter, typename OutIter, typename Fn>
+  void transform(InIter start, InIter finish, OutIter target, Fn f) {
+      while (start != finish) {
+          *target = f(*start);
+          ++start;
+          ++target;
+      }
+  }
+  ```
+  
+  Works over vector iterators, list iterators, or any kinds of iterators.
+  
+  InIter/OutIter can be any types that support `++`, `*`, `!=`, including ordinary pointers.
+  
+  C++ will instantiate a template function with any type that has the operations being used by the function.
+  
+  `Fn` can be any type that supports **function application**, including a lambda.
+  
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

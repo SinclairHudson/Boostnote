@@ -1,0 +1,94 @@
+createdAt: "2019-10-29T14:40:44.015Z"
+updatedAt: "2019-12-05T21:35:01.867Z"
+type: "MARKDOWN_NOTE"
+folder: "13f1477d1dab07e879ca"
+title: "Problem 21: The goddamn copier is broken again"
+tags: []
+content: '''
+  ## Problem 21: The goddamn copier is broken again
+  
+  How do copies + moves interact with inheritance?
+  
+  Copy constructor: `Text::Text(const Text &other): Book {other}, topic{other.topic}{}`
+  Move constructor: `Text::Text(Text&&other): Book{std::move(other)},topic{std::move(other.topic)}{}`
+  Copy assignment:
+  ```cpp
+  Text &Text::operator=(const Text &other){
+    Book::operator=(other);
+    topic=other.topic;
+  }
+  ```
+  Move Assignment:
+  ```cpp
+  Text &Text::operator=(Text &&other){
+    Book::operator=(std::move(other));
+    topic=std::move(other.topic);
+  }
+  ```
+  
+  But consider:
+  ```cpp
+    Book *b1 = new Text{......}, *b2 = new Text{ ..... };
+    *b1=*b2; //only the book part got copied, not the Text part
+  ```
+  Only the book part is copied. this is a **partial assignment**.
+  The topic doesn't match the title and the author, the object is corrupted.
+  Possible solution: Make `operator=` virtual.
+  
+  ```cpp
+  class Book{
+    public:
+    virtual Book &operator=(const Book &other){ .....}
+  };
+  
+  class Text: public Book{
+    public:               //Would have to be Book or it's not an override.
+    Text &operator=(const Text &other) override{...}
+  }
+  ```
+  
+  And this won't compile. These aren't the same method.
+  So it has to be like this:
+  ```cpp
+  class Text: public Book{
+    public:               
+    Text &operator=(const Book &other) override{...}
+  }
+  ```
+  But then we can pass something like a comic and have it converted into a text...?
+  We'll come back to this in a little bit.
+  
+  Another solution:
+  Make all superclasses **abstract**:
+  
+  @startuml
+  abstract class Book
+  Book <|-- Text
+  Book <|-- Comic
+  
+  @enduml
+  
+  ---
+  ```cpp
+  class AbstractBook{
+    protected:
+      AbstractBook &operator=(const AbstractBook &other){...} //non-virtual
+      virtual ~AbstractBook()=0; //you must give this destructor an implementation.
+      .....
+  };
+  
+  class Text:publicAbstractBook{
+    public:
+    Text &operator=(const Text &other){
+      AbstractBook::operator=(other);
+      topic = other.topic;
+    }
+  };
+  ```
+  so now, `operator=` is non-virtual, so there's no mixed assignment.
+  `AbstractBook::operator=` not accessible to outsiders, `*b1=*b2` won't even compile now. No partial assignment.
+  
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

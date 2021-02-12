@@ -1,0 +1,97 @@
+createdAt: "2019-09-24T15:05:20.197Z"
+updatedAt: "2019-10-30T21:41:23.828Z"
+type: "MARKDOWN_NOTE"
+folder: "13f1477d1dab07e879ca"
+title: "Problem 06: I want a constant vector"
+tags: []
+content: '''
+  ## Problem 06: I want a constant vector
+  
+  Say we want to print a vector.
+  ```cpp
+  ostream &operator <<(ostream &out, const vector &v){
+    for(size_t i=0, i < v.size(); ++i){
+      out << v.itemAt(i) << " ";
+      }
+      return out;
+    }
+  }
+  ```
+  Won't compile! This is because you can't call size or itemAt on a const object.
+  The compiler can't be sure that these methods aren't changing anything.
+  
+  We have to declare the methods to be `const`, to guarantee the compiler that they won't modify the object.
+  ```cpp
+  struct vector{
+  ...
+    size_t size() const;
+    int &itemAt(size_t i) const;
+    //means these methods wil not modify fields => can be called on const objects.
+  
+    size_t vector::size()const{
+      return n;
+    }
+    int &vector::itemAt(size_t i) const {
+      return theVector[i];
+    }
+  }
+  ```
+  Now the loop will work.
+  But,
+  ```cpp
+  void f(const vector &v){
+    v.itemAt(0) = 4; //and this WORKS! So v is not very const.
+  }
+  ```
+  V is a const object - that means you cannot change n, cap, theVector(ptr), but you **can** change data pointed to by it.
+  
+  ```cpp
+  struct Vector{
+    ...
+    const int &itemAt(size_t i) const;
+  }
+  
+  const int &vector::itemAt(size_t i) const {return theVector[i];}
+  ```
+  Now `v.itemAt(0)=4` won't compile if v is const.
+  
+  But it also won't compile if v **isn't** const!
+  
+  Const overloading is the fix :)
+  
+  ```cpp
+  struct vector{
+    const int &itemAt(size_t i) const; //will be called if the item is const
+    int &itemat(size_t i); //will be called if the item is not const
+  }
+  ```
+  `inline` - for really simple functions, just substitute the function call with its body.
+  This saves a lot of time, because we don't have to make another stack frame, etc.
+  ```cpp
+  inline size_t size() const {return s;} //really simple accessor method.
+  
+  ```
+  But it's just a suggestion, the compiler doesn't have to follow it. inline has to be in the .h files, otherwise the compiler just won't see it lol.
+  
+  Now `v.itemAt(0) = 4` will compile iff v is not const.
+  
+  ```cpp
+  struct vector{
+    size_t size() const {return n;}
+    const int &operator[](size_t i) const {return theVector[i];}
+    int &operator[i](size_t i){return theVector[i];}
+    //the method body has been written inside the class
+    //implicitly declares the methods to be inline.
+    ostream &operator<<(ostream &out, const vector &v){
+      for(size_t i = 0; i < v.size(); ++i){
+        out << v[i] << " ";
+      }
+      return out;
+    }
+  }
+  ```
+  
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

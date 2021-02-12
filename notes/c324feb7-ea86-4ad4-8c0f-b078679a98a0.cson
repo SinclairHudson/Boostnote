@@ -1,0 +1,22 @@
+createdAt: "2019-09-19T14:00:53.746Z"
+updatedAt: "2019-10-30T18:18:32.387Z"
+type: "MARKDOWN_NOTE"
+folder: "13f1477d1dab07e879ca"
+title: "Sept 19"
+tags: []
+content: '''
+  # Sept 19
+  ```cpp
+  Node n{4}; //OK
+  Node n = 4; //OK
+  void f(Node n);
+  f(4); //actually works, implicit conversion
+  ```
+  To fix this, use `explicit`.
+  
+  
+  but it's still broken
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: true

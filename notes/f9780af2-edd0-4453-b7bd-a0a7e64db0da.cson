@@ -1,0 +1,804 @@
+createdAt: "2019-11-05T16:02:58.568Z"
+updatedAt: "2020-05-31T14:54:30.695Z"
+type: "MARKDOWN_NOTE"
+folder: "13f1477d1dab07e879ca"
+title: "5 Principles of Object Oriented Design. (SOLID)"
+tags: []
+content: '''
+  ## 5 Principles of Object Oriented Design. (SOLID)
+  
+  ### S - Single Responsibility Principle
+  A class should have only one reason to change. A class should do one thing, not several. Any change to the program specification requires a change to the program. If changes to $\\geq 2$ different parts of the specification cause changes to the same class, SRP is violated.
+  #### example : Don't let your main classes print things.
+  
+  ```cpp
+  class ChessBoard{
+    ~~~~
+    cout << "Your move punk";
+    ~~~~
+  }
+  ```
+  This may seem innocent, but it inhibits code reuse. Is it managing the board, or is it playing the game? What if we want a french version? What if it communicates over different streams? Then we have to change `ChessBoard`, which doesn't seem right. Requires major changes to the class, instead of reuse.
+  This is a violation of SRP. Changes to any of:
+  * game rules
+  * strategy
+  * interface
+  * etc
+  
+  Will need a change to `ChessBoard`. Split these responsibilities up.
+  * One module resonsible for communication (not `main`! can't reuse `main`)
+  * One module for a communications - let it do the talking.
+  
+  On the other hand, specifications that are unlikely to change may not need their own class. Avoid needless complexity.
+  
+  ### O - Open-Closed Principle
+  Classes, modules, and functions should be open for extension and closed for modification. Changes to a program's behaviour should happen by writing new code, and not changing old code.
+  
+  @startuml
+  Carpenter *--> Handsaw
+  @enduml
+  
+  What if the carpenter buys a Table Saw? This design is not open for extension. We must change the code. We'll do some abstraction of course. The carpenter should work with an abstract saw.
+  
+  @startuml
+  abstract class Saw
+  Carpenter *--> Saw
+  Handsaw --|> Saw
+  TableSaw --|> Saw
+  @enduml
+  
+  Also note:
+  ```cpp
+  int countHeavy(const vector<Book *> &v){
+    int count = 0;
+    for(auto &p:v){
+      if (p->isHeavy()) ++count;
+    }
+    return count;
+  }
+  ```
+  No changes needed if new Books are invented.
+  But you can't really be 100% closed. Some changes may require source modifications. But plan for the most likely changes and make your code closed with respect to those changes.
+  
+  ### L - Liskov Substitution Principle
+  Simply put: public inheritance must indicate and **is - a** relationship. If B is a subclass of A, then we should be abloe to use an object b of type B in any context that requires a type A **without affecting the correctness of the program**. C++'s inheritance rules already allow us to use subclass objects in terms of superclass objects. The program should "not be able to tell" if it's using a superclass or a subclass object; it shouldn't matter. 
+  More formally, if an invariant I is true for class A, then it must be true for class B. If an invariant I is true for A::f, and B::f overrides A::f, then I must hold for B::f.
+  
+  If A::f has precondition P and postcondition Q, then B::f must have a precondition $P' <= P$ and postcondition $Q' => Q$. So you can get from P to Q through A::f or B::f. If A::f and B::f behave differently, the difference in behaviour must fall within what is allowed by the program's correctness specification.
+  
+  Examples:
+  1) Contravariance Problem - arises any time you write a binary operator, ie a method with an "other" parameter of the same type as *this.
+  
+  
+  @startuml
+  abstract class Shape
+  Circle --|> Shape
+  Square --|> Shape
+  @enduml
+  
+  ```cpp
+  class Shape{
+    public:
+      virtual bool operator==(const Shape &other) const = 0;
+  };
+  
+  class Circle: public Shape{
+    public:
+      bool operator==(const Shape &other)const override;
+  }
+  ```
+  Having `const Circle &other` in the override would not be an override. Also, it would break LSP. A Circle is a Shape, so it should be compared with any other shape. This is a compiler error because it is at the type level.
+  
+  The fix:
+  ```cpp
+  #include<typeinfo>
+  ~~~~~~
+  bool Circle::operator==(const Shape &other) const{
+    if(typeid(other) != typeid(Circle)) return false;
+    const Circle &other = static_cast<const Circle &>(other); //safe
+    ~~~~~
+  }
+  ```
+  ```cpp
+  dynamic_cast<const Circle&>(other) //is other a Circle, or a subclass of Circle?
+  typeid(other) == typeid(Circle) // is other precisely a Circle?
+  //^-- returns an object of type type_info
+  ```
+  2) Is a square a rectangle?
+  
+  A square has all the properties of a rectangle.
+  ```cpp
+  class Rectangle{
+    int length, width;
+    public:
+      Rectangle (int length, int width): ~~~~~~~~
+      int getLength() const; virtual void setLength(int length){~~~~~~}
+      int getWidth() const; virtual void setWidth(int width){~~~~~~~}
+      int area() const{return length*width;}
+      ~~~~~~
+  };
+  
+  class Square: public Rectangle{
+    public:
+      Square(int side):Rectangle{side,side}{}
+      void setLength(int l) override{
+        Rectangle::setLength(l);
+        Rectangle::setWidth(l);
+      }
+      void setWidth(int w)override{~~~~~} //similar
+  };
+  
+  int f(Rectangle &r){
+    r.setLength(10);
+    r.setWidth(20);
+    return r.area(); //should be 200
+  }
+  
+  Square s{1};
+  f(s); //400
+  ```
+  
+  So really, rectangles have a property that squares do not. You can change their length and width independently. So this violates LSP. On the other hand, an immutable Square could substitute for an immutable rectangle.
+  
+  @startuml
+  abstract class Shape
+  abstract class RightAngledQuadrilateral
+  Rectangle --|> RightAngledQuadrilateral
+  Square --|> RightAngledQuadrilateral
+  RightAngledQuadrilateral --|> Shape
+  @enduml
+  
+  This is good because it preserves invariants of Rectangles, and squares.
+  
+  ### Constraining what subclasses can do:
+  
+  Let's say we're writing a video game:
+  ```cpp
+  class Turtle{
+    public:
+      virtual void draw = 0;
+  };
+  class RedTurtle: public Turtle{
+    public:
+      void draw() override{
+        drawHead();
+        drawRedShell();
+        drawFeet();
+      }
+  };
+  class RedTurtle: public Turtle{
+    public:
+      void draw() override{
+        drawHead();
+        drawGreenShell();
+        drawFeet();
+      }
+  };
+  ```
+  The code for RedTurtle and GreenTurtle is pretty similar. There's a lot of code duplication.  How can we ensure that overrides will always do these things?
+  
+  ```cpp
+  class Turtle{
+  public:
+    public void draw(){
+      drawHead();
+      drawShell();
+      drawFeet();
+    }
+  private:
+    doid drawHead();
+    virtual void drawShell()=0;
+    void drawFeet();
+  };
+  
+  
+  class RedTurtle: public Turtle{
+    void drawShell() override;
+  } //GreenTurtle is similar
+  ```
+  
+  Subclasses cannot control the steps of drawing a turtle, nor the drawing of head and feet. They can only control the drawing of the shell.
+  This is called the **Template Method Pattern**. A design template. But why is drawShell() private? Just because a subclass can't call it doesn't mean it can't override it.
+  
+  ### Extension: NVI (Non-Virtual Interface) idiom.
+  * public virtual methods are simultaneously
+    * part of a class' interface - pre/post conditions, class invariants
+    * "hooks" for customization by subclasses
+      * overriding code could be anything
+  
+  These two points are at odds with each other
+  !!! note NVI
+  all virtual methods should be private (or at least protected).
+  The converse is that all public methods should be non-virtual.
+  (except the destructor lul)
+  !!!
+  
+  ```cpp
+  class DigitalMedia{
+    public:
+      virtual void play() = 0; //Not NVI oof
+  }
+  ```
+  ```cpp
+  class DigitalMedia{
+    public:
+      void play(){
+        doPlay(); //can add before/after code. You could check copyright here, or update a total play count.
+      };
+    private:
+      virtual void doPlay() = 0;
+  }
+  ```
+  
+  Generalizes Template Method Pattern - put every virtual function inside a template method.
+  ## I - Interface Segregation Principle
+  Many small interfaces are better than one large interface.
+  If a class has many functionalities, each client of the class should see only the functionality it needs.
+  
+  ---
+  
+  Let's say we're writing a video game.
+  ```cpp
+  class Enemy{
+    public:
+      virtual void draw(); //needed by the interface
+      virtual void strike(); //needed by the game logic
+  };
+  
+  
+  class UI{
+  vector <Enemy *> v;
+  
+  };
+  class Battlefield{
+    vector <Enemy *> v;
+  };
+  
+  ```
+  
+  If we  need to change the drawing interface, Battlefield must also recompile, for no reason. The class enemy did change, but not in a way that affects Battlefield.
+  If we need to change the combat interface, UI must recompile. Creates needless coupling between UI and Battlefield.
+  
+  One solution: multiple inheritance.
+  ```cpp
+  class Draw{
+    public:
+      virtual void draw() = 0;
+  };
+  class Combat{
+    public:
+      virtual void strike() = 0;
+  };
+  
+  class Enemy: public Draw, public Combat{};
+  
+  class UI{
+    vector <Draw *> v;
+  };
+  
+  class Battlefield{
+    vector <Combat *> v;
+  }
+  ```
+  
+  This is called the **Adapter Pattern**. The general use of Adapter: when a class provides an interface different from the one you need.
+  
+  @startuml
+  class NeededInterface{
+    g()
+  }
+  class ProvidedClass{
+    f()
+  }
+  Class Adapter{
+    g()
+  }
+  
+  Adapter --|> NeededInterface
+  Adapter --|> ProvidedClass
+  
+  @enduml
+  Where Adapter::g() can call f().
+  
+  The inheritence could be private, depends on whether you want the adapter to still support the old interface.
+  
+  ---
+  
+  ### Detour: issues with Multiple Interitance
+  
+  @startuml
+  class A1{
+  a()
+  }
+  class A2{
+  a()
+  }
+  
+  B --|> A2
+  B --|> A1
+  
+  @enduml
+  
+  So now B has 2 `a()` methods. YOu could call these by A1::a() and A2::a()
+  
+  @startuml
+  class A{
+  a()
+  }
+  B --|> A
+  C --|> A
+  
+  D --|> B
+  D --|> C
+  
+  @enduml
+  Now D has 2 `a()` methods, and they're different.
+  ```cpp
+  class D: public B, public C{
+    void f(){~~~~~~~~~ a() ~~~~~~~~} //ambiguous. Use B::a or C::a
+  };
+  
+  D d;
+  d.a(); //use d.B::a() or d.C::a()
+  ```
+  
+  Or maybe tere should be only one A base, and therefore only one `a()`.
+  ```cpp
+  class B: virtual public A {~~~~}; //virtual inheritance
+  class C: virtual public A {~~~~};
+  d.a() //no longer ambiguous
+  ```
+  
+  But how will a class like D be laid out in memory? Well that's implementation specific.
+  
+  |vptr        |
+  | :------------ |
+  |A fields      |
+  | B fields      |
+  | C fields |
+  | D fields   |
+  
+  This memory model doesn't work because it doesn't look like a C object.
+  
+  A C object looks like this:
+  |vptr        |
+  | :------------ |
+  |A fields      |
+  | C fields |
+  
+  But what does g++ actually do?
+  
+  |vptr        |
+  | :------------ |
+  | B fields      |
+  |vptr|
+  | C fields      |
+  | D fields |
+  |vptr|
+  | A fields   |
+  
+  The distance from a class to the base class part is not constant. The distance to your superclass is not always the same, and it depends on the runtime type of the object.
+  
+  Solution: location of base class stored in the vtable. The diagram doesn't simultaneously look like A, B, C, D, but slices of it do.
+  
+  So **pointer assignment among A, B, C, D may change the address stored in a pointer**. That's weird.
+  
+  ```cpp
+  D * d = ~~~~~~;
+  A * a = d; //changes the address downwards to the A part.
+  ```
+  Static_cast, dynamic_cast under Multiple Inheritance will also adjust the value of the pointer. reinterpret_cast will not.  
+  
+  ## D - Dependency Inversion Principle
+  
+  High level modules should not depend on low level modules. Both should depend on abstractions. Abstract classes should never depend on concrete classes.
+  
+  Traditional top-down design:
+  @startuml
+  HighLevelModule --|> LowLevelModule
+  WordCount --|> KeyboardReader
+  @enduml
+  
+  Dependency inversion:
+  
+  @startuml
+  HighLevelModule --|> LowLevelAbstraction
+  LowLevelModule --|> LowLevelAbstraction
+  
+  WordCount --|> InputInterface
+  KeyboardReader --|> InputInterface
+  FileReader --|> InputInterface
+  @enduml
+  
+  ##### example:
+  
+  @startuml
+  class Bell{
+    notify()
+  }
+  Timer *--> Bell
+  
+  @enduml
+  What if we want the timer to trigger other events?
+  @startuml
+  class Light{
+    notify()
+  }
+  class Bell{
+    notify()
+  }
+  abstract class Responder{
+    notify()
+  }
+  Timer *--> Responder
+  Bell --|> Responder
+  Light --|> Responder
+  
+  @enduml
+  Maybe we want a dynamic set of responders
+  @startuml
+  class Timer{
+    register(Responder)
+    unregister(Responder)
+  }
+  abstract class Responder{
+    notify()
+  }
+  Timer *--> Responder
+  Responder *--> Timer
+  Bell --|> Responder
+  Light --|> Responder
+  
+  @enduml
+  But now, Responder depends on a concrete class, which isn't allowed. But we can apply Dependency Inversion again.
+  
+  @startuml
+  abstract class Source{
+    register(Responder)
+    unregister(Responder)
+  }
+  abstract class Responder{
+    notify()
+  }
+  class Timer{
+    getTime()
+  }
+  Timer --|> Source
+  Source *--> Responder
+  Light --|> Responder
+  Bell --|> Responder
+  Bell *--> Timer
+  Light *--> Timer
+  @enduml
+  
+  If Light/Bell's behaviour depends on the timer, they may only need to depend on the concrete timer for a getTime method.
+  
+  This example above is known as the **Observer Pattern**.
+  @startuml
+  
+  abstract class Subject{
+    notifyObservers()
+    attach(Observer)
+    detach(Observer)
+  }
+  abstract class Observer{
+    notify()
+  }
+  Subject *--> Observer
+  
+  class ConcreteObserver{
+    notify()
+  }
+  class ConcreteSubject{
+    getState()
+  }
+  ConcreteSubject --|> Subject
+  ConcreteObserver *--> ConcreteSubject
+  ConcreteObserver --|> Observer
+  
+  @enduml
+  
+  Sequence of calls:
+  1) Subject's state Changes
+  2) Subject::notifyObservers - calls each observer's notify (could be called by Subject or an outsider controller)
+  3) Each observer calls ConcreteSubject::getState to query the state and reacts accordingly.
+  
+  See horse race example in code repository.  
+  
+  ## More Design Patterns
+  
+  ### Factory Method Pattern
+  I need to create an object, but I don't know which one I want. My preferences may vary.
+  Also called the virtual constructor pattern.
+  It's really the strategy pattern applied to object construction.
+  
+  @startuml
+  abstract class Enemy
+  Turtle --|> Enemy
+  Bullet --|> Enemy
+  @enduml
+  In the easier levels I want more turtles, in the harder ones I want more bullets.
+  @startuml
+  abstract class Level
+  Easy --|> Level
+  Hard --|> Level
+  @enduml
+  
+  ```cpp
+  class Level{
+  public:
+  virtual Enemy * getEnemy() = 0; //should really be a unique pointer.
+  }
+  
+  class Easy: public Level{
+  public:
+    Enemy * getEnemy() override{
+    //mostly turtles
+    }
+  };
+  
+  class Hard: public Level{
+  public:
+    Enemy *getEnemy() override{
+      //mostly bullets.
+    } 
+  };
+  
+  ~~~~~~
+    Level *l = new ~~~~~~~~;
+    Enemy *e = l->getEnemy();
+  ```
+  ---
+  ### Decorator Pattern
+  When you want to add or remove functionality from objects at runtime.
+  
+  Eg. add menus/scrollbars to basic windows - either or both.
+  I want the ability to have all these optional features without having to write a class for every combination.
+  
+  @startuml
+  abstract class Component{
+    operation()
+  }
+  class ConcreteComponent{ 
+    operation()
+  }
+  ConcreteComponent --|> Component
+  abstract class Decorator{
+    
+  }
+  Decorator --|> Component
+  class ConcreteDecoratorA{
+    operation()
+  }
+  class ConcreteDecoratorB{
+    operation()
+  }
+  
+  ConcreteDecoratorA --|> Decorator
+  ConcreteDecoratorB --|> Decorator
+  Decorator *--> Component : underlying, less decorated object
+  @enduml
+  
+  Every decorator IS a Component and HAS a Component
+  WindowWithScrollbar is a kind of Window and has a ptr to the underlying plain window
+  WindowWithScrollbarAndMenu is a window and has a ptr to Window w/Scrollbar, which has a ptr to Window.
+  
+  ```cpp
+  WindowInterface *w = new WindowWithMenu{ new WindowWithScrollBar{new Window}};
+  ```
+  This would look like a **linked list** in memory.
+  There's an example of this in the code repo - pizza.
+  
+  ### Visitor Pattern
+  For implementing **Double Dispatch**.
+  method chosen based on the runtime type of 2 objects, rather than just one.
+  
+  @startuml
+  
+  abstract class Enemy
+  
+  Turtle --|> Enemy
+  Bullet --|> Enemy
+  
+  abstract class Weapon
+  
+  Stick --|> Weapon
+  Rock --|> Weapon
+  @enduml
+  
+  So now the attack depends on the type of weapon and the type of the enemy. But that's not how virtual methods work! Virtual methods in C++ are dispatched on the types of receiver objects, and not method parameters. There is now way to specify two receiver objects.
+  
+  The visitor pattern combines overriding with overloading to do a two-stage dispatch.
+  ```cpp
+  class Enemy{
+    virtual void beStruckBy(weapon &w) = 0;
+  };
+  
+  class Turtle: public Enemy{
+    void beStruckBy(weapon &w) override{
+      w.strike(*this);
+    }
+  };
+  class Bullet: publicEnemy{
+    void beStruckBy(Weapon &w) override{
+      w.strike(*this); //the type of *this is different from above.
+    }
+  }
+  
+  class weapon{
+  public:
+    virtual void strike(Turtle &t) = 0;
+    virtual void strike(Bullet &b) = 0; //these are overloads
+  }
+  
+  class Stick: public Weapon{
+  public:
+    void strike(Turtle &t) override{
+    //when you strike a turtle with a stick.
+    }
+    void strike(Bullet &b) override{
+    //when you strike a turtle with a stick.
+    }
+  };
+  
+  ~~~~
+  
+  Enemy *e = new Bullet{~~~~~};
+  Weapon *w = new Rock{~~~~};
+  e->beStruckBy(*w); //What happens?
+  ```
+  1) Bullet::beStruck runs (virtual method dispatch)
+  2) calls Weapon::strike(Bullet &) (*this is a Bullet, known at compile time, overload resolution)
+  3) virt method resolves to Rock::strike(Bullet &) //ayyyyyyy
+  
+  Visitor can also be used to add functionality to a class hierarchy without adding new virtual methods.
+  
+  #### Adding a visitor to the Book hierarchy:
+  
+  ```cpp
+  class Book{
+  public:
+    virtual void accept(BookVisitor &v){v.visit (*this);}
+  };
+  class Text: public Book{
+  public:
+    void accept (BookBisitor &v) override {v.visit (*this);}
+  };
+  ~~~~~~
+  
+  class BookVisitor{
+  public:
+    virtual void visit(Book &b) = 0;
+    virtual void visit(Text &t) = 0;
+    virtual void visit(comic &c) = 0;
+  }
+  
+  struct Catalogue: public Visitor{
+    map<string, int> theCat;
+    void visit(Book &b) override{
+      ++theCat[b.getAuthor()];
+    }
+    void visit(Text &b) override{
+      ++theCat[b.getTopic()];
+    }
+    void visit(Comic &b) override{
+      ++theCat[b.getHero()];
+    }
+  }
+  ```
+  !!! error Compiler error
+  We've got a circular include dependencies issue.
+  book.h, BookVisitor.h include each other.
+  include guard prevents multiple inclusion.
+  whichever one ends up first will refer to things not yet defined.
+  !!!
+  
+  Know when the include is actually needed.
+  Needless #includes create artificial compilation dependencies and slow down compilation.
+  Sometimes, a forward declaration is good enough.
+  
+  Consider:
+  #### A.h
+  ```cpp
+  class A{...};
+  ```
+  And then:
+  ```cpp
+  class B{
+    A a;
+  };
+  ```
+  ```cpp
+  class C{
+    A *a;
+  };
+  ```
+  ```cpp
+  class D: public A{
+    ~~~
+  };
+  ```
+  ```cpp
+  class E{
+    A f(a);
+  };
+  ```
+  ```cpp
+  class F{
+    A f(A a){a.someMethod();}
+  };
+  ```
+  ```cpp
+  class G{
+    t<A> x;
+  };
+  ```
+  In order to know how big a B object is, we need to know how big A is. D objects also need this info. C just has a pointer, which doesn't need to know size. So we can just forward it.
+  F needs to know a.someMethod, so we need an include. E does not require an include, just a forward. For G, it depends on how we use the template. It will collapse to one of the other cases.
+  
+  B, C, F need an include.
+  C, E just need a forward declare.
+  G depends. 
+  
+  A forward declare just looks like `class A;`.
+  Note that F only needs an include because method f's impl is present + uses a method of A. This is a good reason to keep implementation in .cc files.
+  
+  Let's look at the difference between B and C. B needs an include, C does not. So we could technically change B to C to get out of an include cycle.
+  
+  More generally:
+  ```cpp
+  class B{
+    A1 a1;
+    A2 a2; //these require includes
+    A3 a3;
+  }
+  ```
+  Or, 
+  #### b.h
+  ```cpp
+  class BImpl; //forward declare only.  
+  class B{
+    unique_ptr<BImpl> pImpl; //pointer to implementation
+  }
+  ```
+  
+  #### bimpl.h
+  ```cpp
+  struct BImpl{
+    A1 a1;
+    A2 a2;
+    A3 a3;
+  };
+  ```
+  
+  #### b.cc
+  methods reference pImpl->a1, pImpl->a2 ...
+  
+  b.h no longer compilation dependent on a1.h, a2.h ...
+  
+  called the **pimpl idiom**.
+  
+  Another advantage of pimpl: pointer have non-throwing swap.
+  We can provide the strong guarantee on a B method by copying the implementation into a new BImpl structure, heap allocated, method modifies the copy. If anything throws, discard the new structure (easy and automatic with unique_ptr). If all succeeds, swap Impl structs (nothrow). Previous impl automatically destroyed by unique_ptr.
+  
+  ```cpp
+  class B{
+    unique_ptr<BImpl> pImpl;
+    ~~~~~
+    void f(){
+      auto temp = make_unique<BImpl>(*pImpl);
+      temp->doSomething();
+      temp->doSomethingElse();
+      std::swap(pImpl,temp); //no throw
+    } //strong guarantee
+  };
+  ```
+'''
+linesHighlighted: [
+  2
+  26
+  188
+  699
+]
+isStarred: false
+isTrashed: false

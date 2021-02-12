@@ -1,0 +1,171 @@
+createdAt: "2019-11-28T15:47:32.227Z"
+updatedAt: "2019-12-03T15:45:23.953Z"
+type: "MARKDOWN_NOTE"
+folder: "13f1477d1dab07e879ca"
+title: "Problem 32: A fixed-size object allocator"
+tags: []
+content: '''
+  ## Problem 32: A fixed-size object allocator
+  
+  As an example of how a custom allocator can be very fast, we'll write a fixed-size object allocator.
+  
+  Why is it faster?
+  All allocated "chunks" are the same size, so there's no need to keep track of sizes.
+  Many traditional allocators store the size of the block before the pointer so that the allocator knows how much memory is allocated to that pointer. How much memory should we free when we free a pointer?
+  
+  So we save space and save time. We don't have to hunt for a block of the right size, and there's no hidden size field.
+  
+  Approach: Create a pool of memory - an array large enough to hold n T objects:
+  
+  When a slot in the array is given to the client, it will act as a T objects.
+  When we have it, it will act as a node in a linked list.
+  Store an int in each slot - index(not a pointer) of the next free slot.
+  Store the index of the first free slot.
+  0| ->||1|2|3|4|...|-1|
+  ---|---|---|-|-|-|-|-|-
+  
+  
+  ~~ a bunch of things I don't want to draw out ~~
+  Allocation and deallocation are both constant time and very fast.
+  ```cpp
+  template<typename T, int n> class fixedSizeAllocator{
+    union Slot{
+      int next;
+      T data;
+      Slot():next{0}{}
+    };
+    Slot theSlots[n];
+    int firstAvailable = 0;
+    public:
+      fixedSizeAllocator(){
+        for(int i = 0; i < n -1; ++i) theSLots[i] = i +1;
+        theSlots[n-1] = -1;
+      }
+      T *allocate() noexcept{
+        if(firstAvailable == -1) return nullptr;
+        T *result = &(theSlots[firstAvailable].data);
+        firstAvailable = theSlots[firstAvailable].next;
+        return result;  
+      }
+      void deallocate(void *item) noexcept{
+        int index = (static_cast<char *>(item) - reinterpret_cast<char *>(theSlots))/sizeof(slot);
+        theSlots[index].next=firstAvailable;
+        firstAvailable = index;
+      }
+  };
+  ```
+  
+  And here's how you use it in a class:
+  ```cpp
+  class Student final{
+    int assns, mt, final;
+    static fixedSizeAllocator <Student, SIZE> pool; //how many slots do you want?
+    public:
+      static void *operator new (size_t size){
+        if(size!=sizeof(Student)) throw std::bad_alloc{};
+        while (true){
+          void *p = pool.allocate();
+          if(p) return p;
+          auto h = std::get_new_handler();
+          if(h) h();
+          else throw std::bad_alloc{};
+        }
+      }
+      static void operator delete(void *p) noexcept{
+        if(!p) return;
+        pool.deallocate(p);
+      }
+  };
+  
+  fixedSizeAllocator<Student, SIZE> Student::pool;
+  
+  ```
+  Example main:
+  
+  ```cpp
+  int main(){
+    Student *s1 = new Student;
+    Student *s2 = new Student; //custom allocator
+    delete s1;
+    delete s2; //custom deallocator
+  }
+  ```
+  
+  In testing, this custom allocator and deallocator run twice as fast as the standard ones!
+  
+  Where do s1 and s2 reside?
+  It's actually in the **static memory**. Remember we declared it `static`. It matters where `pool` lives. It's not the heap or the stack.
+  
+  * We use a union to treat a slot as both an int and a Tobj.
+    * This ensures that no memory is wasted on bookkeeping.
+    * alternative - use a struct instead of a union, and store the next undex adjacent to the T object.
+  * Advantage of a union: no wasted memory
+  * Disadvantage of a union: if you access a dangling T ptr, you can corrupt the linked list.
+  ```cpp
+  Student *s = new Student;
+  delete s;
+  s->setAssns(~~~~~~); //will probably corrupt the list
+  ```
+  
+  SO, following dangling pointers can be **VERY** dangerous.
+  
+  With a struct, the same issue exists, but the 'next' field is before the T obj pointed to by s, so you have to work hard to corrupt it.
+  To corrupt, you would have to do:
+  ```cpp
+  reinterpret_cast<int *>(s)[-1] = ~~~~~~; //not something you do by accident...
+  ```
+  
+  Using a union - if one of the fields has a constructor, you have to give the union a constructor - since it's a union, the cunstructor should initialize only one field.
+  
+  On the other hand - if you are using a struct, you will have difficulty if T does not have a default constructor.
+  
+  Example:
+  ```cpp
+  struct Slot{
+    int n;
+    T data;
+  };
+  
+  slot theSlots[n]; //can't do this if T has no default constructor!
+  
+  ```
+  And we can't do operator new/placement new because we're writing operator new!
+  
+  Workaround:
+  ```cpp
+  struct SlotChar{
+    char arr[sizeof(Slot)];
+  };
+  ```
+  or, if we want to use unions:
+  ```cpp
+  union SlotChar{ //same as a slot 
+    char dummy;
+    Slot s;
+    SlotChar():dummy{0}{} // we can initialize the char and avoid calling a constructor
+  }
+  ```
+  Whichever one we choose:
+  ```cpp
+  SlotChar theSlotChars[n];
+  Slot *theSlots = reinterpret_cast<Sot *s>(theSlotChars);
+  ```
+  
+  ---
+  
+  Why do we store indices in the linked list rather than pointers? Because they're smaller.
+  Ints are smaller than pointers on this machine.
+  So we waste no memory, as long as sizeof(T) >= sizeof(int)
+  We do waste memory if T is smaller than an int.
+  Could use a smaller type than int, like a `short` or a `char`, however they do have a limit on how many items they can represent. 
+  
+  ---
+  
+  Why is the class Student declared `final`?
+  Our fixed-size allocator only works if all of our objects are the same size. So we can't have a sublcass, because that could **add fields and change the size**.
+  Alternatively, we could check the size, and throw and exception if it is not the right size. However, this is a runtime check so it's not as good.
+  Alternatively, we could get the derived class to have its own allocator.
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

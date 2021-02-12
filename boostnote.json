@@ -26,6 +26,11 @@
       "name": "MATH237"
     },
     {
+      "key": "13f1477d1dab07e879ca",
+      "color": "#2BA5F7",
+      "name": "CS246E"
+    },
+    {
       "key": "6846318772ea4992c116",
       "color": "#2BA5F7",
       "name": "WATORACE"
@@ -44,6 +49,11 @@
       "key": "4762abcaae1e062538d9",
       "color": "#E10051",
       "name": "FINE112"
+    },
+    {
+      "key": "ca12cf9bf699a6cfcfed",
+      "color": "#E10051",
+      "name": "CS251 Week 9"
     }
   ],
   "version": "1.0"

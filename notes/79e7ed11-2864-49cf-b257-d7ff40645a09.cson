@@ -1,0 +1,83 @@
+createdAt: "2019-10-03T14:36:22.025Z"
+updatedAt: "2019-12-05T01:55:29.459Z"
+type: "MARKDOWN_NOTE"
+folder: "13f1477d1dab07e879ca"
+title: "Problem 12: A vector of Posns"
+tags: []
+content: '''
+  ## Problem 12: A vector of Posns
+  ```cpp
+  struct Posn{
+    int x, y;
+    Posn(int x, int y):x{x},y{y}{}
+  };
+  
+  int main(){
+    vector<Posn> v; //won't compile! Y tho.
+  }
+  ```
+  Take a look at vector's ctor:
+  ```cpp
+  template <typename T> vector<T>::vector():n{0},cap{1}, theVector{new T[cap]}{}
+  ```
+  Well, C++ always calls a constructor when creating an object. Which constructor gets called? Well, the default constructor, because it doesn't know what else to do. So it will call T{}, and Posn doesn't have a default constructor. So it crashes.
+  
+  So how can we create a vector of Posns? Well we can make a default constructor, but that doesn't always make sense. What's the default name of a Person?
+  
+  We need to **seperate the allocation of memory from the construction of the object**.
+  That's the first step in object creation.
+  
+  Allocation:
+  `void *operator new(size_t)` This is like malloc. it allocates size_t bytes with no initialization. returns a `void *` pointer to the beginning of the memory.
+  
+  !!! danger Difference with C
+  C: `void *` implicitly converts to any pointer type
+  C++: the conversion requires a cast.
+  !!!
+  
+  Initialization: "placement new"
+  
+  `new (addr) type` - constructs a new object at the specified address.
+  **This does not allocate memory**. It uses memory that you already have.
+  ```cpp
+  template <typename T> class vector{
+    ~~~~~
+    public:
+      vector(): n{0},cap{1},theVector{static_cast<T*>(operator new (cap*sizeof(T)))}{}
+      vector(size_t n, T x = T{}): n{n}, cap{n}, theVector{static_cast<T*>(operator new(cap *sizeof(T)))}{
+        for(size_t i = 0; i<n; ++i){
+          new(theVector+i) T (x); //placement new, not operator new
+        }
+      }
+      ~~~~~
+      void push_back(T x){
+        increaseCap();
+        new (theVector + (n++)) T (x);
+      }
+      ~~~~~~ //reserve and increase_cap will also have to change.
+      void pop_back(){
+        if(n){
+          theVector[n-1].~T(); //Must explicitly invoke the destructor.
+          --n;
+        }
+      }
+      void cleanup(){
+        if(n!=0){
+          for(size_t i = n-1; i>=1; --i){
+            theVector[i].~T();
+          }
+        }
+        if(n>=1) theVector[0].~T(); //size_t is unsigned, so we're always >= 0.
+        n=0;
+      }
+      ~vector(){
+        cleanup();
+        operator delete(theVector);
+      }
+  };
+  ```
+  
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

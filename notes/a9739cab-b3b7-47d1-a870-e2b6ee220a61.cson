@@ -1,0 +1,165 @@
+createdAt: "2019-09-19T15:05:16.053Z"
+updatedAt: "2019-12-04T22:26:39.617Z"
+type: "MARKDOWN_NOTE"
+folder: "13f1477d1dab07e879ca"
+title: "Problem 05: Moves"
+tags: []
+content: '''
+  ## Problem 05: Moves
+  Consider:
+  ```cpp
+  Node plusOne(Node n){ //maps +1 across the list values
+    for(Node *p=&n;p;p=p->next){
+      ++p->data;
+    }
+    return n;
+  }
+  
+  Node n{1, new Node{2, nullptr}};
+  
+  Node m = plusOne(n); //copy ctor is being called.
+  
+  ```
+  * but what is `other` here if we feed it into our copy constructor? reference to what?
+  * there's a temporary object, created to hold the results of plusOne.
+  * other is a ref to this temporary
+  * copy ctor deep-copies from this temporary
+  
+  But why copy from something when we can steal from it? Why copy from the temp when it's going to die soon after? It's wasteful to deep copy from the temporary object. We save the cost of a copy if we steal. But if we want to steal, we have to have a mechanism that determines if something is going to die soon. lul. Need to be able to tell whether `other` is a ref to a temporary object or a standalone object.
+  
+  !!! note R-value references
+  A reference to something that can be on the right side of an equals sign.
+  A reference to a **temporary object**, something that will die soon.
+  `Node &&` is the type. It looks like a ref to a ref, and that's illegal, but that's effectively what it means.
+  !!!
+  `Node &&` is a reference to a temporary object (rvalue) of type Node.
+  So we need a version of the ctor that takes a `Node &&`;
+  This is known as a **move constructor**. Moving is stealing.
+  ```cpp
+  Node::Node(Node &&other): data{other.data}, next{other.next}{
+    other.next=nullptr; //IMPORTANT
+  }
+  ```
+  We need to make sure that the other also doesn't have the data. This is because **we don't want other's destructor to get rid of it**. You can imagine if we left `other.next` as is, it would destroy our `Node`.
+  
+  Similarly:
+  ```cpp
+  Node m;
+  m = plusOne(n); //assignment from a temporary.
+  ```
+  Move assignment operator:
+  ```cpp
+  struct Node{
+  ...
+  Node &operator = (Node &&other){ //steal other's data
+    //use the swap operator. This allows us to destroy our old data.
+    using std::swap;
+    swap(data,other.data);
+    swap(next,other.next);
+    return *this.
+    }
+  }
+  ```
+  But we should be able to combine copy/move assignment:
+  ```cpp
+  struct Node{
+  ...
+  Node &operator = (Node other){ //pass by value
+  //invokes copy constructor if arg is an lvalue, invokes move constructor is arg is an rvalue. Copy iff arg is an lvalue.
+    swap(other);
+    return *this.
+    }
+  }
+  ```
+  Copy and swap can be expensive, so sometimes a custom operator is better.
+  
+  Consider:
+  ```cpp
+  struct Student{
+    std::string name; //string is a class
+    Student (const std::string &name):name{name}{}
+    //copies arg into field (copy ctor)
+    //but what if name refers to an rvalue?
+  }
+  ```
+  
+  ```cpp
+  struct Student{
+    std::string name;
+    Student (const std::string name):name{name}{}
+    //copies if name is an l-value, and moves if name is an r-value.
+    //but it get copied twice, because pass by value.
+    //name may refer to an rvalue, but name is an lvalue.
+    //we want the assignment to actually be a move. we force it, because a copy has already been done
+  }
+  ```
+  
+  ```cpp
+  struct Student{
+    std::string name;
+    Student (const std::string name):name{std::move(name)}{}
+    //std::move doesn't actually move anything. It just says "treat this thing as if it were an r-value."
+    //now we have a move construction.
+    
+    Student(const Student &&other)://move constructor
+      name{std::move(other.name)}{}
+    
+    Student &operator=(Student other){ //uified assignment
+      name=std::move(other.name);
+      return *this;
+    }
+  };
+  ```
+  If you don't define move operations, copy operations will be used. If you do define them, they will replace copy operations when the argument is a temporary (rvalue).
+  
+  ## Copy/Move Elision
+  
+  Elision means to leave something out.
+  ```cpp
+  vector makeAVector(){
+    return vector{};
+  }
+  vector v = makeAVector(); //copy constructor?
+  //Tried in g++ - just the basic constructor.
+  ```
+  In some circumstances, the compiler is allowed to skip calling the copy/move constructors. In this case, it's smart to realize using the default constructor is better than making a temporary and then moing it to `v`.
+  
+  `makeAVector` writes its result directly into the space occupied by v in the caller, rather than copy it later.
+  ```cpp
+  vector v = vector{}; //formally a basic construction and a copy/move construction
+  
+  //the following are completely identical, because the compiler is required to elide this copy/move construction, so basic ctor only.
+  Student s = Student{70,80,90};
+  Student s{70,80,90};
+  ```
+  Eg
+  ```cpp
+  void doSomething(vector v){...} //pass-by-value; copy/move ctor
+  doSomething(makeAVector());
+  //result of makeAVector written directly into the param - no copy.
+  ```
+  This is allowed, even if dropping ctor calls would change the behaviour of the program. (eg printing in the constructor)
+  
+  If you need all of the ctors to run, you do have the option to turn off elision.
+  
+  `$ g++14 -fno-elide-constructors ...`
+  
+  Not recommended, because it can slow the program down dramatically.
+  
+  ### Rule of 5 (Big 5)
+  If you need to customize any one of
+  * Copy ctor
+  * Copy assignment
+  * Dtor
+  * Move ctor
+  * Move assignment 
+  
+  Then you usually need to customize all 5.
+  
+  ##### From now on, assume that vector and node have the big 5 defined.
+  
+  
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

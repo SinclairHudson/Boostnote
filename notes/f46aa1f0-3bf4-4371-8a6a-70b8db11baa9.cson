@@ -1,0 +1,14 @@
+createdAt: "2019-12-04T21:18:33.424Z"
+updatedAt: "2019-12-04T21:19:25.541Z"
+type: "MARKDOWN_NOTE"
+folder: "13f1477d1dab07e879ca"
+title: "Makefiles"
+tags: []
+content: '''
+  ## Makefiles
+  
+  Handy for compiling big projects. They only re-compile and link what's changed, so we don't waste time compiling things that were already compiled.
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

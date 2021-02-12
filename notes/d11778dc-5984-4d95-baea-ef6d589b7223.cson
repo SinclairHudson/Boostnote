@@ -1,0 +1,55 @@
+createdAt: "2019-10-30T16:29:55.523Z"
+updatedAt: "2019-10-30T17:37:51.600Z"
+type: "MARKDOWN_NOTE"
+folder: "5b2b0f59f8372c62e7fc"
+title: "Tutorial 8: Because the assignment"
+tags: []
+content: '''
+  ## Tutorial 8: Because the assignment
+  
+  What is parsing? 
+  String to data structure, possibly a tree
+  
+  ### Recursive Descent
+  * Language is a set of strings
+  * every string in that set is also known as a word in that language
+  * a word is made up of symbols
+  * the grammar is a set of rules expressing organization and placement of symbols such that they form valid words in the language
+  
+  Example:
+  A rational number is any of
+  * A natural number
+  * Two natural numbers seperated by a "."
+  * A natural number, followed by a ".", followed by infinitely many copies of a natural number
+  
+  A parse tree is a proof that a word is in a language.
+  
+  An abstract syntax tree is the exact same thing except the syntactic nodes are removed. Things like brackets. Of course, no tree is required to be a binary tree.
+  
+  We need precedence and associativity.
+  
+  right associative: a + b + c === a + (b + c)
+  left associative: a + b + c === (a + b) + c
+  
+  We have another language, right associative and binary:
+  A word in L is any of 
+  * A variable, represented by a single lowercase letter of the english alphabet
+  * a OR b, where a,b are word in L where a has no ORs in it
+  * a AND b, where a,b are words in L, and a has no ORs or ANDs in it. 
+  
+  We'll code this example
+  ```cpp
+  class Expr{
+    public:
+    class OR;
+    class AND;
+    class variable;
+  }
+  ```
+  View the images from the board, this would be a pain to type out.
+  
+  
+'''
+linesHighlighted: []
+isStarred: false
+isTrashed: false

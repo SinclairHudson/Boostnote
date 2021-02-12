@@ -1,0 +1,127 @@
+createdAt: "2019-09-19T14:30:05.287Z"
+updatedAt: "2019-12-04T22:17:16.275Z"
+type: "MARKDOWN_NOTE"
+folder: "13f1477d1dab07e879ca"
+title: "Problem 04: The Copier is Broken"
+tags: []
+content: '''
+  ## Problem 04: The Copier is Broken
+  
+  Consider the following:
+  ```cpp
+  vector v;
+  v.push_back(100);
+  ...
+  vector w = v; //this is allowed. It constructs w as a copy of v.
+  w.itemAt(0); //will return 100
+  v.itemAt(0) = 200;
+  w.itemAt(0); //200
+  ```
+  So we have a **shallow copy**, they're sharing an array. You're in for a world of hurt Jimbo.
+  ![68c.png](https://i.kym-cdn.com/photos/images/original/001/443/076/68c.png)
+  The same two objects think they own their fields, a double delete when the destructor runs will crash your program.
+  
+  When we copy objects like this, it invokes a **copy constructor**.
+  ```cpp
+  struct vector{
+    vector(const vector &other){...} //copy ctor
+  }
+  ```
+  The compiler supplies this copy ctor- it just copies all fields. This is called a **shallow Copy**.
+  We need a **deep copy**.
+  So we need to write our own copy constructor.
+  
+  ---
+  ```cpp
+  struct Node{
+    int data;
+    Node *next;
+    ...
+    Node(const Node &other):data{other.data},
+      next{other.next? new Node{*other.next}:nullptr}{} //could be null
+  }; //again, this is recursive.
+  ```
+  OK. Problem solved. So now when we construct a copy, this will run and deep copy. 
+  Consider:
+  
+  ```cpp
+  vector v;
+  vector w;
+  w = v; //copy, but not a constrution
+        //copy assignment operator
+        //compiler-supplied - copies each field (shallow)
+  ```
+  Now the object has already been constructed. so by doing `w=v;`, w's old heap allocated array is thrown away, **leaked**.
+  
+  So we've gotta write an assignment operator.
+  ##### Deep copy assignment:
+  !!! error Doesn't work
+  ```cpp
+  struct Node{
+    int data;
+    Node *next;
+    ...
+    Node &operator = (const Node &other){ //returns Node & so that a = b = c = d works
+      data = other.data;
+      delete next;
+      next = other.next? new Node{*other.next}:nullptr;
+      return *this; //commonplace syntax, always the case in copy assignment 
+    }
+  };
+  ```
+  Consider 
+  ```cpp
+  Node n{...};
+  n=n; 
+  ```
+  Destroys n's data and then tries to copy it.
+  !!!
+  We've got to ensure that the operator works in the case of **self-assignment**. This is very niche but it's important
+  Instead, we should do this:
+  ```cpp
+  struct Node{
+    int data;
+    Node *next;
+    ...
+    Node &operator = (const Node &other){ //returns Node & so that a = b = c = d works
+      if(this == &other){
+          return *this; //do nothing if it's a self assignment.
+      }
+      data = other.data;
+      delete next;
+      next = other.next? new Node{*other.next}:nullptr;
+      return *this; //commonplace syntax, always the case
+    }
+  };
+  ```
+  ##### Alternative: copy and swap idom
+  ```cpp
+  #incldue <utility>
+  struct Node{
+    ...
+    void swap(Node &other){ //exchange my data with another's data
+      using std::swap;
+      swap(data, other.data);
+      swap(next, other.next);
+  
+    }
+    
+    Node &operator = (const Node &other){
+      Node tmp = other;
+      swap(tmp);
+      return *this;
+    }
+  }
+  ```
+  This seems too simple, but it works.
+  Construct a copy, swap copy data with mine. `tmp` now has my old data, which dies with the scope because `tmp` is stack allocated.
+  !!! note Copy Constructor
+  You must take the copy constructor "other" parameter by **reference**, because otherwise you'd have to copy it befor bringing it into the copy function... Recursive definition.
+  !!!
+  
+'''
+linesHighlighted: [
+  5
+]
+isStarred: false
+isTrashed: false
